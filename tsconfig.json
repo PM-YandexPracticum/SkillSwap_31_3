@@ -19,6 +19,8 @@
     "baseUrl": ".",
     "paths": {
       // тут типизация сокращений для путей экспорта П: "@name": ["path/name"],  сами пути в конфиге webpack
+      "@app/*": ["src/app/*"],
+      "@shared/*": ["src/shared/*"]
     }
   },
   "include": ["src"]
