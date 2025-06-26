@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import styles from './RadioGroup.module.scss';
+import styles from './RadioGroup.module.css';
+import React from 'react' 
 
 export type RadioOptionType = {
 	title: string;

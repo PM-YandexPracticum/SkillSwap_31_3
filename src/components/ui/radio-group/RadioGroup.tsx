@@ -1,6 +1,7 @@
 import { RadioOption } from './RadioOption';
 import type { RadioOptionType } from './RadioOption';
-import styles from './RadioGroup.module.scss';
+import styles from './RadioGroup.module.css';
+import React from 'react' 
 
 type RadioGroupProps = {
 	name: string;
