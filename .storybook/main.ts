@@ -12,7 +12,7 @@ const config: StorybookConfig = {
   webpackFinal: async (config) => {
     config.resolve
       ? (config.resolve.alias = {
-          ...config.resolve.alias,
+          ...config.resolve.alias
           //сокращения для пуйтей иморта п: '@components': path.resolve(__dirname, '../src/components')
         })
       : null;
