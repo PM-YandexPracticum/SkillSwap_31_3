@@ -12,9 +12,11 @@ const config: StorybookConfig = {
   webpackFinal: async (config) => {
     config.resolve
       ? (config.resolve.alias = {
-          ...config.resolve.alias,
-          //сокращения для пуйтей иморта п: '@components': path.resolve(__dirname, '../src/components')
-        })
+        ...config.resolve.alias,
+        //сокращения для пуйтей иморта п: '@components': path.resolve(__dirname, '../src/components')
+        '@app': path.resolve(__dirname, '../src/app'),
+        '@shared': path.resolve(__dirname, '../src/shared')
+      })
       : null;
     return config;
   },
