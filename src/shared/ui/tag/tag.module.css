@@ -1,6 +1,6 @@
 .tag {
   display: flex;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--main-font);
   font-size: 12px;
   font-weight: normal;
   line-height: 16px;

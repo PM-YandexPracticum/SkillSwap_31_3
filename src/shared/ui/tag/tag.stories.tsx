@@ -6,42 +6,45 @@ type Story = StoryObj<typeof Tag>;
 const meta: Meta<typeof Tag> = {
   tags: ['autodocs'],
   title: 'Tag',
-  component: Tag,
-  argTypes: {
-    textColor: { control: 'color' },
-    backgroundColor: { control: 'color' }
-  }
+  component: Tag
 };
 
 export const First: Story = {
   args: {
-    text: 'Первый тег',
+    text: 'Бизнес-план',
     textColor: 'text',
-    backgroundColor: 'background'
+    backgroundColor: 'tag-business'
   }
 };
 
 export const Second: Story = {
   args: {
-    text: 'Второй тег',
+    text: 'Игра на барабанах',
     textColor: 'text',
-    backgroundColor: 'background'
+    backgroundColor: 'tag-creativity'
   }
 };
 
 export const Third: Story = {
   args: {
-    text: 'Третий тег',
+    text: 'Английский язык',
     textColor: 'text',
-    backgroundColor: 'background'
+    backgroundColor: 'tag-languages'
   }
 };
 
 export const Fourth: Story = {
   args: {
-    text: 'Четвёртый тег',
+    text: 'Реставрация мебели',
     textColor: 'text',
-    backgroundColor: 'background'
+    backgroundColor: 'tag-home'
+  }
+};
+
+export const Fifth: Story = {
+  args: {
+    textColor: 'text',
+    backgroundColor: 'tag-default'
   }
 };
 

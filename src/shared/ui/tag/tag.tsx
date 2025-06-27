@@ -9,13 +9,16 @@ interface TagProps {
 }
 
 export const Tag: React.FC<TagProps> = ({
-  text,
+  text = 'Тег',
   textColor,
   backgroundColor
 }) => (
   <span
     className={`${styles.tag}`}
-    style={{ color: `${textColor}`, backgroundColor: `${backgroundColor}` }}
+    style={{
+      color: `var(--${textColor})`,
+      backgroundColor: `var(--${backgroundColor})`
+    }}
   >
     {text}
   </span>
