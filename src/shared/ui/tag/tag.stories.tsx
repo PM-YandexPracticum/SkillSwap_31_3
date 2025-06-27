@@ -4,6 +4,7 @@ import { Tag } from './tag';
 type Story = StoryObj<typeof Tag>;
 
 const meta: Meta<typeof Tag> = {
+  tags: ['autodocs'],
   title: 'Tag',
   component: Tag,
   argTypes: {
@@ -15,32 +16,32 @@ const meta: Meta<typeof Tag> = {
 export const First: Story = {
   args: {
     text: 'Первый тег',
-    textColor: '#000',
-    backgroundColor: '#ccc'
+    textColor: 'text',
+    backgroundColor: 'background'
   }
 };
 
 export const Second: Story = {
   args: {
     text: 'Второй тег',
-    textColor: '#152',
-    backgroundColor: '#fc506a'
+    textColor: 'text',
+    backgroundColor: 'background'
   }
 };
 
 export const Third: Story = {
   args: {
     text: 'Третий тег',
-    textColor: '#a90000',
-    backgroundColor: '#03fff7'
+    textColor: 'text',
+    backgroundColor: 'background'
   }
 };
 
 export const Fourth: Story = {
   args: {
     text: 'Четвёртый тег',
-    textColor: '#6016ff',
-    backgroundColor: '#1cff00'
+    textColor: 'text',
+    backgroundColor: 'background'
   }
 };
 
