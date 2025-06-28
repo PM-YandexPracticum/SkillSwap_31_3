@@ -66,11 +66,11 @@ input[type='radio']:checked:after {
   top: 6px;
   left: 6px;
   position: absolute;
-  background-color:  #508826;
+  background-color: #508826;
   content: '';
   display: inline-block;
   visibility: visible;
-  border: 2px solid  #508826;
+  border: 2px solid #508826;
 }
 input[type='radio']:checked::before {
   width: 18px;
@@ -83,5 +83,5 @@ input[type='radio']:checked::before {
   content: '';
   display: inline-block;
   visibility: visible;
-  border: 2px solid  #508826;
+  border: 2px solid #508826;
 }
