@@ -1,3 +1,11 @@
+export type TSize = 'small' | 'medium' | 'large';
+
+export const iconSizes = {
+  small: 16,
+  medium: 24,
+  large: 32
+};
+
 export type TColors =
   | 'text'
   | 'accent'
@@ -10,6 +18,8 @@ export type TColors =
   | 'text-link'
   | 'button-pressed'
   | 'button-hover'
+  | 'default-icon'
+  | 'accent-icon'
   | 'background'
   | 'alarm'
   | 'error'
