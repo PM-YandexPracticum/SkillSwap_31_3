@@ -30,7 +30,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   searchText = ''
 }) => {
   const [text, setText] = useState(searchText);
-  const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -55,14 +54,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setText('');
   };
 
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
-
   return (
     <form
       className={`${styles.searchBarContainer} ${styles[size] || ''}`}
@@ -72,14 +63,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <img src={SearchIcon} alt='Поиск' />
       <input
         type='text'
-        placeholder={isFocused ? '' : placeholder}
+        placeholder={placeholder}
         value={text}
         onChange={handleChange}
         className={styles.searchInput}
         style={{ color }}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
         ref={inputRef}
+        aria-label='Поиск навыков'
       />
       {text && (
         <button
