@@ -3,7 +3,7 @@ import { ToggleVisibility } from './ToggleVisibility';
 import { useState } from 'react';
 
 const meta: Meta<typeof ToggleVisibility> = {
-  title: 'Components/ToggleVisibility',
+  title: 'icons/ToggleVisibility',
   component: ToggleVisibility,
   tags: ['autodocs'],
   argTypes: {

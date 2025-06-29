@@ -3,7 +3,7 @@ import { Notification } from './Notification';
 import { useState } from 'react';
 
 const meta: Meta<typeof Notification> = {
-  title: 'Components/Notification',
+  title: 'icons/Notification',
   component: Notification,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import { ToggleLike } from './ToggleLike';
 import { useState } from 'react';
 
 const meta: Meta<typeof ToggleLike> = {
-  title: 'Components/ToggleLike',
+  title: 'icons/ToggleLike',
   component: ToggleLike,
   tags: ['autodocs'],
   argTypes: {

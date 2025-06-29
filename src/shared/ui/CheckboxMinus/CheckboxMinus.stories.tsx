@@ -3,7 +3,7 @@ import { CheckboxMinus } from './CheckboxMinus';
 import { useState } from 'react';
 
 const meta: Meta<typeof CheckboxMinus> = {
-  title: 'Components/CheckboxMinus',
+  title: 'icons/CheckboxMinus',
   component: CheckboxMinus,
   tags: ['autodocs'],
   argTypes: {
