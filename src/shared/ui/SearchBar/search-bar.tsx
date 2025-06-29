@@ -7,15 +7,16 @@ import React, {
 } from 'react';
 import styles from './search-bar.module.css';
 
-import SearchIcon from '../../../images/search.svg';
-import ClearIcon from '../../../images/cross.svg';
+import SearchIcon from '../../assets/icons/search.svg';
+import ClearIcon from '../../assets/icons/cross.svg';
+import { TColors } from '../types';
 
 interface SearchBarProps {
   placeholder: string;
   submit: (text: string) => void;
-  color?: string;
-  backgroundColor?: string;
-  placeholderColor?: string;
+  color?: TColors;
+  backgroundColor?: TColors;
+  placeholderColor?: TColors;
   size?: 'small' | 'medium' | 'large';
   searchText?: string;
 }
@@ -23,9 +24,9 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({
   placeholder,
   submit,
-  color = 'var(--text)',
-  backgroundColor = 'var(--input)',
-  placeholderColor = 'var(--caption)',
+  color = 'text',
+  backgroundColor = 'input',
+  placeholderColor = 'caption',
   size = 'medium',
   searchText = ''
 }) => {
@@ -36,10 +37,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
     if (inputRef.current) {
       inputRef.current.style.setProperty(
         '--placeholder-color',
-        placeholderColor
+        `var(--${placeholderColor})`
       );
     }
-  }, [placeholderColor, color]);
+  }, [placeholderColor]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,7 +59,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <form
       className={`${styles.searchBarContainer} ${styles[size] || ''}`}
       onSubmit={handleSubmit}
-      style={{ backgroundColor: backgroundColor }}
+      style={{ backgroundColor: `var(--${backgroundColor})` }}
     >
       <img src={SearchIcon} alt='Поиск' />
       <input
@@ -67,7 +68,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         value={text}
         onChange={handleChange}
         className={styles.searchInput}
-        style={{ color }}
+        style={{ color: `var(--${color})` }}
         ref={inputRef}
         aria-label='Поиск навыков'
       />
