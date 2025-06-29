@@ -19,7 +19,7 @@ const meta: Meta<typeof ToggleLike> = {
     activeColor: {
       control: 'color'
     },
-    isVisible: {
+    checked: {
       control: 'boolean'
     }
   }
@@ -30,27 +30,16 @@ type Story = StoryObj<typeof ToggleLike>;
 
 export const Default: Story = {
   args: {
-    color: '#253018',
-    activeColor: '#ABD27A',
+    color: 'text',
+    activeColor: 'accent',
     size: 'medium',
-    isVisible: false
+    checked: false
   }
 };
 
-const CheckboxWithState = () => {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <ToggleLike
-      isVisible={checked}
-      onChange={() => setChecked(!checked)}
-      color='#253018'
-      activeColor='#ABD27A'
-      size='medium'
-    />
-  );
-};
-
-export const InteractiveExample: Story = {
-  render: () => <CheckboxWithState />
+export const Checked: Story = {
+  args: {
+    ...Default.args,
+    checked: true
+  }
 };

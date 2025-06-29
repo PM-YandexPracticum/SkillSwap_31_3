@@ -1,41 +1,38 @@
 import React, { useState } from 'react';
 import styles from './Radio.module.css';
-
-type TSize = 'small' | 'medium' | 'large';
+import { iconSizes, TColors, TSize } from '../types';
 
 type RadioProps = {
-  onChange?: () => void;
-  color?: string;
+  onChange: (value: boolean) => void;
+  checked: boolean;
+  color?: TColors;
   activeColor?: string;
   size?: TSize;
-  isSelected?: boolean;
 };
 
 export const Radio = (props: RadioProps) => {
   const {
     onChange,
-    color = '#253018',
-    activeColor = '#508826',
+    color = 'default-icon',
+    activeColor = 'button-pressed',
     size = 'medium',
-    isSelected = false
+    checked = false
   } = props;
-  const [isChecked, setIsChecked] = useState(isSelected);
 
-  const handleClick = () => {
-    setIsChecked(!isChecked);
+  const iconSize = iconSizes[size];
+
+  const handleChange = () => {
     if (onChange) {
-      onChange();
+      onChange(!checked);
     }
   };
-
-  const iconSize = size === 'small' ? 16 : size === 'large' ? 32 : 24;
 
   return (
     <button
       className={`${styles.radioContainer} ${styles.medium}`}
-      onClick={handleClick}
+      onClick={handleChange}
     >
-      {!isChecked ? (
+      {!checked ? (
         <svg
           width={iconSize}
           height={iconSize}
@@ -45,7 +42,7 @@ export const Radio = (props: RadioProps) => {
         >
           <path
             d='M12 22C6.48372 22 2 17.5163 2 12C2 6.48372 6.48372 2 12 2C17.5163 2 22 6.48372 22 12C22 17.5163 17.5163 22 12 22ZM12 3.39535C7.25581 3.39535 3.39535 7.25581 3.39535 12C3.39535 16.7442 7.25581 20.6047 12 20.6047C16.7442 20.6047 20.6047 16.7442 20.6047 12C20.6047 7.25581 16.7442 3.39535 12 3.39535Z'
-            fill={color}
+            fill={`var(--${color})`}
           />
         </svg>
       ) : (
@@ -58,9 +55,9 @@ export const Radio = (props: RadioProps) => {
         >
           <path
             d='M12 22C6.48372 22 2 17.5163 2 12C2 6.48372 6.48372 2 12 2C17.5163 2 22 6.48372 22 12C22 17.5163 17.5163 22 12 22ZM12 3.39535C7.25581 3.39535 3.39535 7.25581 3.39535 12C3.39535 16.7442 7.25581 20.6047 12 20.6047C16.7442 20.6047 20.6047 16.7442 20.6047 12C20.6047 7.25581 16.7442 3.39535 12 3.39535Z'
-            fill={activeColor}
+            fill={`var(--${activeColor})`}
           />
-          <circle cx='12' cy='12' r='5' fill={activeColor} />
+          <circle cx='12' cy='12' r='5' fill={`var(--${activeColor})`} />
         </svg>
       )}
     </button>

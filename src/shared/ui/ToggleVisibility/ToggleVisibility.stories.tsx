@@ -19,7 +19,7 @@ const meta: Meta<typeof ToggleVisibility> = {
     activeColor: {
       control: 'color'
     },
-    isVisible: {
+    checked: {
       control: 'boolean'
     }
   }
@@ -30,27 +30,16 @@ type Story = StoryObj<typeof ToggleVisibility>;
 
 export const Default: Story = {
   args: {
-    color: '#253018',
-    activeColor: '#253018',
+    color: 'default-icon',
+    activeColor: 'default-icon',
     size: 'medium',
-    isVisible: false
+    checked: false
   }
 };
 
-const CheckboxWithState = () => {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <ToggleVisibility
-      isVisible={checked}
-      onChange={() => setChecked(!checked)}
-      color='#253018'
-      activeColor='#253018'
-      size='medium'
-    />
-  );
-};
-
-export const InteractiveExample: Story = {
-  render: () => <CheckboxWithState />
+export const Checked: Story = {
+  args: {
+    ...Default.args,
+    checked: true
+  }
 };

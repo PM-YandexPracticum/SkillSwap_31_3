@@ -16,10 +16,10 @@ const meta: Meta<typeof Notification> = {
     color: {
       control: 'color'
     },
-    activeCircle: {
+    activeСolor: {
       control: 'color'
     },
-    isVisible: {
+    checked: {
       control: 'boolean'
     }
   }
@@ -30,27 +30,16 @@ type Story = StoryObj<typeof Notification>;
 
 export const Default: Story = {
   args: {
-    color: '#253018',
-    activeCircle: '#E0796E',
+    color: 'default-icon',
+    activeСolor: 'alarm',
     size: 'medium',
-    isVisible: false
+    checked: false
   }
 };
 
-const CheckboxWithState = () => {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <Notification
-      isVisible={checked}
-      onChange={() => setChecked(!checked)}
-      color='#253018'
-      activeCircle='#E0796E'
-      size='medium'
-    />
-  );
-};
-
-export const InteractiveExample: Story = {
-  render: () => <CheckboxWithState />
+export const Checked: Story = {
+  args: {
+    ...Default.args,
+    checked: true
+  }
 };

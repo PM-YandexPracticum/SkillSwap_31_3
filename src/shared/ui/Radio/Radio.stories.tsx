@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Radio } from './Radio';
-import { useState } from 'react';
 
 const meta: Meta<typeof Radio> = {
   title: 'Components/Radio',
@@ -19,7 +18,7 @@ const meta: Meta<typeof Radio> = {
     activeColor: {
       control: 'color'
     },
-    isSelected: {
+    checked: {
       control: 'boolean'
     }
   }
@@ -30,27 +29,16 @@ type Story = StoryObj<typeof Radio>;
 
 export const Default: Story = {
   args: {
-    color: '#253018',
-    activeColor: '#508826',
+    color: 'default-icon',
+    activeColor: 'button-pressed',
     size: 'medium',
-    isSelected: false
+    checked: false
   }
 };
 
-const CheckboxWithState = () => {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <Radio
-      isSelected={checked}
-      onChange={() => setChecked(!checked)}
-      color='#253018'
-      activeColor='#508826'
-      size='medium'
-    />
-  );
-};
-
-export const InteractiveExample: Story = {
-  render: () => <CheckboxWithState />
+export const Checked: Story = {
+  args: {
+    ...Default.args,
+    checked: true
+  }
 };
