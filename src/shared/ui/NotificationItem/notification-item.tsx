@@ -17,35 +17,33 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   textColor = 'var(--text)',
   onClose,
   onAction
-}) => {
-  const [isHovered, setIsHovered] = React.useState(false);
-
-  return (
-    <div
-      className={styles.notificationItem}
-      style={{ backgroundColor, color: textColor }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className={styles.iconContainer}>
-        <img
-          src={LightbulbIcon}
-          alt='Иконка лампочки'
-          className={styles.icon}
-        />
-      </div>
-      <span className={styles.text}>{text}</span>
-      <button className={styles.closeButton} onClick={onClose}>
-        <img src={ClearIcon} alt='Закрыть' className={styles.closeIcon} />
-      </button>
-
-      {isHovered && (
-        <button className={styles.actionButton} onClick={onAction}>
-          Перейти
-        </button>
-      )}
+}) => (
+  <div
+    className={styles.notificationItem}
+    style={{ backgroundColor, color: textColor }}
+  >
+    <div className={styles.iconContainer}>
+      <img src={LightbulbIcon} alt='Иконка лампочки' className={styles.icon} />
     </div>
-  );
-};
+    <span className={styles.text}>{text}</span>
+    <button
+      className={styles.closeButton}
+      onClick={onClose}
+      aria-label='Закрыть уведомление'
+    >
+      <img src={ClearIcon} alt='Закрыть' className={styles.closeIcon} />
+    </button>
+
+    {onAction && (
+      <button
+        className={styles.actionButton}
+        onClick={onAction}
+        aria-label='Перейти'
+      >
+        Перейти
+      </button>
+    )}
+  </div>
+);
 
 export default NotificationItem;
