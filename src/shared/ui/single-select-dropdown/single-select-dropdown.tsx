@@ -2,13 +2,8 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import styles from './single-select-dropdown.module.css'
 import { Text } from '../Text/Text';
 import 'primeicons/primeicons.css';
+import { SingleSelectDropdownProps } from './type';
 
-
-type SingleSelectDropdownProps = {
-    placeholder: string,
-    options: string[],
-    label: string,
-};
 
 export const SingleSelectDropdownUI: FC<SingleSelectDropdownProps> = ({label, options, placeholder}) => {
     const [value, setValue] = useState(placeholder);
