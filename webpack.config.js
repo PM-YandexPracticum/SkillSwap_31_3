@@ -20,6 +20,13 @@ module.exports = {
         }
       },
       {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "images/[name].[hash][ext]",
+        },
+      },
+      {
         test: /\.css$/,
         exclude: /\.module\.css$/,
         use: ['style-loader', 'css-loader']
