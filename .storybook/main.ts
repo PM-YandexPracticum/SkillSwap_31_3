@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -10,10 +11,15 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions'
   ],
   webpackFinal: async (config) => {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
     config.resolve
       ? (config.resolve.alias = {
           ...config.resolve.alias,
           //сокращения для пуйтей иморта п: '@components': path.resolve(__dirname, '../src/components')
+          '@app': path.resolve(__dirname, '../src/app'),
+          '@shared': path.resolve(__dirname, '../src/shared')
         })
       : null;
     return config;
