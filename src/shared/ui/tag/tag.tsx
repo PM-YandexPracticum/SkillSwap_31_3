@@ -16,9 +16,7 @@ export const Tag: React.FC<TagProps> = ({
   category,
   skillId
 }) => {
-  // Полная функция для определения класса на основе category или skillId
   const getCategoryClass = () => {
-    // Если задана категория - используем ее
     if (category) {
       switch (category) {
         case '1':
