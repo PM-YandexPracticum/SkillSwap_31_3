@@ -3,12 +3,13 @@ import styles from './skillcard.module.css';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import { Tag } from '@shared/ui/tag';
 import { TUser } from '@app/styles/typs';
+import { Button } from '@shared/ui/button/button';
 
 export type TSkillCardProps = {
   data: TUser;
-  onLikeToggle?: () => void;
+  onLikeToggle: () => void;
   isLiked?: boolean;
-  onDetailsClick?: () => void;
+  onDetailsClick: () => void;
   wantsToLearnSkills?: { name: string; parent_id: string }[];
 };
 
@@ -58,13 +59,9 @@ export const SkillCard: FC<TSkillCardProps> = ({
           </div>
         </div>
       </div>
-      <button
-        className={styles.cardButton}
-        onClick={onDetailsClick}
-        type='button'
-      >
+      <Button onClick={onDetailsClick} type='button'>
         Подробнее
-      </button>
+      </Button>
     </div>
   );
 };
