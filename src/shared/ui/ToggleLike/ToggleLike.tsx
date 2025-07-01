@@ -3,8 +3,8 @@ import styles from './ToggleLike.module.css';
 import { iconSizes, TColors, TSize } from '../types';
 
 type ToggleLikeProps = {
-  onChange: (value: boolean) => void;
-  checked: boolean;
+  onChange?: (value: boolean) => void;
+  checked?: boolean;
   color?: TColors;
   activeColor?: TColors;
   size?: TSize;

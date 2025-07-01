@@ -11,40 +11,25 @@ const meta: Meta<typeof Tag> = {
 
 export const First: Story = {
   args: {
-    text: 'Бизнес-план',
-    textColor: 'text',
-    backgroundColor: 'tag-business'
+    text: 'Бизнес-план'
   }
 };
 
 export const Second: Story = {
   args: {
-    text: 'Игра на барабанах',
-    textColor: 'text',
-    backgroundColor: 'tag-creativity'
+    text: 'Игра на барабанах'
   }
 };
 
 export const Third: Story = {
   args: {
-    text: 'Английский язык',
-    textColor: 'text',
-    backgroundColor: 'tag-languages'
+    text: 'Английский язык'
   }
 };
 
 export const Fourth: Story = {
   args: {
-    text: 'Реставрация мебели',
-    textColor: 'text',
-    backgroundColor: 'tag-home'
-  }
-};
-
-export const Fifth: Story = {
-  args: {
-    textColor: 'text',
-    backgroundColor: 'tag-default'
+    text: 'Реставрация мебели'
   }
 };
 

@@ -21,10 +21,10 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "images/[name].[hash][ext]",
-        },
+          filename: 'images/[name].[hash][ext]'
+        }
       },
       {
         test: /\.css$/,
@@ -76,7 +76,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    static: path.join(__dirname, './dist'),
+    static: path.join(__dirname, './public'),
     compress: true,
     historyApiFallback: true,
     port: 4000
