@@ -1,0 +1,35 @@
+.container {
+    width: 206px;
+    height: 48px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.dropdown_btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.dropdown_btn > p {
+    margin: 0;
+}
+
+.container_open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.button_open {
+    border-radius: 12px;
+    border-bottom: 1px solid var(--disabled);
+}
+
+.dropdown_btn > span {
+    color: var(--text)
+}

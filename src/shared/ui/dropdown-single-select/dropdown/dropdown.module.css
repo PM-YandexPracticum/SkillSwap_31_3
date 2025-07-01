@@ -1,0 +1,19 @@
+.dropdown {
+    box-sizing: border-box;
+    border-radius: 12px;
+    position: relative;
+    border: 1px solid var(--caption);
+}
+
+.no_value {
+    color: var(--disabled);
+}
+
+.container > p {
+    margin-block-start: 0;
+    margin-block-end: 4px;
+}
+
+.active {
+    color: var(--disabled);
+}

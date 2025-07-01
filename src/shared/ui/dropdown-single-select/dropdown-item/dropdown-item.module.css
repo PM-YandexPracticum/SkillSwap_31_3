@@ -1,0 +1,14 @@
+.dropdown_item {
+    padding: 4px 20px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.dropdown_item > p {
+    margin: 0;
+}
+
+.dropdown_item:hover {
+    background-color: var(--disabled);
+    transition: 150ms;
+}
