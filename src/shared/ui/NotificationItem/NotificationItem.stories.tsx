@@ -35,8 +35,8 @@ export const Default: Story = {
 export const CustomColors: Story = {
   args: {
     text: 'Олег предлагает вам обмен',
-    backgroundColor: 'pink',
-    textColor: 'yellow',
+    backgroundColor: 'alarm',
+    textColor: 'accent',
     onClose: () => {},
     onAction: () => {}
   }

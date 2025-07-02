@@ -1,8 +1,12 @@
 .searchBarContainer {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   background-color: 'var(--background)';
 
+=======
+  background-color: var(--background);
+>>>>>>> 6ef23bc82e8b9a97729bf43c6813b6a720f4caf7
   border-radius: 12px;
   padding: 12px;
   width: 527px;
@@ -16,7 +20,7 @@
   outline: none;
   font-size: 16px;
   letter-spacing: 2%;
-  color: 'var(--text)';
+  color: var(--text);
   flex: 1;
 }
 
@@ -39,14 +43,22 @@
   width: 19.07px;
   height: 19.07px;
   padding: 2px;
+<<<<<<< HEAD
   fill: 'var(--caption)';
+=======
+  fill: var(--caption);
+>>>>>>> 6ef23bc82e8b9a97729bf43c6813b6a720f4caf7
 }
 
 .clearIcon {
   width: 10.61px;
   height: 10.61px;
   padding: 6.7px 6.67px;
+<<<<<<< HEAD
   fill: 'var(--text)';
+=======
+  fill: var(--text);
+>>>>>>> 6ef23bc82e8b9a97729bf43c6813b6a720f4caf7
 }
 
 .small {
