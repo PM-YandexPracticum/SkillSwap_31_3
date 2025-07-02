@@ -17,12 +17,17 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'medium',
   disabled = false,
   variant = 'primary',
-  type = 'button',
+  type = 'button'
 }) => {
- const className = clsx('button', variant, size, { disabled });
+  const className = clsx('button', variant, size, { disabled });
 
   return (
-    <button className={className} onClick={onClick} disabled={disabled} type={type}>
+    <button
+      className={className}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+    >
       {children}
     </button>
   );
