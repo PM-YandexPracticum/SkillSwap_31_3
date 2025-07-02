@@ -1,10 +1,10 @@
 .tag {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  max-width: 126px;
-  max-height: 32px;
+  width: fit-content;
+  min-height: 32px;
   font-family: var(--main-font);
   font-size: 12px;
   font-weight: normal;
@@ -14,6 +14,7 @@
   gap: 4px;
   color: var(--text);
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .creative {
@@ -29,7 +30,7 @@
 }
 
 .home {
-  background-color: var(---tag-home);
+  background-color: var(--tag-home);
 }
 
 .education {

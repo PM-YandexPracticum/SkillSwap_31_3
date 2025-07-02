@@ -11,3 +11,9 @@ export type TUser = {
     like: number;
     cratedAt: string;
 }
+
+export type TSkill = {
+    _id: string;
+    name: string;
+    parent_id: string;
+};

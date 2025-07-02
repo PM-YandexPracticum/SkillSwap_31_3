@@ -2,26 +2,28 @@ import React, { FC } from 'react';
 import styles from './skillcard.module.css';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import { Tag } from '@shared/ui/tag';
-import { TUser } from '@app/styles/typs';
+import { TSkill, TUser } from '@app/styles/typs';
 import { Button } from '@shared/ui/button/button';
 
 export type TSkillCardProps = {
   data: TUser;
-  onLikeToggle: () => void;
+  teachSkills: TSkill;
+  learnSkills: TSkill[];
+  onLikeToggle?: () => void;
   isLiked?: boolean;
   onDetailsClick: () => void;
-  wantsToLearnSkills?: { name: string; parent_id: string }[];
 };
 
 export const SkillCard: FC<TSkillCardProps> = ({
   data,
+  teachSkills,
+  learnSkills = [],
   onLikeToggle,
   isLiked,
-  onDetailsClick,
-  wantsToLearnSkills = []
+  onDetailsClick
 }) => {
-  const visibleSkills = wantsToLearnSkills.slice(0, 2);
-  const hiddenSkillsCount = wantsToLearnSkills.length - visibleSkills.length;
+  const visibleSkills = learnSkills.slice(0, 2);
+  const hiddenSkillsCount = learnSkills.length - visibleSkills.length;
 
   return (
     <div className={styles.cardsContainer}>
@@ -46,7 +48,7 @@ export const SkillCard: FC<TSkillCardProps> = ({
         <div className={styles.cardSkils}>
           <div className={styles.learnSkils}>Может научить:</div>
           <div>
-            <Tag text={data.skillName} skillId={data.skillId} />
+            <Tag text={data.skillName} category={teachSkills.parent_id} />
           </div>
         </div>
         <div className={styles.cardSkils}>

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { SkillCard } from './skillcard';
-import { TUser } from '@app/styles/typs';
+import { TUser, TSkill } from '@app/styles/typs';
 
 type Story = StoryObj<typeof SkillCard>;
 
@@ -18,11 +18,16 @@ const mockUser: TUser = {
   cratedAt: '2023-01-15'
 };
 
-const mockWantsToLearnSkills = [
-  { name: 'Английский язык', parent_id: '2' },
-  { name: 'Графический дизайн', parent_id: '4' },
-  { name: 'Фотография', parent_id: '4' },
-  { name: 'Кулинария', parent_id: '3' }
+const mockTeachSkill: TSkill = {
+  _id: '7',
+  name: 'Управление проектами',
+  parent_id: '1'
+};
+
+const mockLearnSkills: TSkill[] = [
+  { _id: '15', name: 'Английский язык', parent_id: '2' },
+  { _id: '28', name: 'Графический дизайн', parent_id: '4' },
+  { _id: '22', name: 'Фотография', parent_id: '4' }
 ];
 
 const meta: Meta<typeof SkillCard> = {
@@ -33,7 +38,7 @@ const meta: Meta<typeof SkillCard> = {
     isLiked: { control: 'boolean' },
     onLikeToggle: { action: 'liked' },
     onDetailsClick: { action: 'details clicked' },
-    wantsToLearnSkills: {
+    learnSkills: {
       control: {
         type: 'object'
       }
@@ -46,15 +51,17 @@ export default meta;
 export const Default: Story = {
   args: {
     data: mockUser,
-    wantsToLearnSkills: mockWantsToLearnSkills
+    teachSkills: mockTeachSkill,
+    learnSkills: mockLearnSkills
   }
 };
 
 export const LikedCard: Story = {
   args: {
     data: mockUser,
-    isLiked: true,
-    wantsToLearnSkills: mockWantsToLearnSkills
+    teachSkills: mockTeachSkill,
+    learnSkills: mockLearnSkills,
+    isLiked: true
   }
 };
 
@@ -69,12 +76,16 @@ export const FemaleUser: Story = {
       city: 'Санкт-Петербург',
       image: 'avatar2.jpg',
       skillName: 'Графический дизайн',
-      skillId: '29',
-      skillWants: ['7', '36']
+      skillId: '29'
     },
-    wantsToLearnSkills: [
-      { name: 'Управление проектами', parent_id: '1' },
-      { name: 'Обучение детей', parent_id: '5' }
+    teachSkills: {
+      _id: '29',
+      name: 'Графический дизайн',
+      parent_id: '4'
+    },
+    learnSkills: [
+      { _id: '7', name: 'Управление проектами', parent_id: '1' },
+      { _id: '36', name: 'Обучение детей', parent_id: '5' }
     ]
   }
 };
@@ -88,11 +99,16 @@ export const ManySkills: Story = {
       skillId: '25',
       skillWants: ['15', '16', '17', '18', '19']
     },
-    wantsToLearnSkills: [
-      { name: 'Английский язык', parent_id: '2' },
-      { name: 'Испанский язык', parent_id: '2' },
-      { name: 'Французский язык', parent_id: '2' },
-      { name: 'Немецкий язык', parent_id: '2' }
+    teachSkills: {
+      _id: '25',
+      name: 'Кулинария',
+      parent_id: '3'
+    },
+    learnSkills: [
+      { _id: '15', name: 'Английский язык', parent_id: '2' },
+      { _id: '16', name: 'Испанский язык', parent_id: '2' },
+      { _id: '17', name: 'Французский язык', parent_id: '2' },
+      { _id: '18', name: 'Немецкий язык', parent_id: '2' }
     ]
   }
 };
@@ -105,12 +121,16 @@ export const YoungUser: Story = {
       name: 'Алексей Смирнов',
       age: '19',
       skillName: 'Программирование',
-      skillId: '36',
-      skillWants: ['42', '43']
+      skillId: '36'
     },
-    wantsToLearnSkills: [
-      { name: 'Фитнес', parent_id: '6' },
-      { name: 'Здоровое питание', parent_id: '6' }
+    teachSkills: {
+      _id: '36',
+      name: 'Программирование',
+      parent_id: '1'
+    },
+    learnSkills: [
+      { _id: '42', name: 'Фитнес', parent_id: '6' },
+      { _id: '43', name: 'Здоровое питание', parent_id: '6' }
     ]
   }
 };
@@ -122,6 +142,7 @@ export const WithoutAdditionalSkills: Story = {
       _id: '5',
       skillWants: []
     },
-    wantsToLearnSkills: []
+    teachSkills: mockTeachSkill,
+    learnSkills: []
   }
 };

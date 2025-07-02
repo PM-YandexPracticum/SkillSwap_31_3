@@ -23,6 +23,11 @@ const App = () => {
     );
   };
 
+  //Отсеиваем навыки которым можем научить из общего списка
+  const getWantToTeachSkills = (user: TUser) =>
+    skillsData.data.find((skill) => skill._id === user.skillId)!;
+
+  //Отсеиваем навыки которым хотим научиться из общего списка
   const getWantToLearnSkills = (user: TUser) =>
     user.skillWants.map(
       (skillId) => skillsData.data.find((skill) => skill._id === skillId)!
@@ -36,7 +41,8 @@ const App = () => {
           <SkillCard
             key={index}
             data={user}
-            wantsToLearnSkills={getWantToLearnSkills(user)}
+            teachSkills={getWantToTeachSkills(user)}
+            learnSkills={getWantToLearnSkills(user)}
             onLikeToggle={() => handleLikeToggle(user._id)}
             isLiked={likedUsers.includes(user._id)}
             onDetailsClick={() => console.log('Details clicked')}

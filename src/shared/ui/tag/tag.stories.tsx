@@ -5,111 +5,51 @@ type Story = StoryObj<typeof Tag>;
 
 const meta: Meta<typeof Tag> = {
   tags: ['autodocs'],
-  title: 'Components/Tag',
-  component: Tag,
-  argTypes: {
-    textColor: { control: 'color' },
-    backgroundColor: { control: 'color' },
-    category: {
-      control: 'select',
-      options: ['1', '2', '3', '4', '5', '6']
-    },
-    skillId: {
-      control: 'select',
-      options: [
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12',
-        '13',
-        '14', // Business
-        '15',
-        '16',
-        '17',
-        '18',
-        '19',
-        '20',
-        '21', // Languages
-        '22',
-        '23',
-        '24',
-        '25',
-        '26',
-        '27', // Home
-        '28',
-        '29',
-        '30',
-        '31',
-        '32',
-        '33',
-        '34',
-        '35', // Creative
-        '36',
-        '37',
-        '38',
-        '39',
-        '40',
-        '41', // Education
-        '42',
-        '43',
-        '44',
-        '45',
-        '46',
-        '47',
-        '48', // Health
-      ]
-    }
-  }
+  title: 'Tag',
+  component: Tag
 };
 
-export default meta;
-
-export const Default: Story = {
-  args: {
-    text: 'Default Tag'
-  }
-};
-
-export const BusinessTag: Story = {
+export const First: Story = {
   args: {
     text: 'Бизнес-план',
+    textColor: 'text',
+    backgroundColor: 'tag-business',
     category: '1'
   }
 };
 
-export const LanguageTag: Story = {
+export const Second: Story = {
   args: {
-    text: 'Английский язык',
-    category: '2'
+    text: 'Игра на барабанах',
+    textColor: 'text',
+    backgroundColor: 'tag-creativity',
+    category: '5'
   }
 };
 
-export const HomeTag: Story = {
+export const Third: Story = {
   args: {
-    text: 'Реставрация мебели',
+    text: 'Английский язык',
+    textColor: 'text',
+    backgroundColor: 'tag-languages',
     category: '3'
   }
 };
 
-export const BusinessSkillTag: Story = {
+export const Fourth: Story = {
   args: {
-    text: 'Управление проектами',
-    skillId: '7'
+    text: 'Реставрация мебели',
+    textColor: 'text',
+    backgroundColor: 'tag-home',
+    category: '4'
   }
 };
 
-export const LanguageSkillTag: Story = {
+export const Fifth: Story = {
   args: {
-    text: 'Французский язык',
-    skillId: '16'
+    textColor: 'text',
+    backgroundColor: 'tag-default'
   }
 };
 
-export const HomeSkillTag: Story = {
-  args: {
-    text: 'Интерьер дизайн',
-    skillId: '22'
-  }
-};
+export default meta;
