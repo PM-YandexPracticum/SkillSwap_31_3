@@ -34,13 +34,13 @@ const CheckboxListWithState = () => {
 
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
-	const handleChangeSkills = (value: string) => {
-		setSelectedSkills((prev) =>
-			prev.includes(value)
-				? prev.filter((item) => item !== value)
-				: [...prev, value]
-		);
-	};
+  const handleChangeSkills = (value: string) => {
+    setSelectedSkills((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]
+    );
+  };
 
   const optionsCities = [
     { value: 'Москва' },
@@ -52,12 +52,12 @@ const CheckboxListWithState = () => {
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
 
   const handleChangeCities = (value: string) => {
-      setSelectedSkills((prev) =>
-        prev.includes(value)
-          ? prev.filter((item) => item !== value)
-          : [...prev, value]
-      );
-    };
+    setSelectedSkills((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]
+    );
+  };
 
   return (
     <>
@@ -67,7 +67,6 @@ const CheckboxListWithState = () => {
         onChange={handleChangeSkills}
         options={optionsSkills}
         title='Навыки'
-       
       />
       <CheckboxList
         selected={selectedCities}

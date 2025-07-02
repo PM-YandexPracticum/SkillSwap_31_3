@@ -4,7 +4,6 @@
   flex-direction: column;
   row-gap: 4px;
   padding: 0;
-  
 }
 
 .group {
@@ -12,6 +11,10 @@
   flex-direction: column;
   row-gap: 16px;
   max-width: fit-content;
+}
+
+.radioTitle {
+  padding-bottom: 12px;
 }
 
 .item {

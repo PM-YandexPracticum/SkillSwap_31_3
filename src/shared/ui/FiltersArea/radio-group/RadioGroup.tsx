@@ -1,5 +1,5 @@
 import { RadioOption } from './RadioOption';
-import { Text } from '../../../../shared/ui/Text/Text';
+import { Text } from '../../Text/Text';
 import type { RadioOptionType } from './RadioOption';
 import styles from './RadioGroup.module.css';
 import React from 'react';
@@ -19,19 +19,21 @@ export const RadioGroup = (props: RadioGroupProps) => {
 
   return (
     <div className={styles.container}>
-      {title && (
-        <>
-          <Text as='h3' color='text'>
-            {title}
-          </Text>
-        </>
-      )}
+      <div className={styles.radioTitle}>
+        {title && (
+          <>
+            <Text as='h3' color='text'>
+              {title}
+            </Text>
+          </>
+        )}
+      </div>
       <div className={styles.group}>
         {options.map((option) => (
           <RadioOption
             key={option.value}
             groupName={name}
-            value={option.value}  
+            value={option.value}
             selected={selected}
             onChange={() => handleChange(option.value)}
             option={option}

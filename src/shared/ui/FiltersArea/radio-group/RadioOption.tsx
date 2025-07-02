@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import styles from './RadioGroup.module.css';
 import React from 'react';
-import { Text } from '../../../../shared/ui/Text/Text';
-import { Radio } from '../../../../shared/ui/Radio/Radio';
+import { Text } from '../../Text/Text';
+import { Radio } from '../../Radio/Radio';
 
 export type RadioOptionType = {
   value: string;

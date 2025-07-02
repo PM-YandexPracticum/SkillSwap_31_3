@@ -47,7 +47,7 @@
 }
 .button.secondary:hover {
   border-color: var(--button-hover);
-  color: var(--caption)
+  color: var(--caption);
 }
 .button.secondary:active {
   border-color: var(--button-pressed);

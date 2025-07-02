@@ -1,7 +1,7 @@
 import styles from './CheckboxList.module.css';
 import React from 'react';
 import { useRef } from 'react';
-import { Text } from '../../../../shared/ui/Text/Text';
+import { Text } from '../../Text/Text';
 
 export type CheckboxListOptionType = {
   value: string;
@@ -10,7 +10,7 @@ export type CheckboxListOptionType = {
 };
 
 type CheckboxListOptionProps = {
-  value: CheckboxListOptionType['value'];  
+  value: CheckboxListOptionType['value'];
   selected: string[];
   groupName: string;
   onChange?: (option: CheckboxListOptionType) => void;
@@ -37,20 +37,20 @@ export const CheckboxOption = (props: CheckboxListOptionProps) => {
       ref={optionRef}
     >
       <input
-				className={styles.checkbox}
-				type='checkbox'
-				name={groupName}
-				id={inputId}
-				value={value}
-				onChange={handleChange}
-				tabIndex={-1}
-			/>
+        className={styles.checkbox}
+        type='checkbox'
+        name={groupName}
+        id={inputId}
+        value={value}
+        onChange={handleChange}
+        tabIndex={-1}
+      />
       <span className={styles.box} />
       <label className={styles.label} htmlFor={inputId}>
         <Text as='bodyText' color='text'>
           {value}
         </Text>
-      </label>   
+      </label>
     </div>
   );
 };

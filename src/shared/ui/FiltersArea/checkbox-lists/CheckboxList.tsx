@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './CheckboxList.module.css';
 import { CheckboxOption } from './CheckboxOption';
 import type { CheckboxListOptionType } from './CheckboxOption';
-import { Text } from '../../../../shared/ui/Text/Text';
+import { Text } from '../../Text/Text';
 import { useState } from 'react';
 
 type CheckboxListProps = {
@@ -19,13 +19,13 @@ export const CheckboxList = (props: CheckboxListProps) => {
 
   const handleChange = (value: string) => onChange?.(value);
 
-  const [selectedOptions, setselectedOptions] = useState<string[]>([])
+  const [selectedOptions, setselectedOptions] = useState<string[]>([]);
 
   const selectOption = (value: string) => {
-		setselectedOptions((prev) =>
-			prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
-		);
-	};
+    setselectedOptions((prev) =>
+      prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -41,7 +41,7 @@ export const CheckboxList = (props: CheckboxListProps) => {
           <CheckboxOption
             key={option.value}
             groupName={name}
-            value={option.value}  
+            value={option.value}
             selected={selectedOptions}
             onChange={() => selectOption}
             option={option}

@@ -32,24 +32,22 @@
 }
 
 .box {
-		position: absolute;
-		left: 0;
-		width: 24px;
-		height: 24px;
-		background: url('./checkbox-empty.svg') center/contain no-repeat;
-    background-color: white;
-		border-radius: 4px;	
-    content: '';
-	}
-	
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  background: url('./checkbox-empty.svg') center/contain no-repeat;
+  background-color: white;
+  border-radius: 4px;
+  content: '';
+}
 
 .checkbox:checked + .box {
-		background: url('./checkbox-done.svg') center/contain no-repeat;   
-    background-color: white;
-    position: absolute;
-		width: 24px;
-		height: 24px;
-    left: 0;
-    content: '';
-		}
- 
+  background: url('./checkbox-done.svg') center/contain no-repeat;
+  background-color: white;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 0;
+  content: '';
+}
