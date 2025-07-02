@@ -7,7 +7,8 @@ import React, {
 } from 'react';
 import styles from './search-bar.module.css';
 
-import SearchIearIcon from '../../assets/icons/cross.svg';
+import SearchIcon from '../../assets/icons/search.svg';
+import ClearIcon from '../../assets/icons/cross.svg';
 import { TColors } from '../types';
 
 interface SearchBarProps {
@@ -60,7 +61,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       onSubmit={handleSubmit}
       style={{ backgroundColor: `var(--${backgroundColor})` }}
     >
-      <img src={SearchIcon} alt='Поиск' />
+      <img src={SearchIcon} alt='Поиск' className={styles.searchIcon} />
       <input
         type='text'
         placeholder={placeholder}

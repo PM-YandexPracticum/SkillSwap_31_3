@@ -2,14 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 282px;
+  width: 340px;
   padding: 24px 34px 24px 24px;
   border-radius: 12px;
-<<<<<<< HEAD
-  color: 'var(--text)';
-=======
   color: var(--text);
->>>>>>> 6ef23bc82e8b9a97729bf43c6813b6a720f4caf7
   height: auto;
   position: relative;
 }
