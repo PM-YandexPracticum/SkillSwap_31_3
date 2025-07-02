@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  width: 284px;
+  flex-direction: column;
+  row-gap: 8px;
+  padding: 0;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 12px;
+}
+
+.label {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  height: 24px;
+  padding-left: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.box {
+		position: absolute;
+		left: 0;
+		width: 24px;
+		height: 24px;
+		background: url('./checkbox-empty.svg') center/contain no-repeat;
+    background-color: white;
+		border-radius: 4px;	
+    content: '';
+	}
+	
+
+.checkbox:checked + .box {
+		background: url('./checkbox-done.svg') center/contain no-repeat;   
+    background-color: white;
+    position: absolute;
+		width: 24px;
+		height: 24px;
+    left: 0;
+    content: '';
+		}
+ 
