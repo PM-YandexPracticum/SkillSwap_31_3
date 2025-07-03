@@ -12,10 +12,11 @@ type CheckboxListProps = {
   onChange?: (value: string) => void;
   title?: string;
   isSubcategory?: boolean;
+  boxClass?: string;
 };
 
 export const CheckboxList = (props: CheckboxListProps) => {
-  const { name, options, selected, onChange, title } = props;
+  const { name, options, selected, onChange, title, boxClass } = props;
 
   const handleChange = (value: string) => onChange?.(value);
 
@@ -45,6 +46,7 @@ export const CheckboxList = (props: CheckboxListProps) => {
             selected={selectedOptions}
             onChange={() => selectOption}
             option={option}
+            boxClass={boxClass}
           />
         ))}
       </div>

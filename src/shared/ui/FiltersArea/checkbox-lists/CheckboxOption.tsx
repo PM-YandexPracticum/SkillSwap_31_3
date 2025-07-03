@@ -15,10 +15,11 @@ type CheckboxListOptionProps = {
   groupName: string;
   onChange?: (option: CheckboxListOptionType) => void;
   option: CheckboxListOptionType;
+  boxClass?: string;
 };
 
 export const CheckboxOption = (props: CheckboxListOptionProps) => {
-  const { value, selected, groupName, onChange, option } = props;
+  const { value, selected, groupName, onChange, option, boxClass} = props;
 
   const optionRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +46,7 @@ export const CheckboxOption = (props: CheckboxListOptionProps) => {
         onChange={handleChange}
         tabIndex={-1}
       />
-      <span className={styles.box} />
+      <span className={boxClass}/>
       <label className={styles.label} htmlFor={inputId}>
         <Text as='bodyText' color='text'>
           {value}

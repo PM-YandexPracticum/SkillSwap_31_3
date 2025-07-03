@@ -93,6 +93,7 @@ export const Filters = () => {
                 options={[{ value: item.category }]}
                 selected={selectedSkills}
                 onChange={() => {}}
+                boxClass={clsx(styles.boxCategory)}
                 isSubcategory
               />
               <span
@@ -109,6 +110,7 @@ export const Filters = () => {
                   options={item.subcategories.map((value) => ({ value }))}
                   selected={selectedSkills}
                   onChange={toggleSkill}
+                  boxClass={clsx(styles.boxSubcategory)}
                 />
               </div>
             )}
@@ -156,6 +158,7 @@ export const Filters = () => {
           options={showAllCities ? cities : cities.slice(0, 5)}
           selected={selectedCities}
           onChange={toggleCity}
+          boxClass={clsx(styles.boxSubcategory)}
         />
         <button
           type='button'

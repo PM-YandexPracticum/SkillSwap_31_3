@@ -73,3 +73,47 @@ button {
 .subcategories {
   padding-left: 36px;
 }
+
+.boxCategory {
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  background: url('./checkbox-lists/checkbox-empty.svg') center/contain no-repeat;
+  background-color: white;
+  border-radius: 4px;
+  content: '';
+}
+
+input[type='checkbox']:checked + .boxCategory {
+  background: url('./checkbox-lists/checkbox-cat.svg') no-repeat center center;
+  background-color: white;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 0;
+  content: '';
+}
+
+
+
+input[type='checkbox']:checked + .boxSubcategory {
+  background: url('./checkbox-lists/checkbox-done.svg') no-repeat center center;
+  background-color: white;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 0;
+  content: '';
+}
+
+.boxSubcategory {
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  background: url('./checkbox-lists/checkbox-empty.svg') center/contain no-repeat;
+  background-color: white;
+  border-radius: 4px;
+  content: '';
+}
