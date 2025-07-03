@@ -97,9 +97,9 @@ export const Filters = () => {
                 isSubcategory
               />
               <span
-                className={clsx(styles.openIcon_skill, {
-                  [styles.open]: false
-                })}
+                className={clsx(styles.Icon_skill, {
+                  [styles.open]: dropdownSkills[item.category] && item.subcategories
+            })}
               />
             </div>
 

@@ -44,32 +44,6 @@ button {
   padding-bottom: 6px;
 }
 
-.openIcon_skill {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  background: url('./checkbox-lists/chevron-down.svg') no-repeat center center;
-  background-size: contain;
-}
-
-.openIcon_skill.open {
-  transform: rotate(180deg);
-}
-
-.chevronIcon {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  background: url('./checkbox-lists/chevron-down.svg') no-repeat center center;
-  background-size: contain;
-}
-
-.chevronIcon.open {
-  transform: rotate(180deg);
-}
-
 .subcategories {
   padding-left: 36px;
 }
@@ -116,4 +90,31 @@ input[type='checkbox']:checked + .boxSubcategory {
   background-color: white;
   border-radius: 4px;
   content: '';
+}
+
+.Icon_skill {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: url('./checkbox-lists/chevron-down.svg') no-repeat center center;
+  background-size: contain;
+}
+
+
+.Icon_skill.open {
+transform: rotate(180deg);
+}
+
+.chevronIcon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: url('./checkbox-lists/chevron-down.svg') no-repeat center center;
+  background-size: contain;
+}
+
+.chevronIcon.open {
+  transform: rotate(180deg);
 }
