@@ -19,7 +19,8 @@ const config: StorybookConfig = {
           ...config.resolve.alias,
           //сокращения для пуйтей иморта п: '@components': path.resolve(__dirname, '../src/components')
           '@app': path.resolve(__dirname, '../src/app'),
-          '@shared': path.resolve(__dirname, '../src/shared')
+          '@shared': path.resolve(__dirname, '../src/shared'),
+          '@pages': path.resolve(__dirname, '../src/pages')
         })
       : null;
     return config;
