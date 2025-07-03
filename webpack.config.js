@@ -42,8 +42,8 @@ module.exports = {
         type: 'asset/resource'
       },
       {
-        test: /\.svg$/,
-        use: ['@svgr/webpack']
+        test: /\.(jpg|jpeg|png|svg)$/,
+        type: 'asset/inline'
       }
     ]
   },
@@ -61,7 +61,10 @@ module.exports = {
     alias: {
       //сокраащеняи путей инморта п: '@components': path.resolve(__dirname, './src/components')
       '@app': path.resolve(__dirname, './src/app'),
-      '@shared': path.resolve(__dirname, './src/shared')
+      '@shared': path.resolve(__dirname, './src/shared'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@entities': path.resolve(__dirname, './src/entities'),
+      '@layouts': path.resolve(__dirname, './src/layouts')
     }
   },
   output: {
@@ -69,7 +72,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    static: path.join(__dirname, './dist'),
+    static: path.join(__dirname, './public/images'),
     compress: true,
     historyApiFallback: true,
     port: 4000

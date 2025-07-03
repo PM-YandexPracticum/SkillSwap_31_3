@@ -20,7 +20,10 @@
     "paths": {
       // тут типизация сокращений для путей экспорта П: "@name": ["path/name"],  сами пути в конфиге webpack
       "@app/*": ["src/app/*"],
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@pages/*": ["src/pages/*"],
+      "@entities/*": ["src/entities/*"],
+      "@layouts/*": ["src/layouts/*"]
     }
   },
   "include": ["src"]
