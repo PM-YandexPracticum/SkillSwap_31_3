@@ -3,7 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import '@app/styles/index.css';
-import Header from './features/ui/Header/Header';
+
+import usersData from '../public/db/users.json';
+import skillsData from '../public/db/skills.json';
+import { SkillCard } from './features/skillcard/skillcard';
+import styles from './index.module.css';
+import { useState } from 'react';
+import { TUser } from '@app/styles/typs';
+
+<!-- import Header from './features/ui/Header/Header';
 
 // Надо бы куда-то этот тип положить
 export type TUser = {
@@ -18,13 +26,53 @@ export type TUser = {
   skillWants: string[];
   like: number;
   cratedAt: string;
-};
+}; -->
 
 const container = document.getElementById('root') as HTMLElement;
 const root = ReactDOMClient.createRoot(container!);
 
 const App = () => {
-  const [userData, setUserData] = useState<TUser | undefined>(undefined);
+
+  const [likedUsers, setLikedUsers] = useState<string[]>([]);
+
+  // Функция переключения лайка
+  const handleLikeToggle = (userId: string) => {
+    setLikedUsers((prev) =>
+      prev.includes(userId)
+        ? prev.filter((id) => id !== userId)
+        : [...prev, userId]
+    );
+  };
+
+  //Отсеиваем навыки которым можем научить из общего списка
+  const getWantToTeachSkills = (user: TUser) =>
+    skillsData.data.find((skill) => skill._id === user.skillId)!;
+
+  //Отсеиваем навыки которым хотим научиться из общего списка
+  const getWantToLearnSkills = (user: TUser) =>
+    user.skillWants.map(
+      (skillId) => skillsData.data.find((skill) => skill._id === skillId)!
+    );
+
+  return (
+    <>
+      <h1>Тут главная страница</h1>
+      <div className={styles.cardsContainer}>
+        {usersData.data.map((user, index) => (
+          <SkillCard
+            key={index}
+            data={user}
+            teachSkills={getWantToTeachSkills(user)}
+            learnSkills={getWantToLearnSkills(user)}
+            onLikeToggle={() => handleLikeToggle(user._id)}
+            isLiked={likedUsers.includes(user._id)}
+            onDetailsClick={() => console.log('Details clicked')}
+          />
+        ))}
+      </div>
+    </>
+
+<!--   const [userData, setUserData] = useState<TUser | undefined>(undefined);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -60,7 +108,7 @@ const App = () => {
           <Route path='/' element={<h1>Тут главная страница</h1>} />
         </Routes>
       </BrowserRouter>
-    </React.StrictMode>
+    </React.StrictMode> -->
   );
 };
 
