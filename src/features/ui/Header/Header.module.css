@@ -1,0 +1,116 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36px 36px 20px 36px;
+  background-color: var(--background);
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  width: 159px;
+  height: 40px;
+}
+
+.arrow {
+  width: 166px;
+  height: 7.94px;
+}
+
+.dropdownArrow {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.aboutProjectButton {
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.32px;
+  font-family: var(--main-font);
+  color: var(--default-icon);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.allSkillsButton {
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.32px;
+  font-family: var(--main-font);
+  color: var(--default-icon);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.centerSection {
+  flex-grow: 1;
+  margin: 0 32px;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.userName {
+  font-family: var(--main-font);
+  color: var(--default-icon);
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.userAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerFormOpen {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerFormOpen .leftSection {
+  display: flex;
+  align-items: center;
+}
+
+.headerFormOpen .rightSection {
+  display: flex;
+  align-items: center;
+}
+
+.clearIcon {
+  width: 10.61px;
+  height: 10.61px;
+  margin-left: 8px;
+  fill: var(--caption); /* Ну почему крестик не видно?! */
+}
