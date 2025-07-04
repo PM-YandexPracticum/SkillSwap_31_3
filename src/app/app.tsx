@@ -16,7 +16,10 @@ import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 //import { useDispatch, useSelector } from '../../services/store';
 //import {getError,getIngredientsThunk,getLoading,getData} from '../../services/slices/ingredientsSlice/ingredientsSlice';
 //import { getUser } from '../../services/slices/userSlice/userSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Header from '../features/ui/Header/Header';
+import { Footer } from '../features/ui/Footer/Footer';
+import { TUser } from '@app/styles/typs';
 
 const App = () => {
   //const disp = useDispatch();
@@ -32,8 +35,40 @@ const App = () => {
 
   const location = useLocation();
   const background = location.state && location.state.background;
+
+  //мок логики для header
+  const [userData, setUserData] = useState<TUser | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/db/users.json');
+        if (!response.ok) {
+          throw new Error(`Ошибка: ${response.status}`);
+        }
+        const users = await response.json();
+
+        if (users) {
+          setUserData(users.data[0] as TUser);
+        } else {
+          console.warn('users.json пустой или имеет не ту структуру');
+          setUserData(undefined);
+        }
+      } catch (error) {
+        console.error('Не смог загрузить users.json:', error);
+        setUserData(undefined);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const isLoggedIn = !!userData;
+  //конец логики header
+
   return (
     <div className={styles.app}>
+      <Header isLoggedIn={isLoggedIn} data={userData} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/skill' element={<Skill />} />
@@ -42,7 +77,7 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
-      )
+      <Footer />)
     </div>
   );
 };

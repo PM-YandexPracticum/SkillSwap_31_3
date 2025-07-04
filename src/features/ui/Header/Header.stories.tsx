@@ -31,7 +31,7 @@ const mockUser: TUser = {
 };
 
 export const LoggedIn: StoryFn<typeof Header> = () => (
-  <Header isLoggedIn={true} data={mockUser} />
+  <Header isLoggedIn data={mockUser} />
 );
 
 export const LoggedOut: StoryFn<typeof Header> = () => (
@@ -39,5 +39,5 @@ export const LoggedOut: StoryFn<typeof Header> = () => (
 );
 
 export const FormOpen: StoryFn<typeof Header> = () => (
-  <Header isLoggedIn={true} isFormOpen={true} onCloseForm={() => {}} />
+  <Header isLoggedIn isFormOpen onCloseForm={() => {}} />
 );
