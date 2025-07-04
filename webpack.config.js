@@ -70,7 +70,8 @@ module.exports = {
     alias: {
       //сокраащеняи путей инморта п: '@components': path.resolve(__dirname, './src/components')
       '@app': path.resolve(__dirname, './src/app'),
-      '@shared': path.resolve(__dirname, './src/shared')
+      '@shared': path.resolve(__dirname, './src/shared'),
+      '@pages': path.resolve(__dirname, './src/pages')
     }
   },
   output: {

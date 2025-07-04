@@ -1,8 +1,16 @@
+
 import * as ReactDOMClient from 'react-dom/client';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+
 import '@app/styles/index.css';
+import React from 'react';
+import * as ReactDOMClient from 'react-dom/client';
+import App from './app/app';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+//import { store } from '../src/services/store';
 
 import usersData from '../public/db/users.json';
 import skillsData from '../public/db/skills.json';
@@ -30,6 +38,15 @@ export type TUser = {
 
 const container = document.getElementById('root') as HTMLElement;
 const root = ReactDOMClient.createRoot(container!);
+
+<!--  routing_issue#47 -->
+<!-- root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);-->
 
 const App = () => {
 
@@ -113,3 +130,4 @@ const App = () => {
 };
 
 root.render(<App />);
+
