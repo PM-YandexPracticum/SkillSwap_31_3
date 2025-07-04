@@ -62,6 +62,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       style={{ backgroundColor: `var(--${backgroundColor})` }}
     >
       <img src={SearchIcon} alt='Поиск' className={styles.searchIcon} />
+
       <input
         type='text'
         placeholder={placeholder}

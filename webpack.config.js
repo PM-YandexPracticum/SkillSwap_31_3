@@ -48,6 +48,10 @@ module.exports = {
       {
         test: /\.(woff|woff2)$/,
         type: 'asset/resource'
+      //},
+      //{
+        //test: /\.svg$/,
+        //use: ['@svgr/webpack']
       }
     ]
   },
