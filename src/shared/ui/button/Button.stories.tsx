@@ -8,8 +8,11 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     onClick: { action: 'clicked' },
     size: { control: 'radio', options: ['small', 'medium', 'large'] },
-    variant: { control: 'radio', options: ['primary', 'secondary', 'tertiary'] },
-    disabled: { control: 'boolean' },
+    variant: {
+      control: 'radio',
+      options: ['primary', 'secondary', 'tertiary']
+    },
+    disabled: { control: 'boolean' }
   }
 };
 
@@ -28,6 +31,7 @@ export const Secondary: Story = {
   args: {
     children: 'Secondary Button',
     variant: 'secondary',
+
     size: 'medium',
   }
 };
