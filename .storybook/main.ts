@@ -7,9 +7,10 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-onboarding',
-    '@storybook/addon-interactions'
+    '@storybook/addon-onboarding'
+    //'@storybook/addon-interactions'
   ],
+  staticDirs: ['../public'],
   webpackFinal: async (config) => {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
@@ -23,6 +24,7 @@ const config: StorybookConfig = {
           '@pages': path.resolve(__dirname, '../src/pages')
         })
       : null;
+      
     return config;
   },
   framework: {

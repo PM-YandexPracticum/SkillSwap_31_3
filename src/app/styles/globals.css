@@ -1,6 +1,7 @@
 :root {
-  --main-font: 'Regular', sans-serif;
+  --main-font: 'Roboto', sans-serif;
   --accent-font: 'Jost', sans-serif;
+  --third-font: 'OpenSans', sans-serif;
 }
 
 * {
@@ -109,4 +110,3 @@ ul {
 input:focus {
   outline: none;
 }
-
