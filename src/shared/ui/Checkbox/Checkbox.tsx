@@ -28,11 +28,8 @@ export const Checkbox = (props: CheckboxProps) => {
   };
 
   return (
-    <button
-      type='button'
-      className={`${styles.checkboxContainer}`}
-      onClick={handleChange}
-    >
+
+    <button type="button" className={`${styles.checkboxContainer}`} onClick={handleChange}>
       {!checked ? (
         <svg
           width={iconSize}
