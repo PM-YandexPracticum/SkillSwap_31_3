@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import React from 'react';
 import {
   useRouteError,
   isRouteErrorResponse,
   useNavigate
 } from 'react-router-dom';
-import styles from './ServerErrorPage.module.css';
+import styles from './server-error-500.module.css';
 import iconError500 from './error500.png';
 import iconOtherError from './otherError.png';
 import { Button } from '../../shared/ui/button/button';
@@ -26,14 +27,15 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
     alt: 'Ошибка 500'
   },
   otherError: {
-    title: 'Произошла ошибка',
-    description: 'Попробуйте позже или вернитесь на главную страницу',
-    icon: iconError500,
+    title: 'Произошла неизвестная ошибка',
+    description:
+      'Произошла непредвиденная ошибка. Попробуйте ещё раз или вернитесь на главную.',
+    icon: iconOtherError,
     alt: 'Ошибка'
   }
 };
 
-export const ServerErrorPage = () => {
+export const Error500: FC = () => {
   const error = useRouteError();
   const navigate = useNavigate();
 
@@ -53,7 +55,7 @@ export const ServerErrorPage = () => {
   };
 
   const handleReportError = () => {
-    console.log('Сообщение об ошибке отправлено');
+    console.log('Спасибо! Мы уже работаем над исправлением.');
   };
 
   return (

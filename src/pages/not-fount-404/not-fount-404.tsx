@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './NotFoundPage.module.css';
+import styles from './not-fount-404.module.css';
 import iconError404 from './error404.png';
 import { Button } from '../../shared/ui/button/button';
 
@@ -23,7 +23,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
   }
 };
 
-export const NotFoundPage: FC = () => {
+export const NotFound404: FC = () => {
   const { title, description, icon, alt } = errorConfig['404'];
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export const NotFoundPage: FC = () => {
   };
 
   const handleReportError = () => {
-    console.log('Сообщение об ошибке отправлено');
+    console.log('Спасибо! Мы уже работаем над исправлением.');
   };
 
   return (

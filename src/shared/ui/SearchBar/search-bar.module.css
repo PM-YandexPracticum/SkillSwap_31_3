@@ -35,18 +35,23 @@
 }
 
 .searchIcon {
-  width: 19.07px;
+  width: 24px;
+  height: 24px;
+  fill: var(--placeholder-color); /* Заполнение не применяется */
+  /* width: 19.07px;
   height: 19.07px;
   padding: 2px;
-  fill: var(--caption);
+  fill: var(--caption);  */
 }
 
 .clearIcon {
   width: 10.61px;
   height: 10.61px;
-  padding: 6.7px 6.67px;
-  fill: var(--text);
+  fill: var(--caption);
 }
+/* padding: 6.7px 6.67px;
+  fill: var(--text);
+}*/
 
 .small {
   width: 300px; /* Я не нашла маленький размер в макете */
