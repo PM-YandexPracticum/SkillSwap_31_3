@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './NotFoundPage.module.css';
 import iconError404 from './error404.png';
 import { Button } from '../../shared/ui/button/button';
@@ -13,18 +13,27 @@ interface ErrorConfig {
   alt: string;
 }
 
-export const NotFoundPage = () => {
-  const errorConfig: Record<ErrorType, ErrorConfig> = {
-    '404': {
-      title: 'Страница не найдена',
-      description:
-        'К сожалению, эта страница недоступна. Вернитесь на главную страницу или попробуйте позже',
-      icon: iconError404,
-      alt: 'Ошибка 404'
-    }
+const errorConfig: Record<ErrorType, ErrorConfig> = {
+  '404': {
+    title: 'Страница не найдена',
+    description:
+      'К сожалению, эта страница недоступна. Вернитесь на главную страницу или попробуйте позже',
+    icon: iconError404,
+    alt: 'Ошибка 404'
+  }
+};
+
+export const NotFoundPage: FC = () => {
+  const { title, description, icon, alt } = errorConfig['404'];
+  const navigate = useNavigate();
+
+  const handleGoToMain = () => {
+    navigate('/');
   };
 
-  const { title, description, icon, alt } = errorConfig['404'];
+  const handleReportError = () => {
+    console.log('Сообщение об ошибке отправлено');
+  };
 
   return (
     <div className={styles.errorPage}>
@@ -33,14 +42,12 @@ export const NotFoundPage = () => {
         <h1 className={styles.errorTitle}>{title}</h1>
         <p className={styles.errorDescription}>{description}</p>
         <div className={styles.errorActions}>
-          <Button size='large' variant='secondary' onClick={() => {}}>
+          <Button size='large' variant='secondary' onClick={handleReportError}>
             Сообщить об ошибке
           </Button>
-          <Link to='/'>
-            <Button size='large' variant='primary' onClick={() => {}}>
-              На главную
-            </Button>
-          </Link>
+          <Button size='large' variant='primary' onClick={handleGoToMain}>
+            На главную
+          </Button>
         </div>
       </div>
     </div>
