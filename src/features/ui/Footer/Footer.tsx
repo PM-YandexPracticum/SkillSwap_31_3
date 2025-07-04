@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Footer.module.css';
-import Logo from '../Logo/Logo';
-
-const HIDDEN_FOOTER_ROUTES = ['/login'];
+import Logo from '@shared/ui/Logo/Logo';
+import { HIDDEN_FOOTER_ROUTES } from './type';
 
 export const Footer: React.FC = () => {
   const location = useLocation();
