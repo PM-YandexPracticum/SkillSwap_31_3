@@ -7,9 +7,9 @@ import arrowUp from '../../assets/icons/arrow-up.svg';
 import styles from './SingleSelectDropdown.module.css'
 
 export const SingleSelectDropdown = React.memo(
-  ({ values, label, placeholder }: SingleSelectDropdownProps) => {
+  ({ values, label, placeholder, selectedValue }: SingleSelectDropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(placeholder);
+    const [selected, setSelected] = useState(selectedValue ? selectedValue : placeholder);
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
