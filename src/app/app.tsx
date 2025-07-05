@@ -1,15 +1,12 @@
+// import { MainPage } from '../pages/MainPage/MainPage';
 
-//import { MainPage } from '../pages/MainPage/MainPage';
-
-//export const App = () => {
-  //return (
- //   <div>
-  //    <MainPage />
- //   </div>
+// export const App = () => {
+//   return (
+//    <div>
+//      <MainPage />
+//    </div>
 //  );
-//};
-
-
+// };
 
 import {
   Home,

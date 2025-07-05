@@ -18,11 +18,11 @@ export const Home: FC = () => {
     );
   };
 
-  //Отсеиваем навыки которым можем научить из общего списка
+  // Отсеиваем навыки которым можем научить из общего списка
   const getWantToTeachSkills = (user: TUser) =>
     skillsData.data.find((skill: TSkill) => skill._id === user.skillId)!;
 
-  //Отсеиваем навыки которым хотим научиться из общего списка
+  // Отсеиваем навыки которым хотим научиться из общего списка
   const getWantToLearnSkills = (user: TUser) =>
     user.skillWants.map(
       (skillId) =>
@@ -32,19 +32,57 @@ export const Home: FC = () => {
   return (
     <>
       <h1>Тут главная страница</h1>
-      <div className={styles.cardsContainer}>
-        {usersData.data.map((user: TUser, index: number) => (
-          <SkillCard
-            key={index}
-            data={user}
-            teachSkills={getWantToTeachSkills(user)}
-            learnSkills={getWantToLearnSkills(user)}
-            onLikeToggle={() => handleLikeToggle(user._id)}
-            isLiked={likedUsers.includes(user._id)}
-            onDetailsClick={() => console.log('Details clicked')}
-          />
-        ))}
-      </div>
+
+      <section>
+        <h2>Популярное</h2>
+        <div className={styles.gridSection}>
+          {usersData.data.slice(0, 4).map((user: TUser) => (
+            <SkillCard
+              key={user._id}
+              data={user}
+              teachSkills={getWantToTeachSkills(user)}
+              learnSkills={getWantToLearnSkills(user)}
+              onLikeToggle={() => handleLikeToggle(user._id)}
+              isLiked={likedUsers.includes(user._id)}
+              onDetailsClick={() => console.log('Details clicked')}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2>Новое</h2>
+        <div className={styles.gridSection}>
+          {usersData.data.slice(4, 7).map((user: TUser) => (
+            <SkillCard
+              key={user._id}
+              data={user}
+              teachSkills={getWantToTeachSkills(user)}
+              learnSkills={getWantToLearnSkills(user)}
+              onLikeToggle={() => handleLikeToggle(user._id)}
+              isLiked={likedUsers.includes(user._id)}
+              onDetailsClick={() => console.log('Details clicked')}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2>Рекомендуем</h2>
+        <div className={styles.gridSection}>
+          {usersData.data.slice(7, 15).map((user: TUser) => (
+            <SkillCard
+              key={user._id}
+              data={user}
+              teachSkills={getWantToTeachSkills(user)}
+              learnSkills={getWantToLearnSkills(user)}
+              onLikeToggle={() => handleLikeToggle(user._id)}
+              isLiked={likedUsers.includes(user._id)}
+              onDetailsClick={() => console.log('Details clicked')}
+            />
+          ))}
+        </div>
+      </section>
     </>
   );
 };

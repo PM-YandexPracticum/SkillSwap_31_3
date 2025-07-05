@@ -4,3 +4,16 @@
   gap: 20px;
   padding: 20px;
 }
+
+.gridSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+
+.card {
+  flex: 1 0 324px;
+  max-width: 324px;
+}
+

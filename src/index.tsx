@@ -6,7 +6,7 @@ import React from 'react';
 
 //root.render(
 //  <React.StrictMode>
- //   <MainPage />
+//   <MainPage />
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import '@app/styles/index.css';
