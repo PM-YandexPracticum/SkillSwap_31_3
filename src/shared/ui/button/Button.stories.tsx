@@ -23,7 +23,7 @@ export const Primary: Story = {
   args: {
     children: 'Primary Button',
     variant: 'primary',
-    size: 'medium',
+    size: 'medium'
   }
 };
 
@@ -31,8 +31,7 @@ export const Secondary: Story = {
   args: {
     children: 'Secondary Button',
     variant: 'secondary',
-
-    size: 'medium',
+    size: 'medium'
   }
 };
 
@@ -40,6 +39,6 @@ export const Tertiary: Story = {
   args: {
     children: 'Tertiary Button',
     variant: 'tertiary',
-    size: 'medium',
+    size: 'medium'
   }
 };
