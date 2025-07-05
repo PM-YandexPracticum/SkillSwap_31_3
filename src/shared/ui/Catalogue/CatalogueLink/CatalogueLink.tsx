@@ -15,7 +15,7 @@ export const CatalogueLinkUI: FC<CatalogueLinkProps> = ({ data, skill_id }) => (
       if (skill.parent_id === skill_id) {
         return (
           <li key={skill._id}>
-            <Link to={`skills/${skill._id}`} className={styles.megamenu_link}>
+            <Link to={`/${skill._id}`} className={styles.megamenu_link}>
               {skill.name}
             </Link>
           </li>
