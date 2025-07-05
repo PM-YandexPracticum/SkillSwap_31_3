@@ -17,3 +17,10 @@ export type TSkill = {
   name: string;
   parent_id: string;
 };
+
+export type TNotification = {
+  _id: string;
+  username: string;
+  notificationType: string;
+  date: string;
+};
