@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { CheckboxList } from './checkbox-lists/CheckboxList';
-import styles from './Filters.module.css';
+import styles from './FiltersArea.module.css';
 import { cities, skills } from './mockData';
 import { RadioGroup } from './radio-group/RadioGroup';
 import { Text } from '../Text/Text';
 import React from 'react';
 
-export const Filters = () => {
+export const FiltersArea = () => {
   const [select, setSelect] = useState('Все');
   const [userSex, setUserSex] = useState('Не имеет значения');
 

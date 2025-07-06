@@ -3,8 +3,10 @@ import { CheckboxList } from './CheckboxList';
 import { useState } from 'react';
 import React from 'react';
 
-const meta: Meta<typeof CheckboxList> = {
-  component: CheckboxList
+const meta: Meta = {
+  title: 'components/CheckboxList',
+  component: CheckboxList,
+  tags: ['autodocs']
 };
 
 export default meta;
