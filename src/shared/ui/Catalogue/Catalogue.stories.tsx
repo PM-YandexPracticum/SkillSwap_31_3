@@ -18,7 +18,6 @@ const CatalogueTemplate = (args: TCatalogueProps) => (
 );
 
 export const Catalogue: Story = {
-  render: CatalogueTemplate,
   args: {
     data: [
       {
