@@ -12,12 +12,12 @@ type Story = StoryObj<typeof CheckboxList>;
 
 const CheckboxListWithState = () => {
   const optionsSkills = [
-    { value: 'Бизнес и карьера'},
-    { value: 'Творчество и искусство'},
+    { value: 'Бизнес и карьера' },
+    { value: 'Творчество и искусство' },
     { value: 'Иностранные языки' },
-    { value: 'Образование и развитие'},
+    { value: 'Образование и развитие' },
     { value: 'Здоровье и лайфстайл' },
-    { value: 'Дом и уют'}
+    { value: 'Дом и уют' }
   ];
 
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);

@@ -69,14 +69,16 @@ const App = () => {
   return (
     <div className={styles.app}>
       <Header isLoggedIn={isLoggedIn} data={userData} />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/skill' element={<Skill />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='*' element={<NotFound404 />} />
-      </Routes>
+      <div className={styles.main}>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/skill' element={<Skill />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='*' element={<NotFound404 />} />
+        </Routes>
+      </div>
       <Footer />)
     </div>
   );

@@ -99,8 +99,9 @@ export const Filters = () => {
               />
               <span
                 className={clsx(styles.Icon_skill, {
-                  [styles.open]: dropdownSkills[item.category] && item.subcategories
-            })}
+                  [styles.open]:
+                    dropdownSkills[item.category] && item.subcategories
+                })}
               />
             </div>
 
