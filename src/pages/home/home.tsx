@@ -41,7 +41,7 @@ export const Home: FC = () => {
             learnSkills={getWantToLearnSkills(user)}
             onLikeToggle={() => handleLikeToggle(user._id)}
             isLiked={likedUsers.includes(user._id)}
-            onDetailsClick={() => console.log('Details clicked')}
+            onDetailsClick={() => (window.location.href = '/skill')}
           />
         ))}
       </div>

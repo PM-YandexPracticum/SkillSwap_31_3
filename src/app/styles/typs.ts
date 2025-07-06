@@ -10,6 +10,9 @@ export type TUser = {
   skillWants: string[];
   like: number;
   cratedAt: string;
+  about?: string;
+  text?: string;
+  images?: string[]
 };
 
 export type TSkill = {
