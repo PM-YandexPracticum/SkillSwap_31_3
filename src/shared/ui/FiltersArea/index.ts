@@ -1,2 +1,1 @@
 export { FiltersArea } from './FiltersArea';
-

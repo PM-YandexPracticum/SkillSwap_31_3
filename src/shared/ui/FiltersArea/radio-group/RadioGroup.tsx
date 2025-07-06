@@ -4,7 +4,7 @@ import type { RadioOptionType } from './RadioOption';
 import styles from './RadioGroup.module.css';
 import React from 'react';
 
-type RadioGroupProps = {
+export type RadioGroupProps = {
   name: string;
   options: RadioOptionType[];
   selected: string;

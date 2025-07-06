@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FiltersArea } from './FiltersArea';
 import React from 'react';
 
-const meta: Meta = {
+const meta: Meta<typeof FiltersArea> = {
   title: 'components/FiltersArea',
   component: FiltersArea,
   tags: ['autodocs']
