@@ -3,8 +3,10 @@ import { CheckboxList } from './CheckboxList';
 import { useState } from 'react';
 import React from 'react';
 
-const meta: Meta<typeof CheckboxList> = {
-  component: CheckboxList
+const meta: Meta = {
+  title: 'components/CheckboxList',
+  component: CheckboxList,
+  tags: ['autodocs']
 };
 
 export default meta;
@@ -12,12 +14,12 @@ type Story = StoryObj<typeof CheckboxList>;
 
 const CheckboxListWithState = () => {
   const optionsSkills = [
-    { value: 'Бизнес и карьера'},
-    { value: 'Творчество и искусство'},
+    { value: 'Бизнес и карьера' },
+    { value: 'Творчество и искусство' },
     { value: 'Иностранные языки' },
-    { value: 'Образование и развитие'},
+    { value: 'Образование и развитие' },
     { value: 'Здоровье и лайфстайл' },
-    { value: 'Дом и уют'}
+    { value: 'Дом и уют' }
   ];
 
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);

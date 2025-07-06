@@ -1,1 +1,1 @@
-export { Filters } from './Filters';
+export { FiltersArea } from './FiltersArea';

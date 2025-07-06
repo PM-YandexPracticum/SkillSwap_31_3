@@ -3,8 +3,10 @@ import React from 'react';
 import { RadioGroup } from './RadioGroup';
 import { useState } from 'react';
 
-const meta: Meta<typeof RadioGroup> = {
-  component: RadioGroup
+const meta: Meta = {
+  title: 'components/RadioGroup',
+  component: RadioGroup,
+  tags: ['autodocs']
 };
 
 export default meta;
