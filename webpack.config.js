@@ -2,6 +2,7 @@ const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.tsx'),
@@ -47,10 +48,10 @@ module.exports = {
       {
         test: /\.(woff|woff2)$/,
         type: 'asset/resource'
-      },
-      {
-        test: /\.svg$/,
-        use: ['@svgr/webpack']
+      //},
+      //{
+        //test: /\.svg$/,
+        //use: ['@svgr/webpack']
       }
     ]
   },
@@ -58,6 +59,7 @@ module.exports = {
     new ESLintPlugin({
       extensions: ['.js', '.jsx', '.ts', '.tsx']
     }),
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
@@ -68,7 +70,11 @@ module.exports = {
     alias: {
       //сокраащеняи путей инморта п: '@components': path.resolve(__dirname, './src/components')
       '@app': path.resolve(__dirname, './src/app'),
-      '@shared': path.resolve(__dirname, './src/shared')
+      '@shared': path.resolve(__dirname, './src/shared'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@features': path.resolve(__dirname, './src/features'),
+      '@entities': path.resolve(__dirname, './src/entities'),
+      '@api': path.resolve(__dirname, './src/api')
     }
   },
   output: {
