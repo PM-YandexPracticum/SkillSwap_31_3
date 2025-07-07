@@ -23,7 +23,10 @@
       "@shared/*": ["src/shared/*"],
       "@pages/*": ["src/pages/*"],
       "@pages": ["src/pages/index.ts"],
+      "@features/*": ["src/features/*"],
+      "@features": ["src/features/index.ts"],
       "@entities/*": ["src/entities/*"],
+      "@entities": ["src/entities/index.ts"],
       "@api/*": ["src/api/*"],
       "@api": ["src/api/index.ts"]
     }
