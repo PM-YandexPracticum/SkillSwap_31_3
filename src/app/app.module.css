@@ -4,4 +4,10 @@
   height: 100vh;
   background-color: #131316;
   color: #f2f2f3;
+  background-color: var(--background);
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
 }
