@@ -2,13 +2,15 @@ import React, { FC } from 'react';
 import styles from './skillcard.module.css';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import { Tag } from '@shared/ui/tag';
-import { TSkill, TUser } from '@app/styles/typs';
+import { TUser } from '@app/styles/typs';
 import { Button } from '@shared/ui/button/button';
-
+import { TUserCard, TSkill } from '@api';
+import { useSelector } from 'react-redux';
+import { selectSkillById } from '@entities';
 export type TSkillCardProps = {
-  data: TUser;
+  data: TUserCard;
   teachSkills: TSkill;
-  learnSkills: TSkill[];
+  learnSkills: string[];
   onLikeToggle?: () => void;
   isLiked?: boolean;
   onDetailsClick: () => void;
@@ -22,8 +24,15 @@ export const SkillCard: FC<TSkillCardProps> = ({
   isLiked,
   onDetailsClick
 }) => {
-  const visibleSkills = learnSkills.slice(0, 2);
-  const hiddenSkillsCount = learnSkills.length - visibleSkills.length;
+  const lernSkills = learnSkills.map((id) => {
+    let skills = [];
+    const skill = useSelector((state) => selectSkillById(state, id));
+    skills.push(skill);
+    return skills;
+  });
+
+  const visibleSkills = lernSkills.slice(0, 2);
+  const hiddenSkillsCount = lernSkills.length - visibleSkills.length;
 
   return (
     <div className={styles.cardsContainer}>
@@ -31,7 +40,7 @@ export const SkillCard: FC<TSkillCardProps> = ({
         <div className={styles.cardsUserInfo}>
           <img
             className={`${styles.avatar} ${styles.medium}`}
-            style={{ backgroundImage: `url(./images/${data.image})` }}
+            style={{ backgroundImage: `url(./images/${data.avatar})` }}
           />
           <div className={styles.cardText}>
             <div className={styles.name}>{data.name}</div>
