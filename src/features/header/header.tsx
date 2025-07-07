@@ -18,7 +18,7 @@ interface HeaderProps {
   onCloseForm?: () => void;
 }
 
-const Header: FC<HeaderProps> = ({
+export const Header: FC<HeaderProps> = ({
   isLoggedIn,
   data,
   isFormOpen = false,
@@ -134,5 +134,3 @@ const Header: FC<HeaderProps> = ({
     </header>
   );
 };
-
-export default Header;
