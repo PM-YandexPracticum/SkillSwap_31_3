@@ -93,7 +93,7 @@ export const FiltersArea = () => {
                 options={[{ value: item.category }]}
                 selected={selectedSkills}
                 onChange={() => {}}
-                boxClass={clsx(styles.boxCategory)}
+                checkboxClass={clsx(styles.checkboxCategory)}
                 onClick={() => toggleSkillCategory(item.category)}
                 isSubcategory
               />
@@ -112,7 +112,7 @@ export const FiltersArea = () => {
                   options={item.subcategories.map((value) => ({ value }))}
                   selected={selectedSkills}
                   onChange={toggleSkill}
-                  boxClass={clsx(styles.boxSubcategory)}
+                  checkboxClass={clsx(styles.checkboxSubcategory)}
                 />
               </div>
             )}
@@ -160,7 +160,7 @@ export const FiltersArea = () => {
           options={showAllCities ? cities : cities.slice(0, 5)}
           selected={selectedCities}
           onChange={toggleCity}
-          boxClass={clsx(styles.boxSubcategory)}
+          checkboxClass={clsx(styles.checkboxSubcategory)}
         />
         <button
           type='button'

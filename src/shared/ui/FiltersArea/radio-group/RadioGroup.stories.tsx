@@ -1,53 +1,47 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { RadioGroup } from './RadioGroup';
-import { useState } from 'react';
+import type { RadioGroupProps } from './RadioGroup';
 
-const meta: Meta = {
+const meta: Meta<typeof RadioGroup> = {
   title: 'components/RadioGroup',
   component: RadioGroup,
   tags: ['autodocs']
 };
-
 export default meta;
+
 type Story = StoryObj<typeof RadioGroup>;
 
-const RadioGroupWithState = () => {
-  const options = [
-    { value: 'Всё' },
-    { value: 'Хочу научиться' },
-    { value: 'Могу научить' }
-  ];
+const RadioGroupWithState = (args: RadioGroupProps) => {
+  const [value, setValue] = useState(args.selected ?? '');
 
-  const [selected, setSelected] = useState('Всё');
-
-  const optionsSex = [
-    { value: 'Не имеет значения' },
-    { value: 'Мужской' },
-    { value: 'Женский' }
-  ];
-  const [selectedSex, setSelectedSex] = useState('Не имеет значения');
-
-  return (
-    <>
-      <RadioGroup
-        selected={selected}
-        name='radio-group_all'
-        onChange={setSelected}
-        options={options}
-        title=''
-      />
-      <RadioGroup
-        selected={selectedSex}
-        name='radio-group_sex'
-        onChange={setSelectedSex}
-        options={optionsSex}
-        title='Пол автора'
-      />
-    </>
-  );
+  return <RadioGroup {...args} selected={value} onChange={setValue} />;
 };
 
 export const RadioGroupStory: Story = {
-  render: () => <RadioGroupWithState />
+  render: (args) => <RadioGroupWithState {...args} />,
+  args: {
+    selected: 'Всё',
+    name: 'radio-group_all',
+    options: [
+      { value: 'Всё' },
+      { value: 'Хочу научиться' },
+      { value: 'Могу научить' }
+    ],
+    title: ''
+  }
+};
+
+export const ListGroupStory: Story = {
+  render: (args) => <RadioGroupWithState {...args} />,
+  args: {
+    selected: 'Не имеет значения',
+    name: 'radio-group_sex',
+    options: [
+      { value: 'Не имеет значения' },
+      { value: 'Мужской' },
+      { value: 'Женский' }
+    ],
+    title: 'Пол автора'
+  }
 };
