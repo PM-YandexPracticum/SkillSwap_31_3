@@ -22,8 +22,10 @@
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/shared/*"],
       "@pages/*": ["src/pages/*"],
-      "@pages": ["src/pages/index.ts"]
-
+      "@pages": ["src/pages/index.ts"],
+      "@entities/*": ["src/entities/*"],
+      "@api/*": ["src/api/*"],
+      "@api": ["src/api/index.ts"]
     }
   },
   "include": ["src"]
