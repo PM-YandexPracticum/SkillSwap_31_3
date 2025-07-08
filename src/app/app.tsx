@@ -65,6 +65,7 @@ const App = () => {
     dispatch(userCardsThunk.getUserCards());
     dispatch(skillsThunk.getSkills());
   }, []);
+
   return (
     <div className={styles.app}>
       <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
