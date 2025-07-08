@@ -1,0 +1,14 @@
+.profilePageContainer {
+  display: flex;
+  gap: 24px;
+  background-color: #ccc;
+}
+
+.profileContainer {
+  padding: 60px;
+  width: 1060px;
+  height: 752px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  background-color: #fff;
+}
