@@ -1,7 +1,7 @@
 import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 import { Header } from '@features';
-import { TUser } from './types';
+import { TUserCard } from '@api';
 
 export default {
   title: 'SkillSwap/Header',
@@ -16,18 +16,18 @@ export default {
 
 const Template: StoryFn<typeof Header> = (args) => <Header {...args} />;
 
-const mockUser: TUser = {
+const mockUser: TUserCard = {
   _id: '2',
   name: 'Анна',
   city: 'Казань',
   age: '26',
   gender: 'female',
-  image: '25d1a77020008b9e3f08babd1f67f01cdb8f89d6.jpg',
+  avatar: '25d1a77020008b9e3f08babd1f67f01cdb8f89d6.jpg',
   skillName: 'Английский язык',
   skillId: '15',
   skillWants: ['12', '42', '23', '5'],
-  like: 89,
-  cratedAt: '2024-12-29'
+  photos: [],
+  description: ''
 };
 
 export const LoggedIn: StoryFn<typeof Header> = () => (

@@ -1,7 +1,7 @@
 import {
   Home,
   Profile,
-  Skill,
+  SkillCard,
   Modal,
   Login,
   Register,
@@ -12,29 +12,21 @@ import {
 import './styles/index.css';
 import styles from './app.module.css';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-//import { useDispatch, useSelector } from '../../services/store';
-//import {getError,getIngredientsThunk,getLoading,getData} from '../../services/slices/ingredientsSlice/ingredientsSlice';
-//import { getUser } from '../../services/slices/userSlice/userSlice';
 import { useEffect, useState } from 'react';
 import { Header, Footer } from '@features';
-import { TUser } from '@app/styles/typs';
-// import { getUserCardsApi, getSkillsApi } from '@shared/api';
+import { TUser } from '@api';
 import { useDispatch } from './store/store';
 import { userCardsThunk } from '@entities/UserCards';
 import { skillsThunk } from '@entities/Skills';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@entities';
 
 const App = () => {
-  //const disp = useDispatch();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //const ingredients = useSelector(getData);
+
   //const loading = useSelector(getLoading);
   //const error = useSelector(getError);
-
-  // useEffect(() => {
-  //   disp(getIngredientsThunk());
-  //   disp(getUser());
-  // }, [disp]);
 
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -63,30 +55,30 @@ const App = () => {
       }
     };
 
-    fetchUserData();
-  }, []);
-
+  //   fetchUserData();
+  // }, []);
+  const userData = useSelector(selectUser);
   const isLoggedIn = false;
   //конец логики header
 
-  // useEffect(() => {
-  //   dispatch(userCardsThunk.getUserCards());
-  //   dispatch(skillsThunk.getSkills());
-  // }, []);
+  useEffect(() => {
+    dispatch(userCardsThunk.getUserCards());
+    dispatch(skillsThunk.getSkills());
+  }, []);
   return (
     <div className={styles.app}>
-      <Header isLoggedIn={isLoggedIn} data={userData} />
+      <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
       <div className={styles.main}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/skill' element={<NotFound404 />} />
+          <Route path='/skillCard' element={<SkillCard />} />
           <Route path='/profile' element={<NotFound404 />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<NotFound404 />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
       </div>
-      <Footer />)
+      <Footer />
     </div>
   );
 };
