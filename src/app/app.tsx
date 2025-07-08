@@ -30,36 +30,8 @@ const App = () => {
 
   const location = useLocation();
   const background = location.state && location.state.background;
-
-  //мок логики для header
-  const [userData, setUserData] = useState<TUser | undefined>(undefined);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch('/db/users.json');
-        if (!response.ok) {
-          throw new Error(`Ошибка: ${response.status}`);
-        }
-        const users = await response.json();
-
-        if (users) {
-          setUserData(users.data[0] as TUser);
-        } else {
-          console.warn('users.json пустой или имеет не ту структуру');
-          setUserData(undefined);
-        }
-      } catch (error) {
-        console.error('Не смог загрузить users.json:', error);
-        setUserData(undefined);
-      }
-    };
-
-  //   fetchUserData();
-  // }, []);
   const userData = useSelector(selectUser);
   const isLoggedIn = false;
-  //конец логики header
 
   useEffect(() => {
     dispatch(userCardsThunk.getUserCards());
