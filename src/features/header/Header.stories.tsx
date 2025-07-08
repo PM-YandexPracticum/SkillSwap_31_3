@@ -1,6 +1,6 @@
 import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
-import Header from './Header';
+import { Header } from '@features';
 import { TUser } from './types';
 
 export default {

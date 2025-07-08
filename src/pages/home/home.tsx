@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import usersData from '../../../public/db/users.json';
 import skillsData from '../../../public/db/skills.json';
-import { SkillCard } from '../../features/skillcard/skillcard';
+import { SkillCard } from '@features';
+import { FiltersArea } from '@shared/ui/FiltersArea';
 import styles from './home.module.css';
 import { TUser, TSkill } from '@app/styles/typs';
 import { useState, useEffect } from 'react';
@@ -118,8 +119,10 @@ export const Home: FC = () => {
     );
 
   return (
-    <>
-      <h1>Тут главная страница</h1>
+    <div className={styles.layout}>
+      <div className={styles.sidebar}>
+        <FiltersArea />
+      </div>
       <div className={styles.cardsContainer}>
         {usersData.data.map((user: TUser, index: number) => (
           <SkillCard
@@ -133,6 +136,6 @@ export const Home: FC = () => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
