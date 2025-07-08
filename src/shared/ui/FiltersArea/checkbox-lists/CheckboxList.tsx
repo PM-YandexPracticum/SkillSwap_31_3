@@ -19,14 +19,13 @@ type CheckboxListProps = {
 export const CheckboxList = (props: CheckboxListProps) => {
   const { name, options, selected, onChange, title, boxClass, onClick } = props;
 
-  const handleChange = (value: string) => onChange?.(value);
-
   const [selectedOptions, setselectedOptions] = useState<string[]>([]);
 
-  const selectOption = (value: string) => {
+  const handleChange = (value: string) => {
     setselectedOptions((prev) =>
       prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
     );
+    return onChange?.(value);
   };
 
   return (
@@ -45,7 +44,7 @@ export const CheckboxList = (props: CheckboxListProps) => {
             groupName={name}
             value={option.value}
             selected={selectedOptions}
-            onChange={() => selectOption}
+            onChange={() => handleChange(option.value)}
             option={option}
             boxClass={boxClass}
             onClick={onClick}

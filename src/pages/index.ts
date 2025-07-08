@@ -7,3 +7,4 @@ export * from './register';
 export * from './protectedRoute';
 export * from './not-fount-404';
 export * from './server-error-500';
+export * from './usersPage';

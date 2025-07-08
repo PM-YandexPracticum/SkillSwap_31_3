@@ -1,0 +1,19 @@
+.layout {
+    width: 1368px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar {
+    width: 324px;
+    padding: 20px;
+    background-color: var(--card);
+    border-radius: 20px;
+}
+
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}

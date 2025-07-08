@@ -7,7 +7,8 @@ import {
   Register,
   ProtectedRoute,
   NotFound404,
-  Error500
+  Error500,
+  UsersPage
 } from '@pages';
 import './styles/index.css';
 import styles from './app.module.css';
@@ -71,6 +72,7 @@ const App = () => {
       <div className={styles.main}>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/users' element={<UsersPage />} />
           <Route path='/skillCard' element={<SkillCard />} />
           <Route path='/profile' element={<NotFound404 />} />
           <Route path='/login' element={<NotFound404 />} />

@@ -38,7 +38,7 @@ export const RadioOption = (props: RadioOptionProps) => {
       ref={optionRef}
     >
       <Radio onChange={handleChange} checked={isChecked} />
-      <label className={styles.label} htmlFor={inputId}>
+      <label className={styles.label} htmlFor={inputId} onClick={handleChange}>
         <Text as='bodyText' color='text'>
           {value}
         </Text>
