@@ -9,7 +9,7 @@ import styles from './profile.module.css';
 
 type Tab = 'requests' | 'trades' | 'favorites' | 'skills' | 'personal';
 
-const ProfilePage: React.FC = () => {
+export const ProfilePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('requests');
 
   const handleChangeTab = (tab: Tab) => {
