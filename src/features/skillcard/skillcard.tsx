@@ -2,14 +2,13 @@ import React, { FC } from 'react';
 import styles from './skillcard.module.css';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import { Tag } from '@shared/ui/tag';
-import { TUser } from '@app/styles/typs';
 import { Button } from '@shared/ui/button/button';
-import { TUserCard, TSkill } from '@api';
-import { useSelector } from 'react-redux';
+import { TUserCard } from '@api';
+import { useSelector } from '@app/store/store';
 import { selectSkillById } from '@entities';
+import { selectAllSkills } from '@entities/Skills/model/selectors';
 export type TSkillCardProps = {
   data: TUserCard;
-  teachSkills: TSkill;
   learnSkills: string[];
   onLikeToggle?: () => void;
   isLiked?: boolean;
@@ -18,21 +17,23 @@ export type TSkillCardProps = {
 
 export const SkillCard: FC<TSkillCardProps> = ({
   data,
-  teachSkills,
-  learnSkills = [],
+  learnSkills,
   onLikeToggle,
   isLiked,
   onDetailsClick
 }) => {
-  const lernSkills = learnSkills.map((id) => {
-    let skills = [];
-    const skill = useSelector((state) => selectSkillById(state, id));
-    skills.push(skill);
-    return skills;
-  });
+  const allSkills = useSelector(selectAllSkills);
+  const learnSkillsData = learnSkills.map((id) =>
+    allSkills.find((value) => value._id === id)
+  );
+  const parentIdBySkillId = useSelector((state) =>
+    selectSkillById(state, data._id)
+  );
 
-  const visibleSkills = lernSkills.slice(0, 2);
-  const hiddenSkillsCount = lernSkills.length - visibleSkills.length;
+  console.log(parentIdBySkillId);
+
+  const visibleSkills = learnSkillsData.slice(0, 2);
+  const hiddenSkillsCount = learnSkillsData.length - visibleSkills.length;
 
   return (
     <div className={styles.cardsContainer}>
@@ -40,7 +41,7 @@ export const SkillCard: FC<TSkillCardProps> = ({
         <div className={styles.cardsUserInfo}>
           <img
             className={`${styles.avatar} ${styles.medium}`}
-            style={{ backgroundImage: `url(./images/${data.avatar})` }}
+            src={data.avatar}
           />
           <div className={styles.cardText}>
             <div className={styles.name}>{data.name}</div>
@@ -57,14 +58,17 @@ export const SkillCard: FC<TSkillCardProps> = ({
         <div className={styles.cardSkils}>
           <div className={styles.learnSkils}>Может научить:</div>
           <div>
-            <Tag text={data.skillName} category={teachSkills.parent_id} />
+            <Tag
+              text={data.skillName}
+              category={parentIdBySkillId?.parent_id}
+            />
           </div>
         </div>
         <div className={styles.cardSkils}>
           <div className={styles.teachSkils}>Хочет научиться:</div>
           <div className={styles.tegSkils}>
             {visibleSkills.map((skill, index) => (
-              <Tag key={index} text={skill.name} category={skill.parent_id} />
+              <Tag key={index} text={skill?.name} category={skill?.parent_id} />
             ))}
             {hiddenSkillsCount > 0 && <Tag text={`+${hiddenSkillsCount}`} />}
           </div>
