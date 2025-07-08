@@ -22,12 +22,12 @@ const config: StorybookConfig = {
           '@app': path.resolve(__dirname, '../src/app'),
           '@shared': path.resolve(__dirname, '../src/shared'),
           '@pages': path.resolve(__dirname, '../src/pages'),
-          '@features': path.resolve(__dirname, './src/features'),
-          '@entities': path.resolve(__dirname, './src/entities'),
-          '@api': path.resolve(__dirname, './src/api')
+          '@features': path.resolve(__dirname, '../src/features'),
+          '@entities': path.resolve(__dirname, '../src/entities'),
+          '@api': path.resolve(__dirname, '../src/api')
         })
       : null;
-      
+
     return config;
   },
   framework: {

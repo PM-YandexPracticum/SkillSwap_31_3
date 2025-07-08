@@ -18,8 +18,7 @@ import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Header, Footer } from '@features';
 import { TUser } from '@app/styles/typs';
-
-import { getUserCardsApi, getSkillsApi } from '@shared/api';
+// import { getUserCardsApi, getSkillsApi } from '@shared/api';
 import { useDispatch } from './store/store';
 import { userCardsThunk } from '@entities/UserCards';
 import { skillsThunk } from '@entities/Skills';
@@ -41,31 +40,31 @@ const App = () => {
   const background = location.state && location.state.background;
 
   //мок логики для header
-  // const [userData, setUserData] = useState<TUser | undefined>(undefined);
+  const [userData, setUserData] = useState<TUser | undefined>(undefined);
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const response = await fetch('/db/users.json');
-  //       if (!response.ok) {
-  //         throw new Error(`Ошибка: ${response.status}`);
-  //       }
-  //       const users = await response.json();
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/db/users.json');
+        if (!response.ok) {
+          throw new Error(`Ошибка: ${response.status}`);
+        }
+        const users = await response.json();
 
-  //       if (users) {
-  //         setUserData(users.data[0] as TUser);
-  //       } else {
-  //         console.warn('users.json пустой или имеет не ту структуру');
-  //         setUserData(undefined);
-  //       }
-  //     } catch (error) {
-  //       console.error('Не смог загрузить users.json:', error);
-  //       setUserData(undefined);
-  //     }
-  //   };
+        if (users) {
+          setUserData(users.data[0] as TUser);
+        } else {
+          console.warn('users.json пустой или имеет не ту структуру');
+          setUserData(undefined);
+        }
+      } catch (error) {
+        console.error('Не смог загрузить users.json:', error);
+        setUserData(undefined);
+      }
+    };
 
-  //   fetchUserData();
-  // }, []);
+    fetchUserData();
+  }, []);
 
   const isLoggedIn = false;
   //конец логики header
