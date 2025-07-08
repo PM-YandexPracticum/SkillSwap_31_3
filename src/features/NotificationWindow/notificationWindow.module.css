@@ -1,5 +1,5 @@
 .notificationWindow {
-  border: 1px solid #69735D;
+  border: 1px solid var(--caption);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -82,11 +82,11 @@
 }
 
 .notificationDate {
-  color: #69735D;
+  color: var(--button-pressed);
   margin-left: auto;
 }
 
 .notificationText {
-  color: #69735D;
+  color: var(--button-pressed);
   text-align: center;
 }

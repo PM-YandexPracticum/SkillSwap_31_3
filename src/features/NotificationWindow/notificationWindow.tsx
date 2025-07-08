@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import styles from './notificationWindow.module.css';
-import { TNotification } from '@app/styles/typs';
+import { TNotification } from '@api';
 import { Button } from '@shared/ui/button/button';
-import LightbulbIcon from '../../../images/idea.svg';
-
+import LightbulbIcon from '../../images/idea.svg';
 
 export type TNotificationWindow = {
   newNotifications: TNotification[];
@@ -22,17 +21,21 @@ export const NotificationWindow: FC<TNotificationWindow> = ({
 
   const isSameDay = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.getFullYear() === today.getFullYear() &&
-           date.getMonth() === today.getMonth() &&
-           date.getDate() === today.getDate();
+    return (
+      date.getFullYear() === today.getFullYear() &&
+      date.getMonth() === today.getMonth() &&
+      date.getDate() === today.getDate()
+    );
   };
   const isYesterday = (dateStr: string) => {
     const date = new Date(dateStr);
     const yesterday = new Date();
-    yesterday.setDate(today.getDate() -1);
-    return date.getFullYear() === yesterday.getFullYear() &&
-           date.getMonth() === yesterday.getMonth() &&
-           date.getDate() === yesterday.getDate();
+    yesterday.setDate(today.getDate() - 1);
+    return (
+      date.getFullYear() === yesterday.getFullYear() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getDate() === yesterday.getDate()
+    );
   };
   const getDateLabel = (dateStr: string) => {
     if (isSameDay(dateStr)) return 'сегодня';
@@ -54,23 +57,23 @@ export const NotificationWindow: FC<TNotificationWindow> = ({
           </button>
         </div>
         <div className={styles.notificationCard}>
-          { newNotifications.length != 0 ?
-            newNotifications.map((notification) => (
-              <div className={styles.notification}>
-                <div className={styles.notificationGeneral}>
+          {newNotifications.length != 0 ? (
+            newNotifications.map((notification, key) => (
+              <div className={styles.notification} key={key}>
+                <div className={styles.notificationGeneral} key={key}>
                   <img
                     src={LightbulbIcon}
                     alt='Иконка лампочки'
                     className={styles.notificationIcon}
                   />
                   <div className={styles.notificationInfo}>
-                    <span className={styles.notificationUsernameSpan}>{notification.username} {notification.notificationType}</span>
+                    <span className={styles.notificationUsernameSpan}>
+                      {notification.username} {notification.notificationType}
+                    </span>
                     <span className={styles.notificationTypeSpan}>
-                      {
-                        notification.notificationType === 'принял ваш обмен'
+                      {notification.notificationType === 'принял ваш обмен'
                         ? 'Перейдите в профиль, чтобы обсудить детали'
-                        : 'Примите обмен, чтобы обсудить детали'
-                      }
+                        : 'Примите обмен, чтобы обсудить детали'}
                     </span>
                   </div>
                   <div className={styles.notificationDate}>
@@ -78,18 +81,15 @@ export const NotificationWindow: FC<TNotificationWindow> = ({
                   </div>
                 </div>
                 <div>
-                  <Button
-                    onClick={readAllButton}
-                    size='large'
-                    type='button'
-                  >
+                  <Button onClick={readAllButton} size='large' type='button'>
                     Перейти
                   </Button>
                 </div>
               </div>
             ))
-            : <div className={styles.notificationText}>Уведомлений нет</div>
-          }
+          ) : (
+            <div className={styles.notificationText}>Уведомлений нет</div>
+          )}
         </div>
       </div>
       <div className={styles.notifications}>
@@ -103,9 +103,9 @@ export const NotificationWindow: FC<TNotificationWindow> = ({
           </button>
         </div>
         <div className={styles.notificationCard}>
-          { oldNotifucations.length != 0 ?
-            oldNotifucations.map((notification) => (
-              <div className={styles.notification}>
+          {oldNotifucations.length != 0 ? (
+            oldNotifucations.map((notification, key) => (
+              <div className={styles.notification} key={key}>
                 <div className={styles.notificationGeneral}>
                   <img
                     src={LightbulbIcon}
@@ -113,13 +113,13 @@ export const NotificationWindow: FC<TNotificationWindow> = ({
                     className={styles.notificationIcon}
                   />
                   <div className={styles.notificationInfo}>
-                    <span className={styles.notificationUsernameSpan}>{notification.username} {notification.notificationType}</span>
+                    <span className={styles.notificationUsernameSpan}>
+                      {notification.username} {notification.notificationType}
+                    </span>
                     <span className={styles.notificationTypeSpan}>
-                      {
-                        notification.notificationType === 'принял ваш обмен'
+                      {notification.notificationType === 'принял ваш обмен'
                         ? 'Перейдите в профиль, чтобы обсудить детали'
-                        : 'Примите обмен, чтобы обсудить детали'
-                      }
+                        : 'Примите обмен, чтобы обсудить детали'}
                     </span>
                   </div>
                   <div className={styles.notificationDate}>
@@ -128,10 +128,13 @@ export const NotificationWindow: FC<TNotificationWindow> = ({
                 </div>
               </div>
             ))
-            : <div className={styles.notificationText}>Прочитанных уведомлений нет</div>
-          }
+          ) : (
+            <div className={styles.notificationText}>
+              Прочитанных уведомлений нет
+            </div>
+          )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
