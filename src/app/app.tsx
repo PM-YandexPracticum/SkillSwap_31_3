@@ -14,7 +14,7 @@ import styles from './app.module.css';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Header, Footer } from '@features';
-import { TUser } from '@app/styles/typs';
+import { TUser } from '@api';
 import { useDispatch } from './store/store';
 import { userCardsThunk } from '@entities/UserCards';
 import { skillsThunk } from '@entities/Skills';

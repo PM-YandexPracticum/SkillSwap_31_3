@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { SkillCard } from '@features';
 import { FiltersArea } from '@shared/ui/FiltersArea';
 import styles from './home.module.css';
-import { TUser, TSkill } from '@app/styles/typs';
+import { TUser, TSkill } from '@api';
 import { useState, useEffect } from 'react';
 import { getUserCardsApi, getSkillsApi, TUserCard } from '@api';
 import { selectUser } from '@entities';
