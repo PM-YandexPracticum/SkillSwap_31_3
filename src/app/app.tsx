@@ -1,6 +1,6 @@
 import {
   Home,
-  Profile,
+  ProfilePage,
   Modal,
   Login,
   Register,
@@ -45,7 +45,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/skill' element={<Skill />} />
-          <Route path='/profile' element={<NotFound404 />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<NotFound404 />} />
           <Route path='*' element={<NotFound404 />} />
