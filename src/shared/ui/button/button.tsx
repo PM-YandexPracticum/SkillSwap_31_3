@@ -24,7 +24,10 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={className}
-      onClick={onClick}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
       disabled={disabled}
       type={type}
     >

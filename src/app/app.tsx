@@ -1,6 +1,5 @@
 import {
   Home,
-  Profile,
   SkillCard,
   Modal,
   Login,
@@ -9,6 +8,8 @@ import {
   NotFound404,
   Error500
 } from '@pages';
+
+import { ProfileSettingsForm } from '@features';
 import './styles/index.css';
 import styles from './app.module.css';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
@@ -44,7 +45,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/skillCard' element={<SkillCard />} />
-          <Route path='/profile' element={<NotFound404 />} />
+          <Route path='/profile' element={<ProfileSettingsForm />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<NotFound404 />} />
           <Route path='*' element={<NotFound404 />} />
