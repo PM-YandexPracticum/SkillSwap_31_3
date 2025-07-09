@@ -4,12 +4,19 @@ import { Text } from '../Text/Text';
 import { SingleSelectDropdownProps } from './types';
 import arrowDown from '../../assets/icons/arrow-down.svg';
 import arrowUp from '../../assets/icons/arrow-up.svg';
-import styles from './SingleSelectDropdown.module.css'
+import styles from './SingleSelectDropdown.module.css';
 
 export const SingleSelectDropdown = React.memo(
-  ({ values, label, placeholder, selectedValue }: SingleSelectDropdownProps) => {
+  ({
+    values,
+    label,
+    placeholder,
+    selectedValue
+  }: SingleSelectDropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(selectedValue ? selectedValue : placeholder);
+    const [selected, setSelected] = useState(
+      selectedValue ? selectedValue : placeholder
+    );
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
