@@ -1,13 +1,13 @@
 import {
   Home,
-  Profile,
-  SkillCard,
+  ProfilePage,
   Modal,
   Login,
   Register,
   ProtectedRoute,
   NotFound404,
-  Error500
+  Error500,
+  Skill
 } from '@pages';
 import './styles/index.css';
 import styles from './app.module.css';
@@ -44,8 +44,8 @@ const App = () => {
       <div className={styles.main}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/skillCard' element={<SkillCard />} />
-          <Route path='/profile' element={<NotFound404 />} />
+          <Route path='/skill' element={<Skill />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<NotFound404 />} />
           <Route path='*' element={<NotFound404 />} />
