@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ModalLogic } from '@shared/ui/modal/modal';
+import { Modal } from '@shared/ui/modal/modal';
 import { ModalUI } from '@shared/ui/modal/modalUI';
 import doneIcon from '../../../../images/Done.svg';
 import styles from '../modal.module.css';
@@ -11,7 +11,7 @@ interface Props {
 
 export const Created: FC<Props> = ({ onClose }) => {
   return (
-    <ModalLogic onClose={onClose}>
+    <Modal onClose={onClose}>
       <ModalUI onClose={onClose}>
         <img
           src={doneIcon}
@@ -26,6 +26,6 @@ export const Created: FC<Props> = ({ onClose }) => {
           Готово
         </button>
       </ModalUI>
-    </ModalLogic>
+    </Modal>
   );
 };

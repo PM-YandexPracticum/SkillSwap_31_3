@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ModalLogic } from '@shared/ui/modal/modal';
+import { Modal } from '@shared/ui/modal/modal';
 import { ModalUI } from '@shared/ui/modal/modalUI';
 import UserCircle from '../../../../images/user-circle.svg';
 import styles from '../modal.module.css';
@@ -7,11 +7,12 @@ import React from 'react';
 
 interface Props {
   onClose: () => void;
+  onRegister: () => void;
 }
 
-export const NeedRegister: FC<Props> = ({ onClose }) => {
+export const NeedRegister: FC<Props> = ({ onClose, onRegister }) => {
   return (
-    <ModalLogic onClose={onClose}>
+    <Modal onClose={onClose}>
       <ModalUI onClose={onClose}>
         <img
           src={UserCircle}
@@ -22,10 +23,11 @@ export const NeedRegister: FC<Props> = ({ onClose }) => {
         <p className={styles['modal-subtitle']}>
           Для создания обмена нужна регистрация
         </p>
-        <button className={styles['modal-button']} onClick={onClose}>
+
+        <button className={styles['modal-button']} onClick={onRegister}>
           Зарегистрироваться
         </button>
       </ModalUI>
-    </ModalLogic>
+    </Modal>
   );
 };

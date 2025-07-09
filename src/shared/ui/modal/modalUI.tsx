@@ -7,7 +7,7 @@ interface ModalUIProps {
   children: React.ReactNode;
 }
 
-export const ModalUI: FC<ModalUIProps> = ({ onClose, children }) => {
+export const ModalUI: FC<ModalUIProps> = ({ children }) => {
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };

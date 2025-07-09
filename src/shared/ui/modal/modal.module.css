@@ -78,3 +78,21 @@
   margin-bottom: 32px;
   margin-bottom: 32px;
 }
+
+.imageList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.imageList img {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}

@@ -1,0 +1,55 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  min-width: 100px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid #2f3e1c;
+  font-size: 16px;
+  line-height: 24px;
+  box-sizing: border-box;
+}
+
+.textarea {
+  width: 100%;
+  min-width: 100px;
+  font-size: 16px;
+  font: inherit;
+  color: inherit;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: transparent;
+  box-sizing: border-box;
+  resize: none;
+  overflow: hidden;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #2f3e1c;
+  font-size: 16px;
+  padding-right: 38px;
+  cursor: text;
+  font-weight: 400;
+}
+
+.editLogo {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: url('/src/images/edit.svg') center/contain no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.wrapper.editing .editLogo {
+  opacity: 0.2;
+  pointer-events: none;
+}
