@@ -1,7 +1,7 @@
 .carouselWrapper {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .cardCarousel {
@@ -15,7 +15,7 @@
 }
 
 .cardWrapper {
-  flex: 1 0 calc(100% / 4);
+  flex: 0 0 324px;
   scroll-snap-align: start;
   box-sizing: border-box;
   min-width: 0;
@@ -26,11 +26,11 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
+  background: var(--disabled);
+  color: var(--caption);
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -42,22 +42,24 @@
 }
 
 .carouselArrowLeft {
-  left: 10px;
+  left: 0;
+  transform: translate(-50%, -50%); /* Сдвигаем на 50% влево */
 }
 
 .carouselArrowRight {
-  right: 10px;
+  right: 0;
+  transform: translate(50%, -50%); /* Сдвигаем на 50% вправо */
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1439px) {
   .cardWrapper {
-    flex: 1 0 calc(100% / 3);
+    flex: 0 0 calc((100% - 48px) / 3);
   }
 }
 
 @media (max-width: 992px) {
   .cardWrapper {
-    flex: 1 0 calc(100% / 2);
+    flex: 0 0 calc((100% - 48px) / 2);
   }
 }
 

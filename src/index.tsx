@@ -4,16 +4,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import '@app/styles/index.css';
 import App from './app/app';
 import { Provider } from 'react-redux';
-//import { store } from '../src/services/store';
+
+import store from '@app/store/store';
 
 const container = document.getElementById('root') as HTMLElement;
 const root = ReactDOMClient.createRoot(container!);
 
-// routing_issue#47
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  </Provider>
 );

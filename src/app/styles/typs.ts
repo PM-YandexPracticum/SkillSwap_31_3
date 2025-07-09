@@ -4,7 +4,7 @@ export type TUser = {
   city: string;
   age: string;
   gender: string;
-  image: string;
+  avatar: string;
   skillName: string;
   skillId: string;
   skillWants: string[];
@@ -12,7 +12,7 @@ export type TUser = {
   cratedAt: string;
   about?: string;
   text?: string;
-  images?: string[]
+  photos?: string[]
 };
 
 export type TSkill = {

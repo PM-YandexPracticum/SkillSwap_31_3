@@ -2,9 +2,10 @@ import { FC, useRef, useState, useEffect } from 'react';
 import styles from './CardOffersCarousel.module.css';
 import { TUser, TSkill } from '@app/styles/typs';
 import { SkillCard } from '../../../features/skillcard/skillcard';
+import { TUserCard } from '@api/types';
 
 interface CardOffersCarouselProps {
-  users: TUser[];
+  users: TUserCard[];
   likedUsers: string[];
   teachSkills: TSkill;
   learnSkills: TSkill[];
@@ -52,7 +53,7 @@ export const CardOffersCarousel: FC<CardOffersCarouselProps> = ({
   return (
     <div className={styles.carouselWrapper}>
       <div className={styles.cardCarousel} ref={carouselRef}>
-        {users.map((user: TUser, index: number) => (
+        {users.map((user: TUserCard, index: number) => (
           <div key={index} className={styles.cardWrapper}>
             <SkillCard
               data={user}
