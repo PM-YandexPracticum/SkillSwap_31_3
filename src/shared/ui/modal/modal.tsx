@@ -1,30 +1,37 @@
-import { FC, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { Overlay } from './overlay';
+import { FC, useEffect, memo } from 'react';
+import ReactDOM from 'react-dom';
+import { ModalUI } from './modalUI';
 import React from 'react';
 
 interface ModalProps {
+  title?: string;
   onClose: () => void;
   children: React.ReactNode;
 }
 
-export const Modal: FC<ModalProps> = ({ onClose, children }) => {
-  const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+const modalRoot = document.getElementById('modals');
 
+export const Modal: FC<ModalProps> = memo(({ onClose, children }) => {
   useEffect(() => {
-    const element = document.getElementById('modals');
-    setModalRoot(element);
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
 
+    document.addEventListener('keydown', handleEsc);
     document.body.style.overflow = 'hidden';
+
     return () => {
+      document.removeEventListener('keydown', handleEsc);
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [onClose]);
 
   if (!modalRoot) return null;
 
-  return createPortal(
-    <Overlay onClick={onClose}>{children}</Overlay>,
+  return ReactDOM.createPortal(
+    <ModalUI onClose={onClose}>{children}</ModalUI>,
     modalRoot
   );
-};
+});

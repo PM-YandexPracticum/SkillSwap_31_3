@@ -10,5 +10,7 @@ export default {
 };
 export const Default = () => {
   const [open, setOpen] = useState(true);
-  return open ? <NeedRegister onClose={() => setOpen(false)} /> : null;
+  return open ? (
+    <NeedRegister onClose={() => setOpen(false)} onRegister={() => {}} />
+  ) : null;
 };
