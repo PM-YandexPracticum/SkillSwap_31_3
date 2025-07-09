@@ -1,13 +1,13 @@
 import {
   Home,
   Profile,
-  SkillCard,
   Modal,
   Login,
   Register,
   ProtectedRoute,
   NotFound404,
-  Error500
+  Error500,
+  Skill
 } from '@pages';
 import './styles/index.css';
 import styles from './app.module.css';
@@ -20,7 +20,6 @@ import { userCardsThunk } from '@entities/UserCards';
 import { skillsThunk } from '@entities/Skills';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@entities';
-import { Skill } from '@pages/skillCard/skill';
 
 const App = () => {
   const dispatch = useDispatch();
