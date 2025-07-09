@@ -15,13 +15,9 @@ type Story = StoryObj<typeof SingleSelectDropdown>;
 
 export const Default: Story = {
   args: {
-    values: [
-      'Не указан',
-      'Мужской',
-      'Женский'
-    ],
+    values: ['Не указан', 'Мужской', 'Женский'],
     placeholder: 'Не указан',
-    label: 'Пол',
+    label: 'Пол'
   },
   decorators: [
     (Story) => (
