@@ -5,7 +5,7 @@ import { TUserCard } from '@api/types';
 
 interface CardOffersCarouselProps {
   users: TUserCard[];
-  likedUsers: string[];
+  likedUsers?: string[];
   learnSkills: string[];
   onLikeToggle: (userId: string) => void;
 }
@@ -56,7 +56,7 @@ export const CardOffersCarousel: FC<CardOffersCarouselProps> = ({
               data={user}
               learnSkills={learnSkills}
               onLikeToggle={() => onLikeToggle(user._id)}
-              isLiked={likedUsers.includes(user._id)}
+              isLiked={likedUsers?.includes(user._id)}
               onDetailsClick={() => console.log('Details clicked')}
             />
           </div>

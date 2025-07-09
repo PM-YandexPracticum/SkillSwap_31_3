@@ -12,11 +12,13 @@ import image4 from './images/image4.jpg';
 
 import moreSquare from '../../images/more-square.svg';
 import share from '../../images/share.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
 import { TSkill, TUserCard } from '@api/types';
+import { useSelector, useDispatch } from '@app/store/store';
+import { selectIsUserAuth, selectUser, userThunk } from '@entities';
 
 export type TUserSkill = TUserCard & {
   about?: string;
@@ -121,17 +123,27 @@ const usersData: TUserSkill[] = [
 ];
 
 export const Skill: React.FC = () => {
-  const [likedUsers, setLikedUsers] = useState<string[]>([]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userData = useSelector(selectUser);
+  const userAuto = useSelector(selectIsUserAuth);
 
   const user = usersData[0];
 
-  // Функция переключения лайка
-  const handleLikeToggle = (userId: string) => {
-    setLikedUsers((prev) =>
-      prev.includes(userId)
-        ? prev.filter((id) => id !== userId)
-        : [...prev, userId]
-    );
+  const handleLikeToggle = (id: string) => {
+    if (!userAuto) {
+      console.log('Пользователь не авторизован');
+      navigate('/login');
+      return;
+    }
+
+    const isLiked = userData!.favorites.includes(id);
+
+    if (isLiked) {
+      dispatch(userThunk.deleteLike(id));
+    } else {
+      dispatch(userThunk.putLike(id));
+    }
   };
 
   // Получаем навык, которому может научить
@@ -199,7 +211,7 @@ export const Skill: React.FC = () => {
           <div className={styles.actionOffer}>
             <ToggleLike
               onChange={() => handleLikeToggle(user._id)}
-              checked={likedUsers.includes(user._id)}
+              checked={userData?.favorites.includes(user._id)}
             />
             <Link to='#'>
               <img src={share} alt='share' />
@@ -236,7 +248,7 @@ export const Skill: React.FC = () => {
         <h2>Похожие предложения</h2>
         <CardOffersCarousel
           users={usersData}
-          likedUsers={likedUsers}
+          likedUsers={userData?.favorites}
           learnSkills={user.skillWants}
           onLikeToggle={handleLikeToggle}
         />
