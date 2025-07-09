@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { InputDateUI } from './InputDate';
@@ -13,5 +14,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const inputDate: Story = {
-  render: InputDateUI
+  render: (args) => <InputDateUI date={new Date('2013-04-27')} {...args} />
 };

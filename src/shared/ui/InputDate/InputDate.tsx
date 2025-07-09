@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { ru } from 'date-fns/locale/ru';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -7,8 +7,12 @@ import './custom-datepicker.css';
 
 registerLocale('ru', ru);
 
-export const InputDateUI = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>();
+export type TInputDate = {
+  date: Date | null;
+};
+
+export const InputDateUI: FC<TInputDate> = ({ date }) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(date);
 
   return (
     <DatePicker

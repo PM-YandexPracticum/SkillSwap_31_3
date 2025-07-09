@@ -1,1 +1,1 @@
-import { InputDateUI } from './InputDate';
+export { InputDateUI } from './InputDate';
