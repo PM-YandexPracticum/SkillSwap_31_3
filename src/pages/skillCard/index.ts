@@ -1,1 +1,1 @@
-export { SkillCard } from './skillCard';
+export { SkillCard } from './skill';

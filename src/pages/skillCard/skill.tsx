@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import styles from './skillCard.module.css';
+import styles from './skill.module.css';
 import React, { useState } from 'react';
 import { TSkill, TUser } from '@app/styles/typs';
 import skillsData from '../../../public/db/skills.json';
@@ -103,7 +103,7 @@ const usersData: TUser[] = [
   }
 ];
 
-export const SkillCard: React.FC = () => {
+export const Skill: React.FC = () => {
   const [likedUsers, setLikedUsers] = useState<string[]>([]);
 
   const user = usersData[0];

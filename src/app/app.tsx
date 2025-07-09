@@ -20,6 +20,7 @@ import { userCardsThunk } from '@entities/UserCards';
 import { skillsThunk } from '@entities/Skills';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@entities';
+import { Skill } from '@pages/skillCard/skill';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const App = () => {
       <div className={styles.main}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/skillCard' element={<SkillCard />} />
+          <Route path='/skill' element={<Skill />} />
           <Route path='/profile' element={<NotFound404 />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<NotFound404 />} />
