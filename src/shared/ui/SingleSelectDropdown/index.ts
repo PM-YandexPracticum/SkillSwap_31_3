@@ -1,1 +1,1 @@
-export { MultipleSelectDropdown } from './SingleSelectDropdown';
+export { SingleSelectDropdown } from './SingleSelectDropdown';
