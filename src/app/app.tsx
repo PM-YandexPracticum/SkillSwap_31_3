@@ -1,13 +1,13 @@
 import {
   Home,
   Profile,
-  SkillCard,
   Modal,
   Login,
   Register,
   ProtectedRoute,
   NotFound404,
-  Error500
+  Error500,
+  Skill
 } from '@pages';
 import './styles/index.css';
 import styles from './app.module.css';
@@ -37,13 +37,14 @@ const App = () => {
     dispatch(userCardsThunk.getUserCards());
     dispatch(skillsThunk.getSkills());
   }, []);
+
   return (
     <div className={styles.app}>
       <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
       <div className={styles.main}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/skillCard' element={<SkillCard />} />
+          <Route path='/skill' element={<Skill />} />
           <Route path='/profile' element={<NotFound404 />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<NotFound404 />} />

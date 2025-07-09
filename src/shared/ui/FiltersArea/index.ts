@@ -1,1 +1,0 @@
-export { FiltersArea } from './FiltersArea';
