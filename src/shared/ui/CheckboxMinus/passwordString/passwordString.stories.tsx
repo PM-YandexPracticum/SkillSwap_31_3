@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import SecureInput from '../passwordString/passwordString';
+import SecureInput from './passwordString';
 
 const meta: Meta<typeof SecureInput> = {
   title: 'Components/SecureInput',
@@ -16,6 +16,17 @@ const meta: Meta<typeof SecureInput> = {
 export default meta;
 
 export const Default: StoryObj<typeof SecureInput> = {
+  render: (args) => {
+    const [value, setValue] = useState('');
+
+    return (
+      <SecureInput
+        {...args}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    );
+  },
   args: {
     placeholder: 'Введите ваш пароль',
     security: true,
@@ -25,6 +36,17 @@ export const Default: StoryObj<typeof SecureInput> = {
 };
 
 export const WithError: StoryObj<typeof SecureInput> = {
+  render: (args) => {
+    const [value, setValue] = useState('');
+
+    return (
+      <SecureInput
+        {...args}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    );
+  },
   args: {
     placeholder: 'Введите ваш пароль',
     security: true,

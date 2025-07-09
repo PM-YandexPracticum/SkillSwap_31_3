@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './passwordString.css';
 
 interface SecureInputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   security?: boolean;
   color?: string;
@@ -9,32 +11,31 @@ interface SecureInputProps {
 }
 
 const SecureInput: React.FC<SecureInputProps> = ({
+  value,
+  onChange,
   placeholder,
   security = false,
   color = '#000000',
   error = ''
 }) => {
-  const [value, setValue] = useState('');
   const [isTouched, setIsTouched] = useState(false);
   const [isHidden, setIsHidden] = useState(security);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    setIsTouched(true);
-  };
 
   const isValid = /^[a-zA-Z]{8,}$/.test(value);
   const showError = isTouched && !isValid;
 
   return (
     <div className='input-wrapper'>
-      <label className='input-label'>Имя</label>
+      <label className='input-label'>Пароль</label>
       <div className={`input-container ${showError ? 'input-error' : ''}`}>
         <input
           type={isHidden ? 'password' : 'text'}
           placeholder={placeholder}
           value={value}
-          onChange={handleChange}
+          onChange={(e) => {
+            onChange(e);
+            setIsTouched(true);
+          }}
           onBlur={() => setIsTouched(true)}
           style={{ color }}
         />
