@@ -7,15 +7,13 @@ import { TUserCard } from '@api/types';
 interface CardOffersCarouselProps {
   users: TUserCard[];
   likedUsers: string[];
-  teachSkills: TSkill;
-  learnSkills: TSkill[];
+  learnSkills: string[];
   onLikeToggle: (userId: string) => void;
 }
 
 export const CardOffersCarousel: FC<CardOffersCarouselProps> = ({
   users,
   likedUsers,
-  teachSkills,
   learnSkills,
   onLikeToggle
 }) => {
@@ -57,7 +55,6 @@ export const CardOffersCarousel: FC<CardOffersCarouselProps> = ({
           <div key={index} className={styles.cardWrapper}>
             <SkillCard
               data={user}
-              teachSkills={teachSkills}
               learnSkills={learnSkills}
               onLikeToggle={() => onLikeToggle(user._id)}
               isLiked={likedUsers.includes(user._id)}

@@ -17,24 +17,27 @@ import { Link } from 'react-router-dom';
 import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
+import { TUserCard } from '@api/types';
 
-const usersData: TUser[] = [
+export type TUserSkill = TUserCard & {
+  about?: string;
+};
+const usersData: TUserSkill[] = [
   {
     _id: '1',
     name: 'Иван',
     city: 'Санкт-Петербург',
     age: '34',
     gender: 'male',
-    image: '4dd5fb27150ba4c12797e6d6af90c48b27853d2e.jpg',
+    avatar: '4dd5fb27150ba4c12797e6d6af90c48b27853d2e.jpg',
     skillName: 'Игра на барабанах',
     skillId: '31',
     skillWants: ['12', '42', '23', '5'],
-    like: 5,
-    cratedAt: '2025-04-22',
     about:
       'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
-    text: 'Привет! Я играю на барабанах уже больше 10 лет — о репетиций в гараже до выступлений н сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры',
-    images: [image, image2, image3, image4]
+    description:
+      'Привет! Я играю на барабанах уже больше 10 лет — о репетиций в гараже до выступлений н сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры',
+    photos: [image, image2, image3, image4]
   },
   {
     _id: '2',
@@ -42,12 +45,15 @@ const usersData: TUser[] = [
     city: 'Казань',
     age: '26',
     gender: 'female',
-    image: '25d1a77020008b9e3f08babd1f67f01cdb8f89d6.jpg',
+    avatar: '25d1a77020008b9e3f08babd1f67f01cdb8f89d6.jpg',
     skillName: 'Английский язык',
     skillId: '15',
     skillWants: ['12', '42', '23', '5'],
-    like: 89,
-    cratedAt: '2024-12-29'
+    about:
+      'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
+    description:
+      'Привет! Я играю на барабанах уже больше 10 лет — о репетиций в гараже до выступлений н сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры',
+    photos: [image, image2, image3, image4]
   },
   {
     _id: '3',
@@ -55,12 +61,15 @@ const usersData: TUser[] = [
     city: 'Москва',
     age: '23',
     gender: 'male',
-    image: '3f997ac88310448974cf239a72bad8ef817f985f.jpg',
+    avatar: '3f997ac88310448974cf239a72bad8ef817f985f.jpg',
     skillName: 'Бизнес-план',
     skillId: '14',
     skillWants: ['12', '42', '23', '5'],
-    like: 65,
-    cratedAt: '2025-05-15'
+    about:
+      'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
+    description:
+      'Привет! Я играю на барабанах уже больше 10 лет — о репетиций в гараже до выступлений н сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры',
+    photos: [image, image2, image3, image4]
   },
   {
     _id: '4',
@@ -68,12 +77,15 @@ const usersData: TUser[] = [
     city: 'Екатеринбург',
     age: '33',
     gender: 'female',
-    image: 'd0400c167c2b5599f72e19a01b70f51fb477fb65.jpg',
+    avatar: 'd0400c167c2b5599f72e19a01b70f51fb477fb65.jpg',
     skillName: 'Английский язык',
     skillId: '15',
     skillWants: ['12', '42', '23', '5'],
-    like: 96,
-    cratedAt: '2025-04-29'
+    about:
+      'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
+    description:
+      'Привет! Я играю на барабанах уже больше 10 лет — о репетиций в гараже до выступлений н сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры',
+    photos: [image, image2, image3, image4]
   },
   {
     _id: '5',
@@ -81,12 +93,15 @@ const usersData: TUser[] = [
     city: 'Новосибирск',
     age: '29',
     gender: 'male',
-    image: '8ece67ec5c10e439951d37b38e99e3eb549a39e9.jpg',
+    avatar: '8ece67ec5c10e439951d37b38e99e3eb549a39e9.jpg',
     skillName: 'Английский язык',
     skillId: '15',
     skillWants: ['12', '42', '23', '5'],
-    like: 46,
-    cratedAt: '2024-07-10'
+    about:
+      'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
+    description:
+      'Привет! Я играю на барабанах уже больше 10 лет — о репетиций в гараже до выступлений н сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры',
+    photos: [image, image2, image3, image4]
   },
   {
     _id: '6',
@@ -94,12 +109,15 @@ const usersData: TUser[] = [
     city: 'Краснодар',
     age: '21',
     gender: 'female',
-    image: 'cdadf12938e46556fb74ea7e1316f36893b432c2.jpg',
+    avatar: 'cdadf12938e46556fb74ea7e1316f36893b432c2.jpg',
     skillName: 'Английский язык',
     skillId: '15',
     skillWants: ['12', '42', '23', '5'],
-    like: 1,
-    cratedAt: '2025-02-11'
+    about:
+      'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
+    description:
+      'Привет! Я играю на барабанах уже больше 10 лет — о репетиций в гараже до выступлений н сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры',
+    photos: [image, image2, image3, image4]
   }
 ];
 
@@ -142,7 +160,7 @@ export const Skill: React.FC = () => {
             <div className={styles.cardsUserInfo}>
               <img
                 className={`${styles.avatar} ${styles.medium}`}
-                style={{ backgroundImage: `url(./images/${user.image})` }}
+                src={user.avatar}
               />
               <div className={styles.cardText}>
                 <div className={styles.name}>{user.name}</div>
@@ -198,7 +216,7 @@ export const Skill: React.FC = () => {
                   <h2>{user.skillName}</h2>
                   <p className={styles.category}>{category}</p>
                 </div>
-                <p className={styles.text}>{user.text}</p>
+                <p className={styles.text}>{user.description}</p>
               </div>
 
               <Button
@@ -210,7 +228,7 @@ export const Skill: React.FC = () => {
             </div>
             {/* Галерея пользователя */}
             <div className={styles.imageContainer}>
-              <ImageCarousel images={user.images!} />
+              <ImageCarousel images={user.photos} />
             </div>
           </div>
         </div>
@@ -220,9 +238,8 @@ export const Skill: React.FC = () => {
         <CardOffersCarousel
           users={usersData}
           likedUsers={likedUsers}
-          teachSkills={getWantToTeachSkills}
-          learnSkills={getWantToLearnSkills}
-          onLikeToggle={() => (window.location.href = '/skill')}
+          learnSkills={user.skillWants}
+          onLikeToggle={handleLikeToggle}
         />
       </div>
     </div>
