@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import styles from './skill.module.css';
 import React, { useState } from 'react';
-import { TSkill, TUser } from '@app/styles/typs';
 import skillsData from '../../../public/db/skills.json';
 import { Tag } from '@shared/ui/tag';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
@@ -17,7 +16,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
-import { TUserCard } from '@api/types';
+import { TSkill, TUserCard } from '@api/types';
 
 export type TUserSkill = TUserCard & {
   about?: string;

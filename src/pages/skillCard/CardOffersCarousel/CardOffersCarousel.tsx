@@ -1,6 +1,5 @@
 import { FC, useRef, useState, useEffect } from 'react';
 import styles from './CardOffersCarousel.module.css';
-import { TUser, TSkill } from '@app/styles/typs';
 import { SkillCard } from '../../../features/skillcard/skillcard';
 import { TUserCard } from '@api/types';
 
