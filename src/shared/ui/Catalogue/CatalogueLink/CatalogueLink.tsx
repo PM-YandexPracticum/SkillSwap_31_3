@@ -1,7 +1,7 @@
 import React from 'react';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { TSkill } from '../common-type';
+import { TSkill } from '@api';
 import styles from '../common.module.css';
 
 type CatalogueLinkProps = {

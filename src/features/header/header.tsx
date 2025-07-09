@@ -5,7 +5,7 @@ import Arrow from '@shared/assets/icons/arrow-down.svg';
 import { Link } from 'react-router-dom';
 import SearchBar from '@shared/ui/SearchBar/search-bar';
 import { Button } from '@shared/ui/button/button';
-import { TUser } from './types';
+import { TUserCard } from '@api';
 import { Notification } from '@shared/ui/Notification/Notification';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import MoonIcon from '@shared/ui/MoonIcon/MoonIcon';
@@ -13,7 +13,7 @@ import ClearIcon from '@shared/assets/icons/cross.svg';
 
 interface HeaderProps {
   isLoggedIn: boolean;
-  data?: TUser;
+  data?: TUserCard | null;
   isFormOpen?: boolean;
   onCloseForm?: () => void;
 }
@@ -110,7 +110,7 @@ export const Header: FC<HeaderProps> = ({
                 <div
                   className={styles.userAvatar}
                   style={{
-                    backgroundImage: `url(./images/${data.image})`
+                    backgroundImage: `url(./images/${data.photos})`
                   }}
                 />
               )}

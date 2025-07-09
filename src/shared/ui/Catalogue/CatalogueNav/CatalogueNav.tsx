@@ -1,7 +1,7 @@
 import React from 'react';
 import { FC } from 'react';
 import { CatalogueLinkUI } from '@shared/ui/Catalogue';
-import { TSkill } from '../common-type';
+import { TSkill } from '@api';
 import styles from '../common.module.css';
 
 import briefcaseIcon from '../../../assets/icons/briefcase.svg';

@@ -92,6 +92,10 @@ const config: JestConfigWithTsJest = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
+    '^@entities/(.*)$': '<rootDir>/src/entities/$1',
+    '^@shared/(.*)$': '<rootDir>/src/shared/$1',
+    '^@api/(.*)$': '<rootDir>/src/api/$1',
+    '^@api$': '<rootDir>/src/api/index'
     //тут согкращения путей импорта п: '^@components': '<rootDir>/src/components'
   },
 
