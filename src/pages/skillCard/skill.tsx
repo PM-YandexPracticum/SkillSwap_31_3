@@ -12,10 +12,21 @@ import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
 import { TSkill, TUserCard } from '@api/types';
-import { selectUserCards } from '@entities/UserCards/model/selectors';
+import {
+  selectExchangeRequest,
+  selectUserCardError,
+  selectUserCards,
+  selectUserLoading
+} from '@entities/UserCards/model/selectors';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
-import { selectIsUserAuth, selectUser, userThunk } from '@entities';
+import {
+  selectIsUserAuth,
+  selectUser,
+  userCardsThunk,
+  userThunk
+} from '@entities';
 import { useSelector, useDispatch } from '@app/store/store';
+import { Preloader } from '@shared/ui/preloader';
 
 export const Skill: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,7 +37,23 @@ export const Skill: React.FC = () => {
   const skils = useSelector(selectUser);
   const cards = useSelector(selectUserCards);
   const allSkills = useSelector(selectAllSkills);
+
+  const exchangeRequestStatus = useSelector(selectExchangeRequest);
+  const exchangeError = useSelector(selectUserCardError);
+  const exchangeLoading = useSelector(selectUserLoading);
+
   const user: TUserCard = cards.find((card) => card._id === id)!;
+
+  const handleExchangeRequest = () => {
+    if (!localStorage.getItem('email')) {
+      navigate('/login');
+      return;
+    }
+
+    if (exchangeRequestStatus) return;
+
+    disp(userCardsThunk.exchangeRequest());
+  };
 
   // Функция переключения лайка
   const handleLikeToggle = (id: string) => {
@@ -62,6 +89,11 @@ export const Skill: React.FC = () => {
 
   return (
     <div className={styles.mainContent}>
+      {exchangeLoading && (
+        <div className={styles.loaderOverlay}>
+          <Preloader />
+        </div>
+      )}
       <div className={styles.usreInfoContainer}>
         <div className={styles.cardsContainer}>
           <div className={styles.cardsHeader}>
@@ -128,10 +160,15 @@ export const Skill: React.FC = () => {
               </div>
 
               <Button
-                onClick={() => console.log('Details clicked')}
+                onClick={handleExchangeRequest}
                 type='button'
+                disabled={exchangeRequestStatus || exchangeLoading}
               >
-                Предложить обмен
+                {exchangeLoading
+                  ? 'Загрузка...'
+                  : exchangeRequestStatus
+                    ? 'Отправка...'
+                    : 'Предложить обмен'}
               </Button>
             </div>
             {/* Галерея пользователя */}

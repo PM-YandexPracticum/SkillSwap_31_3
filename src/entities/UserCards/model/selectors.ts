@@ -16,3 +16,8 @@ export const selectUserCardError = createSelector(
   getUserCardsData,
   (state) => state.error
 );
+
+export const selectUserLoading = createSelector(
+  getUserCardsData,
+  (state) => state.isLoading
+);
