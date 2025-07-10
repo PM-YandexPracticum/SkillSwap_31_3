@@ -8,7 +8,7 @@ import { userThunk } from '@entities/User';
 // Стор
 import { useDispatch, useSelector } from '@app/store/store';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
-
+import { useNavigate } from 'react-router-dom';
 interface RegistrationFormStep3Props {
   onNextStep: () => void;
   onPrevStep: () => void;
@@ -22,6 +22,7 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
   formData,
   setFormData
 }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allSkills = useSelector(selectAllSkills);
 
@@ -172,7 +173,13 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
           variant='primary'
           size='large'
           children='Продолжить'
-          onClick={handleSubmit}
+          onClick={() =>
+            navigate('/register/confirm', {
+              state: {
+                formData
+              }
+            })
+          }
           disabled={!isFormValid}
         />
       </div>

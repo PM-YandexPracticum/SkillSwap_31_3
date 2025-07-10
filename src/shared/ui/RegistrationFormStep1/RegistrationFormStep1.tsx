@@ -117,7 +117,7 @@ const RegistrationFormStep1: React.FC<RegistrationFormStep1Props> = ({
         size='large'
         children='Далее'
         disabled={!isFormValid}
-        onClick={() => {}}
+        onClick={handleSubmit}
       />
     </form>
   );

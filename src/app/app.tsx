@@ -86,15 +86,18 @@ const App = () => {
             }
           />
           <Route
+            path='/offered'
+            element={<Offered onClose={() => navigate('/')} />}
+          />
+
+          <Route
             path='/register/confirm'
             element={
-              <ProtectedRoute>
-                <ConfirmModal
-                  onClose={() => navigate(-1)}
-                  data={mockData}
-                  submit={() => navigate('/offered')}
-                />
-              </ProtectedRoute>
+              <ConfirmModal
+                onClose={() => navigate(-1)}
+                data={mockData}
+                submit={() => navigate('/offered')}
+              />
             }
           />
 
@@ -108,19 +111,6 @@ const App = () => {
           />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
-
-        {background && (
-          <Routes>
-            <Route
-              path='/offered'
-              element={
-                <ProtectedRoute>
-                  <Offered onClose={() => navigate('/')} />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        )}
       </div>
       <div className={styles.footer}>{!isRegisterRoute && <Footer />}</div>
     </div>
