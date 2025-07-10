@@ -21,7 +21,7 @@ import { userCardsThunk } from '@entities/UserCards';
 import { skillsThunk } from '@entities/Skills';
 import { useSelector, useDispatch } from './store/store';
 import { selectUser } from '@entities';
-
+import { setIsAuthChecked } from '@entities/User/store';
 const mockData = {
   email: 'test@mail.ru',
   password: '1111',
@@ -30,7 +30,7 @@ const mockData = {
   age: '',
   description: 'Что-то. О чём-то',
   gender: 'Мужской',
-  avatar: undefined,
+  avatar: '',
   photos: [],
   skillName: 'SomeSkill',
   skillCanTeachCategory: '1',
@@ -54,6 +54,10 @@ const App = () => {
   useEffect(() => {
     dispatch(userCardsThunk.getUserCards());
     dispatch(skillsThunk.getSkills());
+
+    if (!localStorage.getItem('email')) {
+      dispatch(setIsAuthChecked(true));
+    }
   }, []);
 
   return (
@@ -78,14 +82,6 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <ProfilePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path='/login'
-            element={
-              <ProtectedRoute onlyUnAuth>
-                <Login />
               </ProtectedRoute>
             }
           />

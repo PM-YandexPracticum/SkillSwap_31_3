@@ -13,7 +13,6 @@ export const InputDateUI = ({
 }: {
   onChange: (date: Date | null) => void;
   selectedDate: Date;
-
 }) => (
   <DatePicker
     calendarClassName='custom-calendar'
