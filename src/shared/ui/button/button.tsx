@@ -4,7 +4,7 @@ import '../button/button.css';
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (value?: any) => void;
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   variant?: 'primary' | 'secondary' | 'tertiary';
@@ -24,7 +24,10 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={className}
-      onClick={onClick}
+      onClick={(e) => {
+        e.preventDefault();
+        type === 'submit' ? onClick(e) : onClick();
+      }}
       disabled={disabled}
       type={type}
     >

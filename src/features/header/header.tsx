@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import styles from './Header.module.css';
 import SkillSwapLogo from '@shared/assets/icons/Logo.svg';
 import Arrow from '@shared/assets/icons/arrow-down.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '@shared/ui/SearchBar/search-bar';
 import { Button } from '@shared/ui/button/button';
 import { TUserCard } from '@api';
@@ -24,6 +24,8 @@ export const Header: FC<HeaderProps> = ({
   isFormOpen = false,
   onCloseForm = () => {}
 }) => {
+  const navigate = useNavigate();
+
   // Состояние для уведомлений
   const [hasUnreadNotifications, setHasUnreadNotifications] =
     useState<boolean>(true);
@@ -43,6 +45,12 @@ export const Header: FC<HeaderProps> = ({
   const onLikeToggle = (value: boolean) => {
     setIsLiked(value);
   };
+
+  const handleCloseForm = () => {
+    navigate(-1); // Перешли на предыдущую страницу
+    onCloseForm();
+  };
+
   if (isFormOpen) {
     return (
       <header className={`${styles.header} ${styles.headerFormOpen}`}>
@@ -56,7 +64,7 @@ export const Header: FC<HeaderProps> = ({
           </Link>
         </div>
         <div className={styles.rightSection}>
-          <Button variant='secondary' size='medium' onClick={onCloseForm}>
+          <Button variant='secondary' size='medium' onClick={handleCloseForm}>
             Закрыть
             <img src={ClearIcon} alt='Close' className={styles.clearIcon} />
           </Button>

@@ -9,6 +9,7 @@ import {
   Error500,
   Skill
 } from '@pages';
+
 import { ConfirmModal, Created, NeedRegister, Offered } from '@widgets';
 import './styles/index.css';
 import styles from './app.module.css';
@@ -49,7 +50,7 @@ const App = () => {
   const background = location.state && location.state.background;
   const userData = useSelector(selectUser);
   const isLoggedIn = false;
-
+  const isRegisterRoute = location.pathname === '/register';
   useEffect(() => {
     dispatch(userCardsThunk.getUserCards());
     dispatch(skillsThunk.getSkills());
@@ -57,11 +58,14 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        data={userData?.userCard}
+        isFormOpen={isRegisterRoute}
+      />
       <div className={styles.main}>
         <Routes location={background || location}>
           <Route path='/' element={<Home />} />
-
           <Route
             path='/skill/exchenge'
             element={<Created onClose={() => navigate(-1)} />}
@@ -122,9 +126,7 @@ const App = () => {
           </Routes>
         )}
       </div>
-      <div className={styles.footer}>
-        <Footer />
-      </div>
+      <div className={styles.footer}>{!isRegisterRoute && <Footer />}</div>
     </div>
   );
 };

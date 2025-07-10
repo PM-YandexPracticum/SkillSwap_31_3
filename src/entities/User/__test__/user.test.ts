@@ -11,17 +11,20 @@ import {
   selectAuthChecked,
   selectAuthError,
   selectUser,
-  selectIsUserAuth
+  selectIsUserAuth,
+  selectUserProfileData
 } from '@entities/User';
 
 import { TRegisterData, TUserCard } from '@api';
+
+const date = new Date();
 
 const mockData: TRegisterData = {
   email: 'test@mail.ru',
   password: '1111',
   name: 'Василий',
   city: 'Томск',
-  age: new Date(),
+  age: date,
   description: 'Что-то. О чём-то',
   gender: 'Мужской',
   avatar: undefined,
@@ -65,7 +68,17 @@ describe('тест работы userSlice', () => {
         expect(state.error).toBe('Какая-то ошибка');
       });
     });
+    describe('тест экшена updateUser', () => {
+      test('тест состояния fulfilled', () => {
+        const action = {
+          type: userThunk.updateUser.fulfilled.type,
+          payload: mockData
+        };
+        const state = userReducer(userInitialState, action);
 
+        expect(state.user).toEqual(mockData);
+      });
+    });
     describe('тест экшена logout', () => {
       test('тест состояния fulfilled', () => {
         const action = { type: userThunk.logout.fulfilled.type };
@@ -181,6 +194,21 @@ describe('тест работы userSlice', () => {
     test('тест селектора selectIsUserAuth', () => {
       const expectedUserExist = selectIsUserAuth(store.getState() as RootState);
       expect(expectedUserExist).toBeTruthy;
+    });
+    test('тест селектора selectUserProfileData', () => {
+      const expectedUserProfileData = selectUserProfileData(
+        store.getState() as RootState
+      );
+      expect(expectedUserProfileData).toEqual({
+        email: 'test@mail.ru',
+        password: '1111',
+        name: 'Василий',
+        city: 'Томск',
+        gender: 'Мужской',
+        age: date,
+        avatar: undefined,
+        description: 'Что-то. О чём-то'
+      });
     });
   });
 });
