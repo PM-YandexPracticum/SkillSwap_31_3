@@ -26,7 +26,7 @@ const mockData = {
   password: '1111',
   name: 'Василий',
   city: 'Томск',
-  age: new Date().getDate.toString,
+  age: '',
   description: 'Что-то. О чём-то',
   gender: 'Мужской',
   avatar: undefined,
@@ -37,22 +37,6 @@ const mockData = {
   skillWants: ['1'],
   skillId: '1'
 };
-export type TRegisterData = {
-  email: string;
-  password: string;
-  name: string;
-  age: string;
-  gender: string;
-  city: string;
-  skillId: string;
-  skillWants: string[];
-  skillName: string;
-  skillCanTeachCategory: string;
-  skillCanTeachSubCategory: string;
-  description: string;
-  avatar: string;
-  photos: string[];
-};
 
 const App = () => {
   const dispatch = useDispatch();
@@ -62,7 +46,6 @@ const App = () => {
   //const error = useSelector(getError);
 
   const location = useLocation();
-  const background = location.state && location.state.background;
   const userData = useSelector(selectUser);
   const isLoggedIn = false;
 
@@ -75,7 +58,7 @@ const App = () => {
     <div className={styles.app}>
       <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
       <div className={styles.main}>
-        <Routes location={background || location}>
+        <Routes location={location}>
           <Route path='/' element={<Home />} />
           <Route path='/skill' element={<Skill />} />
           <Route
@@ -106,36 +89,38 @@ const App = () => {
           <Route path='*' element={<NotFound404 />} />
         </Routes>
 
-        {background && (
-          <Routes>
-            <Route
-              path='/skill/exchenge'
-              element={<Created onClose={() => navigate(-1)} />}
-            />
+        <Routes>
+          <Route
+            path='/skill/exchenge'
+            element={
+              <ProtectedRoute>
+                <Created onClose={() => navigate(-1)} />
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path='/register/confirm'
-              element={
-                <ProtectedRoute>
-                  <ConfirmModal
-                    onClose={() => navigate(-1)}
-                    data={mockData}
-                    submit={() => navigate('/offered')}
-                  />
-                </ProtectedRoute>
-              }
-            />
+          <Route
+            path='/register/confirm'
+            element={
+              <ProtectedRoute>
+                <ConfirmModal
+                  onClose={() => navigate(-1)}
+                  data={mockData}
+                  submit={() => navigate('/offered')}
+                />
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path='/offered'
-              element={
-                <ProtectedRoute>
-                  <Offered onClose={() => navigate('/')} />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        )}
+          <Route
+            path='/offered'
+            element={
+              <ProtectedRoute>
+                <Offered onClose={() => navigate('/')} />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
       </div>
       <div className={styles.footer}>
         <Footer />

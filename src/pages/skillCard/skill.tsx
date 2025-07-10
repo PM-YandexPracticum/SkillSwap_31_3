@@ -17,6 +17,7 @@ import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
 import { TSkill, TUserCard } from '@api/types';
+import { useNavigate } from 'react-router-dom';
 
 export type TUserSkill = TUserCard & {
   about?: string;
@@ -121,6 +122,8 @@ const usersData: TUserSkill[] = [
 ];
 
 export const Skill: React.FC = () => {
+  const navigate = useNavigate();
+
   const [likedUsers, setLikedUsers] = useState<string[]>([]);
 
   const user = usersData[0];
@@ -219,7 +222,9 @@ export const Skill: React.FC = () => {
               </div>
 
               <Button
-                onClick={() => console.log('Details clicked')}
+                onClick={() => {
+                  navigate('/skill/exchenge');
+                }}
                 type='button'
               >
                 Предложить обмен
