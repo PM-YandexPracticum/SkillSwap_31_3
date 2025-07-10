@@ -15,7 +15,7 @@ type CheckboxListProps = {
   onClick?: () => void;
 };
 
-export const CheckboxList = (props: CheckboxListProps) => {
+export const CheckboxListSubcategory = (props: CheckboxListProps) => {
   const { name, options, selected, onChange, checkboxClass, onClick } = props;
 
   const [selectedOptions, setselectedOptions] = useState<string[]>([]);
@@ -38,7 +38,7 @@ export const CheckboxList = (props: CheckboxListProps) => {
             selected={selectedOptions}
             onChange={() => handleChange(option.value)}
             option={option}
-            checkboxClass={clsx(styles.checkboxCategory)}
+            checkboxClass={clsx(styles.checkboxSubcategory)}
             onClick={onClick}
           />
         ))}
