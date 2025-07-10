@@ -9,14 +9,15 @@ button {
 }
 
 .container {
-  padding: 48px 0 0 50px;
+  padding: 20px;
   background-color: var(--card);
   border-radius: 20px;
-  width: 324px;
+  min-width: 324px;
 }
 
 .section {
   margin-bottom: 32px;
+  padding-right: 20px;
 }
 
 .section:last-child {

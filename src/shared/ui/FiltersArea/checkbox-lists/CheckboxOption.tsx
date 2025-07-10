@@ -20,6 +20,7 @@ type CheckboxListOptionProps = {
 };
 
 export const CheckboxOption = (props: CheckboxListOptionProps) => {
+
   const { value, selected, groupName, onChange, option, checkboxClass, onClick } =
     props;
 

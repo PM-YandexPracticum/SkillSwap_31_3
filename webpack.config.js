@@ -82,7 +82,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    static: path.join(__dirname, './public'),
+    static: path.join(__dirname, './public/images'),
     compress: true,
     historyApiFallback: true,
     port: 4000

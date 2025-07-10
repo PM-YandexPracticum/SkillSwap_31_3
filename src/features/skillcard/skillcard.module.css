@@ -8,6 +8,7 @@
   flex-direction: column;
   gap: 20px;
   box-sizing: border-box;
+  max-height: 368px;
 }
 
 .cardsHeader {
@@ -33,6 +34,7 @@
   background-position: center;
   background-size: cover;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .small {

@@ -1,6 +1,6 @@
 export * from './home';
 export * from './profile';
-export * from './skill';
+export * from './skillCard';
 export * from './modal';
 export * from './login';
 export * from './register';
