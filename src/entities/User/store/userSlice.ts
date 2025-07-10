@@ -35,6 +35,10 @@ const userSlice = createSlice({
       state.error = payload as string;
     });
 
+    builder.addCase(userThunk.updateUser.fulfilled, (state, { payload }) => {
+      state.user = payload;
+    });
+
     builder.addCase(userThunk.logout.fulfilled, (state) => {
       state.user = null;
     });

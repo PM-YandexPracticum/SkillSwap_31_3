@@ -68,7 +68,17 @@ describe('тест работы userSlice', () => {
         expect(state.error).toBe('Какая-то ошибка');
       });
     });
+    describe('тест экшена updateUser', () => {
+      test('тест состояния fulfilled', () => {
+        const action = {
+          type: userThunk.updateUser.fulfilled.type,
+          payload: mockData
+        };
+        const state = userReducer(userInitialState, action);
 
+        expect(state.user).toEqual(mockData);
+      });
+    });
     describe('тест экшена logout', () => {
       test('тест состояния fulfilled', () => {
         const action = { type: userThunk.logout.fulfilled.type };

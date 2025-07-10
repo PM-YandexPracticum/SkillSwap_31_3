@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, ChangeEvent, FormEvent, useMemo, useCallback } from 'react';
 import styles from './ProfileSettingsForm.module.css';
 import { Text } from '../../shared/ui/Text/Text';
 import { useState } from 'react';
@@ -7,89 +7,157 @@ import { Button } from '../../shared/ui/button/button';
 import { SearchableSelect } from '../../shared/ui/SearchableSelect/SearchableSelect';
 import { CITIES, GENDER } from './mockData';
 import { TextBlock } from '../../shared/ui/textBlock/textBlock';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from '@app/store/store';
-import { selectUserProfileData } from '@entities/User';
-import myImage from '../../../public/images/03a69e3af2677c18576441e05e66092043930940.jpg';
+import { useDispatch, useSelector } from '@app/store/store';
+import { selectUserProfileData, userThunk } from '@entities/User';
+import { InputProfile } from '@shared/ui/InputProfile';
 import editIcon from '@shared/assets/icons/edit-icon.svg';
 import { TUserDataUpdate } from '@api/types';
 
 export const ProfileSettingsForm: FC = () => {
-  // Данные пользователя
-  //   const [userData, setUserData] = useState({
-  //     email: 'Mariia@gmail.com',
-  //     name: 'Мария',
-  //     birthDate: new Date(1995, 9, 28),
-  //     gender: 'Женский',
-  //     city: 'Москва',
-  //     about:
-  //       'Люблю учиться новому, особенно если это можно делать за чаем и в пижаме.\nВсегда готова пообщаться и обменяться чем‑то интересным!'
-  //   });
+  const dispatch = useDispatch();
 
-  // Обработчик изменения данных
   const userData = useSelector(selectUserProfileData);
+
   const [userUpdate, setUserUpdate] = useState<TUserDataUpdate>(
     userData as TUserDataUpdate
   );
+  const [userImage, setUserImage] = useState<File | null>(null);
 
-  const handleChange = (field: string, value: string | Date | string[]) => {};
-  console.log(userUpdate);
-  // Сохранение данных в профиле
-  const handleClickSubmit = () => {
-    setUserUpdate((prev) => ({ ...prev, city: 'Москва' }));
-    console.log('Сохранение данных в профиле');
-  };
+  const [erros, setErrors] = useState({
+    email: '',
+    password: '',
+    name: ''
+  });
 
   const [changePassword, setChangePassword] = useState(false);
-  const [image, setImage] = useState<FileList | null>(null);
+
+  const handleChangeData = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserUpdate((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value
+    }));
+  };
+
+  const validate = useCallback(() => {
+    let validateStatus = true;
+
+    if (userUpdate?.password?.length < 4) {
+      setErrors((prev) => ({
+        ...prev,
+        password: 'Пароль не может быть меньше 4 символов'
+      }));
+      validateStatus = false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userUpdate?.email)) {
+      setErrors((prev) => ({
+        ...prev,
+        email: 'Email должен содержать символ @'
+      }));
+      validateStatus = false;
+    }
+
+    if (!userUpdate.name?.trim()) {
+      setErrors((prev) => ({
+        ...prev,
+        name: 'Поле Имя не может быть пустым'
+      }));
+      validateStatus = false;
+    }
+
+    return validateStatus;
+  }, [userUpdate.email, userUpdate.password, userUpdate.name]);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!validate()) return;
+
+    dispatch(userThunk.updateUser(userUpdate));
+  };
+
+  const hasChanges = useMemo(
+    () => JSON.stringify(userData) !== JSON.stringify(userUpdate),
+    [userData, userUpdate]
+  );
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.profileContent}>
         <div className={styles.mainContent}>
-          <form className={styles.profileForm}>
+          <form className={styles.profileForm} onSubmit={handleSubmit}>
             <div className={styles.formFields}>
               <div className={styles.formField}>
                 <Text as='bodyText' color='text'>
                   Почта
                 </Text>
-                <TextBlock
-                  value={userData?.email}
-                  maxLength={30}
-                  onChange={() => {}}
+                <InputProfile
+                  value={userUpdate.email || ''}
+                  onChange={handleChangeData}
+                  type='email'
+                  placeholder='Введите email'
+                  name='email'
                 />
+                {erros.email && (
+                  <Text as='caption' color='error'>
+                    {erros.email}
+                  </Text>
+                )}
 
                 {changePassword ? (
-                  <p>Не надо</p>
+                  <div
+                    style={{
+                      marginBlockStart: 12,
+                      marginBlockEnd: 12
+                    }}
+                  >
+                    <Text as='bodyText' color='text'>
+                      Пароль
+                    </Text>
+                    <InputProfile
+                      value={userUpdate.password || ''}
+                      onChange={handleChangeData}
+                      placeholder='Введите пароль'
+                      name='password'
+                    />
+                    {erros.password && (
+                      <Text as='caption' color='error'>
+                        {erros.password}
+                      </Text>
+                    )}
+                  </div>
                 ) : (
                   <a
-                    style={{ cursor: 'pointer' }}
+                    style={{
+                      cursor: 'pointer',
+                      marginBlockStart: 12,
+                      marginBlockEnd: 12
+                    }}
                     onClick={() => {
                       setChangePassword(true);
                     }}
                   >
-                    <Text as='bodyText' color='text-link'>
+                    <Text as='h4' color='text-link'>
                       Изменить пароль
                     </Text>
                   </a>
                 )}
-                {/* <NavLink to='/register' className={styles.link}>
-                <Text as='bodyText' color='text-link'>
-                  Изменить пароль
-                </Text>
-                <input type='password' />
-              </NavLink> */}
               </div>
 
               <div className={styles.formField}>
                 <Text as='bodyText' color='text'>
                   Имя
                 </Text>
-                <TextBlock
-                  value={userData?.name}
-                  maxLength={30}
-                  onChange={(value) => handleChange('name', value)}
+                <InputProfile
+                  value={userUpdate.name || ''}
+                  onChange={handleChangeData}
+                  name='name'
+                  placeholder='Введите имя'
                 />
+                {erros.name && (
+                  <Text as='caption' color='error'>
+                    {erros.name}
+                  </Text>
+                )}
               </div>
 
               <div className={styles.rowFields}>
@@ -98,7 +166,12 @@ export const ProfileSettingsForm: FC = () => {
                     Дата рождения
                   </Text>
 
-                  <InputDateUI />
+                  <InputDateUI
+                    onChange={(date: Date | null) => {
+                      date && setUserUpdate((prev) => ({ ...prev, age: date }));
+                    }}
+                    selectedDate={userData.age || new Date()}
+                  />
                 </div>
 
                 <div className={styles.rowField}>
@@ -107,7 +180,9 @@ export const ProfileSettingsForm: FC = () => {
                   </Text>
                   <SearchableSelect
                     values={GENDER}
-                    onChange={(values) => handleChange('gender', values)}
+                    onChange={(value) =>
+                      setUserUpdate((prev) => ({ ...prev, gender: value }))
+                    }
                     placeholder={'Выберите пол'}
                     defaultValue={userUpdate.gender}
                   />
@@ -120,7 +195,9 @@ export const ProfileSettingsForm: FC = () => {
                 </Text>
                 <SearchableSelect
                   values={CITIES}
-                  onChange={(values) => handleChange('city', values)}
+                  onChange={(value) =>
+                    setUserUpdate((prev) => ({ ...prev, city: value }))
+                  }
                   placeholder={'Выберите город'}
                   defaultValue={userUpdate.city}
                 />
@@ -131,13 +208,18 @@ export const ProfileSettingsForm: FC = () => {
                   О себе
                 </Text>
                 <TextBlock
-                  value={userUpdate?.description}
+                  value={userUpdate?.description || ''}
                   maxLength={200}
-                  onChange={(value) => handleChange('about', value)}
+                  onChange={(event) => {
+                    setUserUpdate((prev) => ({
+                      ...prev,
+                      description: event.target.value
+                    }));
+                  }}
                 />
               </div>
               <Button
-                onClick={handleClickSubmit}
+                onClick={handleSubmit}
                 children={
                   <Text as='bodyText' color='text'>
                     Сохранить
@@ -145,7 +227,7 @@ export const ProfileSettingsForm: FC = () => {
                 }
                 size='large'
                 type='submit'
-                // disabled
+                disabled={!hasChanges}
               />
             </div>
           </form>
@@ -160,20 +242,34 @@ export const ProfileSettingsForm: FC = () => {
                 objectFit: 'cover',
                 borderRadius: '50%'
               }}
-              src={image?.length ? URL.createObjectURL(image[0]) : myImage}
-              alt='Аватарка пользователя'
+              src={
+                userImage
+                  ? URL.createObjectURL(userImage)
+                  : typeof userUpdate?.avatar === 'string'
+                    ? userUpdate.avatar
+                    : ''
+              }
+              alt='аватарка пользователя'
             />
             <button className={styles.imageButton}>
               <label htmlFor='avatarImage' className={styles.avatarLabel}>
-                <img src={editIcon} alt='редактировать аватарку' />
+                <img src={editIcon} alt='редактировать аватарку пользователя' />
                 <input
                   id='avatarImage'
                   type='file'
                   accept='image/*'
                   className={styles.visuallyHidden}
                   onChange={(e) => {
-                    console.log(e.target.files);
-                    setImage(e.target.files);
+                    const files = e.target.files;
+
+                    if (!files || files.length === 0) return;
+
+                    const file = files[0];
+                    setUserImage(file);
+                    setUserUpdate((prev) => ({
+                      ...prev,
+                      avatar: file
+                    }));
                   }}
                 />
               </label>
