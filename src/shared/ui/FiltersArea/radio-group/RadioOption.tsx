@@ -16,10 +16,11 @@ type RadioOptionProps = {
   groupName: string;
   onChange?: (option: RadioOptionType) => void;
   option: RadioOptionType;
+  radioBtnClass?: string;
 };
 
 export const RadioOption = (props: RadioOptionProps) => {
-  const { value, selected, groupName, onChange, option } = props;
+  const { value, selected, groupName, onChange, option, radioBtnClass } = props;
 
   const optionRef = useRef<HTMLDivElement>(null);
 
@@ -37,7 +38,15 @@ export const RadioOption = (props: RadioOptionProps) => {
       tabIndex={0}
       ref={optionRef}
     >
-      <Radio onChange={handleChange} checked={isChecked} />
+      <input
+        className={radioBtnClass}
+        type='radio'
+        name={groupName}
+        id={inputId}
+        value={value}
+        onChange={handleChange}
+        tabIndex={-1}
+      />
       <label className={styles.label} htmlFor={inputId} onClick={handleChange}>
         <Text as='bodyText' color='text'>
           {value}
