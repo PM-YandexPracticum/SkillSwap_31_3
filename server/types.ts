@@ -33,3 +33,15 @@ export type TUser = TRegisterData & {
   userCard: TUserCard;
   favorites: string[];
 };
+
+export type TUserDataUpdate = Pick<
+  TRegisterData,
+  | 'email'
+  | 'age'
+  | 'name'
+  | 'password'
+  | 'avatar'
+  | 'gender'
+  | 'city'
+  | 'description'
+>;

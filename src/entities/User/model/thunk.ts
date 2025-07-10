@@ -6,7 +6,9 @@ import {
   TRegisterData,
   TUser,
   putFavoriteApi,
-  deleteFavoriteApi
+  deleteFavoriteApi,
+  updateUserApi,
+  TUserDataUpdate
 } from '@api';
 
 export const userThunk = {
@@ -15,7 +17,6 @@ export const userThunk = {
     async (registerData, { rejectWithValue }) => {
       try {
         const response = await registerUserApi(registerData);
-        console.log(response);
         if (response.success) {
           localStorage.setItem('email', response.data?.email);
           return response.data;
@@ -32,6 +33,24 @@ export const userThunk = {
     logoutUserApi().then(() => {
       localStorage.removeItem('email');
     })
+  ),
+  updateUser: createAsyncThunk(
+    'user/updateUser',
+    async (updateData: TUserDataUpdate, { rejectWithValue }) => {
+      try {
+        const response = await updateUserApi(updateData);
+
+        if (response.success) {
+          localStorage.setItem('email', response.data?.email);
+          return response.data;
+        }
+        console.log('wtf');
+        const errorResponse = response as { error: string };
+        return rejectWithValue(errorResponse.error);
+      } catch (err) {
+        return rejectWithValue(err as string);
+      }
+    }
   ),
   putLike: createAsyncThunk('user/putLike', (id: string) => putFavoriteApi(id)),
   deleteLike: createAsyncThunk('user/deleteLike', (id: string) =>
