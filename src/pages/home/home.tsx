@@ -11,8 +11,9 @@ import { useSelector, useDispatch } from '@app/store/store';
 import { selectUserCards } from '../../entities/UserCards/model/selectors';
 import { userCardsThunk } from '../../entities/UserCards/model/thunk';
 import { Text } from '@shared/ui';
-
+import { useNavigate } from 'react-router-dom';
 export const Home: FC = () => {
+  const navigate = useNavigate();
   const disp = useDispatch();
   const cards = useSelector(selectUserCards);
   const skils = useSelector(selectUser);
@@ -56,7 +57,9 @@ export const Home: FC = () => {
             learnSkills={card.skillWants}
             onLikeToggle={() => handleLikeToggle(card._id)}
             isLiked={likedUsers.includes(card._id)}
-            onDetailsClick={() => (window.location.href = '/skill')}
+            onDetailsClick={() => {
+              navigate('/skill');
+            }}
           />
         ))}
       </div>
