@@ -7,30 +7,40 @@ import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 
 import moreSquare from '../../images/more-square.svg';
 import share from '../../images/share.svg';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
 import { TSkill, TUserCard } from '@api/types';
 import { selectUserCards } from '@entities/UserCards/model/selectors';
-import { useSelector } from '@app/store/store';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
+import { selectIsUserAuth, selectUser, userThunk } from '@entities';
+import { useSelector, useDispatch } from '@app/store/store';
 
 export const Skill: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [likedUsers, setLikedUsers] = useState<string[]>([]);
+  const navigate = useNavigate();
+  const disp = useDispatch();
+  const userAuto = useSelector(selectIsUserAuth);
 
+  const skils = useSelector(selectUser);
   const cards = useSelector(selectUserCards);
   const allSkills = useSelector(selectAllSkills);
   const user: TUserCard = cards.find((card) => card._id === id)!;
 
   // Функция переключения лайка
-  const handleLikeToggle = (userId: string) => {
-    setLikedUsers((prev) =>
-      prev.includes(userId)
-        ? prev.filter((id) => id !== userId)
-        : [...prev, userId]
-    );
+  const handleLikeToggle = (id: string) => {
+    if (!userAuto) {
+      navigate('/login');
+      return;
+    }
+
+    const isLiked = skils!.favorites.includes(id);
+    if (isLiked) {
+      disp(userThunk.deleteLike(id));
+    } else {
+      disp(userThunk.putLike(id));
+    }
   };
 
   // Получаем навык, которому может научить
@@ -98,7 +108,7 @@ export const Skill: React.FC = () => {
           <div className={styles.actionOffer}>
             <ToggleLike
               onChange={() => handleLikeToggle(user._id)}
-              checked={likedUsers.includes(user._id)}
+              checked={skils?.favorites.includes(user._id)}
             />
             <Link to='#'>
               <img src={share} alt='share' />
@@ -135,7 +145,7 @@ export const Skill: React.FC = () => {
         <h2>Похожие предложения</h2>
         <CardOffersCarousel
           users={cards.filter((card) => card._id !== user._id)}
-          likedUsers={likedUsers}
+          likedUsers={skils?.favorites.includes(user._id)}
           learnSkills={user.skillWants}
           onLikeToggle={handleLikeToggle}
         />

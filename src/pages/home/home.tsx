@@ -10,22 +10,38 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from '@app/store/store';
 import { selectUserCards } from '../../entities/UserCards/model/selectors';
 import { userCardsThunk } from '../../entities/UserCards/model/thunk';
+import { Text } from '@shared/ui';
 
 export const Home: FC = () => {
-  const [likedUsers, setLikedUsers] = useState<string[]>([]);
   const navigate = useNavigate();
   const disp = useDispatch();
   const cards = useSelector(selectUserCards);
   const skils = useSelector(selectUser);
   const userAuto = useSelector(selectIsUserAuth);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query')?.toLowerCase() || '';
+
+  const filteredCards = query
+    ? cards.filter(
+        (card) =>
+          card.skillName.toLowerCase().includes(query) ||
+          card.name.toLowerCase().includes(query)
+      )
+    : cards;
 
   // Функция переключения лайка
-  const handleLikeToggle = (userId: string) => {
-    setLikedUsers((prev) =>
-      prev.includes(userId)
-        ? prev.filter((id) => id !== userId)
-        : [...prev, userId]
-    );
+  const handleLikeToggle = (id: string) => {
+    if (!userAuto) {
+      navigate('/login');
+      return;
+    }
+
+    const isLiked = skils!.favorites.includes(id);
+    if (isLiked) {
+      disp(userThunk.deleteLike(id));
+    } else {
+      disp(userThunk.putLike(id));
+    }
   };
 
   return (
@@ -34,13 +50,18 @@ export const Home: FC = () => {
         <FiltersArea />
       </div>
       <div className={styles.cardsContainer}>
-        {cards.map((card: TUserCard, index: number) => (
+        {filteredCards.length === 0 && (
+          <Text color='text' as='h2'>
+            Ничего не найдено
+          </Text>
+        )}
+        {filteredCards.map((card: TUserCard, index: number) => (
           <SkillCard
             key={index}
             data={card}
             learnSkills={card.skillWants}
             onLikeToggle={() => handleLikeToggle(card._id)}
-            isLiked={likedUsers.includes(card._id)}
+            isLiked={skils?.favorites.includes(card._id)}
             onDetailsClick={() => navigate(`/skill/${card._id}`)}
           />
         ))}

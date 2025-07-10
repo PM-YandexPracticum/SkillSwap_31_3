@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { CheckboxList } from './checkbox-lists/CheckboxList';
+import { CheckboxListSubcategory } from './checkbox-lists/CheckboxListSubcategory';
 import styles from './FiltersArea.module.css';
 import { cities, skills } from './mockData';
 import { RadioGroup } from './radio-group/RadioGroup';
@@ -93,7 +94,6 @@ export const FiltersArea = () => {
                 options={[{ value: item.category }]}
                 selected={selectedSkills}
                 onChange={() => {}}
-                boxClass={clsx(styles.boxCategory)}
                 onClick={() => toggleSkillCategory(item.category)}
                 isSubcategory
               />
@@ -107,12 +107,11 @@ export const FiltersArea = () => {
 
             {dropdownSkills[item.category] && item.subcategories && (
               <div className={styles.subcategories}>
-                <CheckboxList
+                <CheckboxListSubcategory
                   name='checkboxList_skills_subcategories'
                   options={item.subcategories.map((value) => ({ value }))}
                   selected={selectedSkills}
                   onChange={toggleSkill}
-                  boxClass={clsx(styles.boxSubcategory)}
                 />
               </div>
             )}
@@ -155,12 +154,11 @@ export const FiltersArea = () => {
             Город
           </Text>
         </div>
-        <CheckboxList
+        <CheckboxListSubcategory
           name='checkboxList_cities'
           options={showAllCities ? cities : cities.slice(0, 5)}
           selected={selectedCities}
           onChange={toggleCity}
-          boxClass={clsx(styles.boxSubcategory)}
         />
         <button
           type='button'

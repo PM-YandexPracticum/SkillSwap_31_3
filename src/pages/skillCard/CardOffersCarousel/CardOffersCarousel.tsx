@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface CardOffersCarouselProps {
   users: TUserCard[];
-  likedUsers?: string[];
+  likedUsers?: boolean;
   learnSkills: string[];
   onLikeToggle: (userId: string) => void;
 }
@@ -58,7 +58,7 @@ export const CardOffersCarousel: FC<CardOffersCarouselProps> = ({
               data={user}
               learnSkills={learnSkills}
               onLikeToggle={() => onLikeToggle(user._id)}
-              isLiked={likedUsers?.includes(user._id)}
+              isLiked={likedUsers}
               onDetailsClick={() => navigate(`/skill/${user._id}`)}
             />
           </div>

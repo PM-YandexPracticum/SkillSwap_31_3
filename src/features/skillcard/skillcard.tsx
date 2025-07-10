@@ -7,6 +7,7 @@ import { TUserCard } from '@api';
 import { useSelector } from '@app/store/store';
 import { selectSkillById } from '@entities';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
+
 export type TSkillCardProps = {
   data: TUserCard;
   learnSkills: string[];
