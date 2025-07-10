@@ -10,6 +10,8 @@ import { Notification } from '@shared/ui/Notification/Notification';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import MoonIcon from '@shared/ui/MoonIcon/MoonIcon';
 import ClearIcon from '@shared/assets/icons/cross.svg';
+import { selectIsUserAuth, selectUser } from '@entities/User';
+import { useSelector } from 'react-redux';
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -24,6 +26,13 @@ export const Header: FC<HeaderProps> = ({
   isFormOpen = false,
   onCloseForm = () => {}
 }) => {
+  const isAuth = useSelector(selectIsUserAuth);
+  const userDataFromStore = useSelector(selectUser);
+  const localUser = localStorage.getItem('user');
+  const parsedUser: TUserCard | null = localUser ? JSON.parse(localUser) : null;
+  const loggedIn = isAuth || !!parsedUser;
+  const userData = userDataFromStore || parsedUser;
+
   // Состояние для уведомлений
   const [hasUnreadNotifications, setHasUnreadNotifications] =
     useState<boolean>(true);
@@ -93,7 +102,7 @@ export const Header: FC<HeaderProps> = ({
 
       <div className={styles.rightSection}>
         <MoonIcon />
-        {isLoggedIn ? (
+        {loggedIn ? (
           <>
             <Notification
               checked={hasUnreadNotifications}
@@ -103,14 +112,14 @@ export const Header: FC<HeaderProps> = ({
               <ToggleLike onChange={onLikeToggle} checked={isLiked} />
             </div>
             <Link to='/profile' className={styles.userProfile}>
-              {data?.name && (
-                <span className={styles.userName}>{data.name}</span>
+              {userData && (
+                <span className={styles.userName}>{userData?.name}</span>
               )}
-              {data && (
+              {userData && (
                 <div
                   className={styles.userAvatar}
                   style={{
-                    backgroundImage: `url(./images/${data.photos})`
+                    backgroundImage: `url(./images/${userData?.avatar})`
                   }}
                 />
               )}
