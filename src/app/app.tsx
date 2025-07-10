@@ -46,6 +46,7 @@ const App = () => {
   //const error = useSelector(getError);
 
   const location = useLocation();
+  const background = location.state && location.state.background;
   const userData = useSelector(selectUser);
   const isLoggedIn = false;
 
@@ -58,8 +59,14 @@ const App = () => {
     <div className={styles.app}>
       <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
       <div className={styles.main}>
-        <Routes location={location}>
+        <Routes location={background || location}>
           <Route path='/' element={<Home />} />
+
+          <Route
+            path='/skill/exchenge'
+            element={<Created onClose={() => navigate(-1)} />}
+          />
+
           <Route path='/skill' element={<Skill />} />
           <Route
             path='/profile'
@@ -79,27 +86,6 @@ const App = () => {
             }
           />
           <Route
-            path='/register'
-            element={
-              <ProtectedRoute onlyUnAuth>
-                <Register />
-              </ProtectedRoute>
-            }
-          />
-          <Route path='*' element={<NotFound404 />} />
-        </Routes>
-
-        <Routes>
-          <Route
-            path='/skill/exchenge'
-            element={
-              <ProtectedRoute>
-                <Created onClose={() => navigate(-1)} />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
             path='/register/confirm'
             element={
               <ProtectedRoute>
@@ -113,14 +99,28 @@ const App = () => {
           />
 
           <Route
-            path='/offered'
+            path='/register'
             element={
-              <ProtectedRoute>
-                <Offered onClose={() => navigate('/')} />
+              <ProtectedRoute onlyUnAuth>
+                <Register />
               </ProtectedRoute>
             }
           />
+          <Route path='*' element={<NotFound404 />} />
         </Routes>
+
+        {background && (
+          <Routes>
+            <Route
+              path='/offered'
+              element={
+                <ProtectedRoute>
+                  <Offered onClose={() => navigate('/')} />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        )}
       </div>
       <div className={styles.footer}>
         <Footer />

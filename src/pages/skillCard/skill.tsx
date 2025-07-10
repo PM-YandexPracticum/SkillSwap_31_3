@@ -223,7 +223,9 @@ export const Skill: React.FC = () => {
 
               <Button
                 onClick={() => {
-                  navigate('/skill/exchenge');
+                  navigate('/skill/exchenge', {
+                    state: { backgroundLocation: location.pathname }
+                  });
                 }}
                 type='button'
               >
