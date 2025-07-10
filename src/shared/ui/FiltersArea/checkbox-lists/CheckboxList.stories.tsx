@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react';
 import { CheckboxList } from './CheckboxList';
 import { useState } from 'react';
 import React from 'react';
@@ -32,7 +32,6 @@ const CheckboxListWithState = () => {
     );
   };
 
-
   return (
     <>
       <CheckboxList
@@ -41,7 +40,6 @@ const CheckboxListWithState = () => {
         onChange={handleChangeSkills}
         options={optionsSkills}
       />
-    
     </>
   );
 };
@@ -49,4 +47,3 @@ const CheckboxListWithState = () => {
 export const CheckboxListStory: Story = {
   render: () => <CheckboxListWithState />
 };
-

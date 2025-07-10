@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react';
 import { CheckboxListSubcategory } from './CheckboxListSubcategory';
 import { useState } from 'react';
 import React from 'react';
@@ -14,7 +14,6 @@ export default meta;
 type Story = StoryObj<typeof CheckboxListSubcategory>;
 
 const CheckboxListSubcategoryWithState = () => {
-  
   const optionsCities = [
     { value: 'Москва' },
     { value: 'Санкт-Петербург' },

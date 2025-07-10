@@ -16,8 +16,7 @@ type CheckboxListProps = {
 };
 
 export const CheckboxListSubcategory = (props: CheckboxListProps) => {
-  const { name, options, selected, onChange, checkboxClass, onClick } =
-    props;
+  const { name, options, selected, onChange, checkboxClass, onClick } = props;
 
   const [selectedOptions, setselectedOptions] = useState<string[]>([]);
 
