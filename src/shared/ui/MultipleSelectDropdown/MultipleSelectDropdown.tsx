@@ -8,7 +8,7 @@ import styles from './MultipleSelectDropdown.module.css';
 import { Checkbox } from '../Checkbox/Checkbox';
 
 export const MultipleSelectDropdown = React.memo(
-  ({ values, label, placeholder }: MultipleSelectDropdownProps) => {
+  ({ values, label, placeholder, onChange }: MultipleSelectDropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
@@ -44,11 +44,17 @@ export const MultipleSelectDropdown = React.memo(
     }, [isOpen]);
 
     const handleItemClick = (value: string) => {
-      setSelected((previous) =>
-        previous.includes(value)
+      setSelected((previous) => {
+        const newSelected = previous.includes(value)
           ? previous.filter((item) => item !== value)
-          : [...previous, value]
-      );
+          : [...previous, value];
+
+        if (onChange) {
+          onChange(newSelected);
+        }
+
+        return newSelected;
+      });
     };
 
     return (

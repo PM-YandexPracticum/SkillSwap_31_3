@@ -6,8 +6,7 @@ import { InputDateUI } from '../InputDate/InputDate';
 import iconAdd from '../../assets/icons/Icon+Add.svg';
 import { cities, gender } from './constants';
 import { TRegisterData } from '../types';
-
-// Хуки и селекторы
+import { MultipleSelectDropdown } from '../../ui/MultipleSelectDropdown/MultipleSelectDropdown';
 import { useSelector } from '@app/store/store';
 import {
   selectAllSkills,
@@ -27,7 +26,12 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
   formData,
   setFormData
 }) => {
-  // ------------- Состояния формы ---------------
+  const allSkills = useSelector(selectAllSkills);
+  console.log('проверяю скиллы:', allSkills);
+
+  // Фильтруем высшие категории
+  const topLevelCategories = allSkills.filter((item) => item.parent_id === '0');
+
   const [selectedGender, setSelectedGender] = useState<string>(
     formData.gender || ''
   );
@@ -35,44 +39,23 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>(
     formData.skillCanTeachCategory || ''
   );
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>(
-    formData.skillCanTeachSubCategory || ''
-  );
+  const [selectedSubCategoryNames, setSelectedSubCategoryNames] = useState<
+    string[]
+  >([]); // Массив
+
   const [name, setName] = useState<string>(formData.name || '');
   const [age, setAge] = useState<Date | null>(formData.age || null);
   const [image, setImage] = useState<File | null>(null);
 
-  // ------------- Получила навыки из стора ---------------
-  const allSkills = useSelector(selectAllSkills);
+  // Получаем список подкатегорий из стора
+  const subCategoriesList = useSelector((state) => {
+    const list = selectedCategory
+      ? selectSubcategoriesByCategory(selectedCategory)(state) // Возвращает список подкатегорий, связанных с выбранной категорией
+      : [];
+    console.log('список подкатегорий:', list);
+    return list;
+  });
 
-  // Только категории верхнего уровня
-  const topLevelCategories = allSkills.filter((item) => item.parent_id === '0');
-
-  // Подкатегории выбранной категории
-  const subCategoriesList = useSelector((state) =>
-    selectedCategory
-      ? selectSubcategoriesByCategory(selectedCategory)(state)
-      : []
-  );
-
-  // При изменении категории меняем подкатегории
-  useEffect(() => {
-    if (selectedCategory && subCategoriesList.length > 0) {
-      setSelectedSubCategory('');
-    }
-  }, [selectedCategory]);
-
-  // ОбновляЮ стейт при изменении formData
-  useEffect(() => {
-    setSelectedGender(formData.gender || '');
-    setSelectedCity(formData.city || '');
-    setSelectedCategory(formData.skillCanTeachCategory || '');
-    setSelectedSubCategory(formData.skillCanTeachSubCategory || '');
-    setName(formData.name || '');
-    setAge(formData.age || null);
-  }, [formData]);
-
-  // Обработчики событий
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -85,9 +68,14 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
   };
 
   const handleSubmit = () => {
-    // Ищем ID навыка по имени
-    const selectedSkill = topLevelCategories.find(
-      (cat) => cat.name === selectedCategory
+    const selectedSubCategoryIds = selectedSubCategoryNames.map(
+      (subCategoryName) => {
+        // Преобразуеь массив имен подкатегорий в массив ID подкатегорий
+        const subCategory = allSkills.find(
+          (skill) => skill.name === subCategoryName
+        );
+        return subCategory?._id || '';
+      }
     );
 
     const updatedData = {
@@ -97,26 +85,31 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
       gender: selectedGender,
       city: selectedCity,
       skillCanTeachCategory: selectedCategory,
-      skillCanTeachSubCategory: selectedSubCategory,
-      skillId: selectedSkill?._id || '',
-      skillWants: selectedSubCategory ? [selectedSubCategory] : [],
+      skillWants: selectedSubCategoryIds,
       avatar: image
     };
-
     setFormData(updatedData);
     onNextStep(updatedData);
+    console.log('значения updatedData', updatedData);
   };
 
   const handlePrev = () => {
     const dataToSave = {
+      ...formData,
       name,
       age,
       gender: selectedGender,
       city: selectedCity,
       skillCanTeachCategory: selectedCategory,
-      skillCanTeachSubCategory: selectedSubCategory
+      skillWants: selectedSubCategoryNames.map((subCategoryName) => {
+        // Преобразуеь массив имен подкатегорий в массив ID подкатегорий
+        const subCategory = allSkills.find(
+          (skill) => skill.name === subCategoryName
+        );
+        return subCategory?._id || '';
+      })
     };
-    onPrevStep(dataToSave as TRegisterData);
+    onPrevStep(dataToSave);
   };
 
   const isFormValid = Boolean(
@@ -125,12 +118,11 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
       selectedGender &&
       selectedCity &&
       selectedCategory &&
-      selectedSubCategory
+      selectedSubCategoryNames.length > 0
   );
 
   return (
     <form className={styles.formContainer} onSubmit={(e) => e.preventDefault()}>
-      {/* Аватар */}
       <div className={styles.avatarContainer}>
         <label htmlFor='avatar' className={styles.avatarLabel}>
           <img src={iconAdd} alt='Загрузить аватар' />
@@ -143,7 +135,6 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
         />
       </div>
 
-      {/* Имя */}
       <div className={styles.inputContainer}>
         <label htmlFor='name' className={styles.label}>
           Имя
@@ -158,14 +149,17 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
         />
       </div>
 
-      {/* Дата рождения + Пол */}
       <div className={styles.twoColumnContainer}>
         <div className={styles.column}>
-          <label className={styles.label}>Дата рождения</label>
+          <label htmlFor='age' className={styles.label}>
+            Дата рождения
+          </label>
           <InputDateUI selectedDate={age} onChange={setAge} />
         </div>
         <div className={styles.column}>
-          <label className={styles.label}>Пол</label>
+          <label htmlFor='gender' className={styles.label}>
+            Пол
+          </label>
           <SearchableSelect
             values={gender}
             onChange={setSelectedGender}
@@ -174,9 +168,10 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
         </div>
       </div>
 
-      {/* Город */}
       <div className={styles.inputContainer}>
-        <label className={styles.label}>Город</label>
+        <label htmlFor='city' className={styles.label}>
+          Город
+        </label>
         <SearchableSelect
           values={cities}
           onChange={setSelectedCity}
@@ -184,9 +179,8 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
         />
       </div>
 
-      {/* Категория навыка */}
       <div className={styles.inputContainer}>
-        <label className={styles.label}>
+        <label htmlFor='category' className={styles.label}>
           Категория навыка, которому хотите научиться
         </label>
         <SearchableSelect
@@ -196,19 +190,20 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
         />
       </div>
 
-      {/* Подкатегория навыка */}
       <div className={styles.inputContainer}>
-        <label className={styles.label}>
+        <label htmlFor='subcategory' className={styles.label}>
           Подкатегория навыка, которому хотите научиться
         </label>
-        <SearchableSelect
+        <MultipleSelectDropdown
           values={subCategoriesList}
-          onChange={setSelectedSubCategory}
-          placeholder='Выберите подкатегорию'
+          placeholder='Не выбрано'
+          onChange={(selectedValues: string[]) => {
+            console.log('выбранные подкатегории:', selectedValues);
+            setSelectedSubCategoryNames(selectedValues);
+          }}
         />
       </div>
 
-      {/* Кнопки */}
       <div className={styles.buttonContainer}>
         <Button
           variant='secondary'
@@ -221,10 +216,11 @@ const RegistrationFormStep2: FC<RegistrationFormStep2Props> = ({
           size='large'
           children='Продолжить'
           onClick={handleSubmit}
-          disabled={!isFormValid}
+          // disabled={!isFormValid}
         />
       </div>
     </form>
   );
 };
+
 export default RegistrationFormStep2;

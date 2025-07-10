@@ -47,7 +47,7 @@ app.post(
       avatar?: Express.Multer.File[];
     };
     const formData = req.body;
-
+    console.log(formData);
     fs.readFile(`${staticPath}/users.json`, 'utf-8', (err, fileData) => {
       if (err) return res.status(500).json(error);
 

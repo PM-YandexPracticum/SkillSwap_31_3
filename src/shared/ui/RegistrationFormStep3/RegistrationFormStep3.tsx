@@ -5,6 +5,7 @@ import { SearchableSelect } from '../SearchableSelect/SearchableSelect';
 import galleryAdd from '../../assets/icons/gallery-add.svg';
 import { TRegisterData } from '../types';
 
+import { userThunk } from '@entities/User';
 // Стор
 import { useDispatch, useSelector } from '@app/store/store';
 import {
@@ -16,7 +17,7 @@ import { skillsThunk } from '@entities/Skills';
 interface RegistrationFormStep3Props {
   onNextStep: (data: TRegisterData) => void;
   onPrevStep: (data: TRegisterData) => void;
-  formData: TRegisterData;
+  formData: any;
   setFormData: (data: TRegisterData) => void;
 }
 
@@ -92,6 +93,10 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
       (cat) => cat.name === selectedCategory
     );
 
+    const subCategoryObject = allSkills.find(
+      (skill) => skill.name === selectedSubCategory && skill.parent_id !== '0'
+    );
+
     const finalData = {
       ...formData,
       skillName,
@@ -100,11 +105,13 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
       description,
       photos,
       skillId: selectedSkill?._id || '',
-      skillWants: selectedSubCategory ? [selectedSubCategory] : []
+      skillWants: subCategoryObject ? [subCategoryObject._id] : []
     };
 
     setFormData(finalData);
     onNextStep(finalData);
+
+    dispatch(userThunk.register(finalData));
   };
 
   const handlePrev = () => {
@@ -121,9 +128,9 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
     onPrevStep(dataToSave);
   };
 
-  const isFormValid = Boolean(
-    skillName && selectedCategory && selectedSubCategory && description
-  );
+  // const isFormValid = Boolean(
+  //   skillName && selectedCategory && selectedSubCategory && description
+  // );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -215,7 +222,7 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
           size='large'
           children='Продолжить'
           onClick={handleSubmit}
-          disabled={!isFormValid}
+          // disabled={!isFormValid}
         />
       </div>
     </form>
