@@ -1,7 +1,7 @@
 import { FC, MouseEvent } from 'react';
 import styles from './modal.module.css';
 import React from 'react';
-import clsx from 'clsx'; 
+import clsx from 'clsx';
 
 interface ModalUIProps {
   onClose: () => void;
@@ -15,10 +15,7 @@ export const ModalUI: FC<ModalUIProps> = ({ children, className }) => {
   };
 
   return (
-    <div
-      className={clsx(styles.modal, className)}
-      onClick={handleClick}
-    >
+    <div className={clsx(styles.modal, className)} onClick={handleClick}>
       {children}
     </div>
   );

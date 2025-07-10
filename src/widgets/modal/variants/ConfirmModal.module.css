@@ -1,40 +1,27 @@
-:root {
-  --text-main: #2d3723;
-  --text-muted: #6c6c6c;
-  --accent-green: #a6d36a;
-  --accent-green-hover: #94c85a;
-  --border-green: #c9dfb8;
-  --bg-hover: #f2f6ee;
-  --font-family: 'Inter', sans-serif;
-}
-
 .modalWideWrapper {
   max-width: 1024px;
   max-height: 532px;
   width: 100%;
   margin: 0 auto;
-  border: none;
   background: transparent;
   padding: 0;
 }
 
-/* Вся модалка */
 .modalContent {
-  background-color: white;
+  background-color: var(--card);
   padding: 40px;
   border-radius: 24px;
   max-width: 1060px;
   margin: auto;
-  font-family: var(--font-family);
-  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
-/* Верхняя часть: заголовки */
 .modalTitle {
   font-size: 24px;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--text);
   text-align: center;
   margin-bottom: 4px;
 }
@@ -42,11 +29,10 @@
 .modalSubtitle {
   font-size: 14px;
   text-align: center;
-  color: var(--text-muted);
+  color: var(--caption);
   margin-bottom: 40px;
 }
 
-/* Контейнер с левой и правой частью */
 .infoRow {
   display: flex;
   gap: 40px;
@@ -57,7 +43,6 @@
   height: 100%;
 }
 
-/* ==== ЛЕВАЯ ЧАСТЬ ==== */
 .textSection {
   flex: 1 1 50%;
   display: flex;
@@ -66,7 +51,6 @@
   height: 100%;
 }
 
-/* Заголовок + категория */
 .cardTitle {
   font-size: 28px;
   font-weight: 600;
@@ -75,18 +59,17 @@
 
 .category {
   font-size: 14px;
-  color: var(--text-muted);
+  color: var(--caption);
   margin-bottom: 24px;
 }
 
 .textSection p {
   font-size: 16px;
   line-height: 1.6;
-  color: #333;
+  color: var(--text);
   margin-bottom: 32px;
 }
 
-/* Кнопки */
 .buttonRow {
   display: flex;
   gap: 16px;
@@ -95,7 +78,6 @@
 .modalButtonOutline,
 .modalButtonFilled {
   flex: 1;
-  min-width: 0;
   height: 48px;
   border-radius: 12px;
   font-size: 14px;
@@ -107,27 +89,26 @@
 }
 
 .modalButtonOutline {
-  background-color: white;
-  color: var(--text-main);
-  border: 2px solid var(--border-green);
+  background-color: var(--card);
+  color: var(--text);
+  border: 2px solid var(--disabled);
   gap: 8px;
 }
 
 .modalButtonOutline:hover {
-  background-color: var(--bg-hover);
+  background-color: var(--button-hover);
 }
 
 .modalButtonFilled {
-  background-color: var(--accent-green);
+  background-color: var(--accent);
   color: white;
   border: none;
 }
 
 .modalButtonFilled:hover {
-  background-color: var(--accent-green-hover);
+  background-color: var(--button-pressed);
 }
 
-/* ==== ПРАВАЯ ЧАСТЬ ==== */
 .imageSection {
   flex: 1 1 50%;
   display: flex;
@@ -179,14 +160,14 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.6); /* ← вот это и есть белая пелена! */
+  background: rgba(255, 255, 255, 0.6);
   z-index: 1;
 }
 
 .overlayText {
   position: relative;
   z-index: 2;
-  color: black;
+  color: var(--text);
   font-size: 16px;
   font-weight: 300;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);

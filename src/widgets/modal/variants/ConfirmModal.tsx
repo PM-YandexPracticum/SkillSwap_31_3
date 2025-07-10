@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { Modal } from '../modal';
 import styles from '../variants/ConfirmModal.module.css';
-import { TRegisterData } from '../../../../../server/types';
-import EditIcon from '../../../../images/edit.svg';
+import { TRegisterData } from '../../../../server/types';
+import EditIcon from '../../../images/edit.svg';
 
 type Props = {
   onClose: () => void;

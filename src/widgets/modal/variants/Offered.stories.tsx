@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Offered } from '@shared/ui/modal/variants/Offered';
+import { Offered } from './Offered';
 import React from 'react';
 
 export default {
   title: 'Modals/Offered',
-  component: Offered
+  component: Offered,
+  tags: ['autodocs']
 };
 
 export const Default = () => {

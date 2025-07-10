@@ -2,6 +2,8 @@ import { FC, useEffect, memo } from 'react';
 import ReactDOM from 'react-dom';
 import { ModalUI } from './modalUI';
 import React from 'react';
+import { Overlay } from './overlay';
+import styles from './modal.module.css';
 
 interface ModalProps {
   title?: string;
@@ -9,10 +11,13 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const modalRoot = document.getElementById('modals');
-
 export const Modal: FC<ModalProps> = memo(({ onClose, children }) => {
+  const [root, setRoot] = React.useState<HTMLElement | null>(null);
+
   useEffect(() => {
+    const modalsRoot = document.getElementById('modals');
+    setRoot(modalsRoot);
+
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
@@ -28,10 +33,12 @@ export const Modal: FC<ModalProps> = memo(({ onClose, children }) => {
     };
   }, [onClose]);
 
-  if (!modalRoot) return null;
+  if (!root) return null;
 
   return ReactDOM.createPortal(
-    <ModalUI onClose={onClose}>{children}</ModalUI>,
-    modalRoot
+    <Overlay onClick={onClose}>
+      <ModalUI onClose={onClose}>{children}</ModalUI>
+    </Overlay>,
+    root
   );
 });

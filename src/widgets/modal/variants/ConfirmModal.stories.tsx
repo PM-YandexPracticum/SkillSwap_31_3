@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { ConfirmModal } from './ConfirmModal';
 import type { Meta, StoryObj } from '@storybook/react';
-import { TRegisterData } from '../../../../../server/types';
+import { TRegisterData } from '../../../../server/types';
 
 const meta: Meta<typeof ConfirmModal> = {
-  title: 'shared/ui/modal/variants/ConfirmModal',
-  component: ConfirmModal
+  title: 'Modals/ConfirmModal',
+  component: ConfirmModal,
+  tags: ['autodocs']
 };
 
 export default meta;
