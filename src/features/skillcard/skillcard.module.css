@@ -1,13 +1,14 @@
 .cardsContainer {
   background-color: #fff;
-  width: 100%; 
-  min-height: 368px; 
+  width: 100%;
+  min-height: 368px;
   border-radius: 12px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   box-sizing: border-box;
+  max-height: 368px;
 }
 
 .cardsHeader {
@@ -33,6 +34,7 @@
   background-position: center;
   background-size: cover;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .small {
@@ -84,7 +86,7 @@
 .tegSkils {
   display: flex;
   gap: 4px;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
   align-items: flex-start;
 }
 

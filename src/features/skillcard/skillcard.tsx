@@ -2,13 +2,14 @@ import React, { FC } from 'react';
 import styles from './skillcard.module.css';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import { Tag } from '@shared/ui/tag';
-import { TSkill, TUser } from '@app/styles/typs';
 import { Button } from '@shared/ui/button/button';
-
+import { TUserCard } from '@api';
+import { useSelector } from '@app/store/store';
+import { selectSkillById } from '@entities';
+import { selectAllSkills } from '@entities/Skills/model/selectors';
 export type TSkillCardProps = {
-  data: TUser;
-  teachSkills: TSkill;
-  learnSkills: TSkill[];
+  data: TUserCard;
+  learnSkills: string[];
   onLikeToggle?: () => void;
   isLiked?: boolean;
   onDetailsClick: () => void;
@@ -16,14 +17,25 @@ export type TSkillCardProps = {
 
 export const SkillCard: FC<TSkillCardProps> = ({
   data,
-  teachSkills,
-  learnSkills = [],
+  learnSkills,
   onLikeToggle,
   isLiked,
   onDetailsClick
 }) => {
-  const visibleSkills = learnSkills.slice(0, 2);
-  const hiddenSkillsCount = learnSkills.length - visibleSkills.length;
+  // Все навык
+  const allSkills = useSelector(selectAllSkills);
+
+  // Получаем навыки, которым хочет научиться
+  const learnSkillsData = learnSkills.map((id) =>
+    allSkills.find((value) => value._id === id)
+  );
+
+  const parentIdBySkillId = useSelector((state) =>
+    selectSkillById(state, data.skillId)
+  );
+
+  const visibleSkills = learnSkillsData.slice(0, 2);
+  const hiddenSkillsCount = learnSkillsData.length - visibleSkills.length;
 
   return (
     <div className={styles.cardsContainer}>
@@ -31,7 +43,7 @@ export const SkillCard: FC<TSkillCardProps> = ({
         <div className={styles.cardsUserInfo}>
           <img
             className={`${styles.avatar} ${styles.medium}`}
-            style={{ backgroundImage: `url(./images/${data.image})` }}
+            src={data.avatar}
           />
           <div className={styles.cardText}>
             <div className={styles.name}>{data.name}</div>
@@ -48,14 +60,17 @@ export const SkillCard: FC<TSkillCardProps> = ({
         <div className={styles.cardSkils}>
           <div className={styles.learnSkils}>Может научить:</div>
           <div>
-            <Tag text={data.skillName} category={teachSkills.parent_id} />
+            <Tag
+              text={data.skillName}
+              category={parentIdBySkillId?.parent_id}
+            />
           </div>
         </div>
         <div className={styles.cardSkils}>
           <div className={styles.teachSkils}>Хочет научиться:</div>
           <div className={styles.tegSkils}>
             {visibleSkills.map((skill, index) => (
-              <Tag key={index} text={skill.name} category={skill.parent_id} />
+              <Tag key={index} text={skill?.name} category={skill?.parent_id} />
             ))}
             {hiddenSkillsCount > 0 && <Tag text={`+${hiddenSkillsCount}`} />}
           </div>
