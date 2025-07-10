@@ -61,6 +61,12 @@
   background-color: var(--button-hover);
 }
 
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
 .imageList {
   display: flex;
   flex-direction: column;
@@ -71,10 +77,4 @@
   width: 100px;
   height: auto;
   border-radius: 8px;
-}
-
-.buttonRow {
-  display: flex;
-  gap: 12px;
-  margin-top: 20px;
 }
