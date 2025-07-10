@@ -23,7 +23,6 @@ type Story = StoryObj<RegistrationFormStep2Type>;
 
 export const Default: Story = {
   args: {
-    formData: {},
     setFormData: () => {},
     onNextStep: () => {},
     onPrevStep: () => {}
@@ -32,11 +31,6 @@ export const Default: Story = {
 
 export const WithFilledData: Story = {
   args: {
-    formData: {
-      name: 'Ольга',
-      gender: 'Женский',
-      city: 'Москва'
-    },
     setFormData: () => {},
     onNextStep: () => {},
     onPrevStep: () => {}

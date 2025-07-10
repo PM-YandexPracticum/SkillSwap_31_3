@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import React, { useState } from 'react';
 import { StepIndicator } from '@shared/ui/StepIndicator/step-indicator';
 import styles from './register.module.css';
@@ -7,34 +7,12 @@ import RegistrationFormStep2 from '@shared/ui/RegistrationFormStep2/Registration
 import RegistrationFormStep3 from '@shared/ui/RegistrationFormStep3/RegistrationFormStep3';
 import RegistrationFormStep1 from '@shared/ui/RegistrationFormStep1/RegistrationFormStep1';
 
-import { useDispatch } from '@app/store/store';
-import { userThunk } from '@entities/User';
-
-const saveFormDataToLocalStorage = (data: any) => {
-  try {
-    localStorage.setItem('registrationFormData', JSON.stringify(data));
-  } catch (error) {
-    console.error('Ошибка при сохранении в localStorage:', error);
-  }
-};
-
-const getFormDataFromLocalStorage = () => {
-  try {
-    const data = localStorage.getItem('registrationFormData');
-    return data ? JSON.parse(data) : {};
-  } catch (error) {
-    console.error('Ошибка при получении из localStorage:', error);
-    return {};
-  }
-};
+import { TRegisterData } from '@api/types';
 
 export const Register: FC = () => {
-  const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const totalSteps = 3;
-  const [formData, setFormData] = useState(getFormDataFromLocalStorage());
-
-  dispatch(userThunk.register(formData)); // - это на сабмите должно будет быть. В принципе всё.
+  const [formData, setFormData] = useState<TRegisterData>({} as TRegisterData);
 
   const handleStepChange = (newStep: number) => {
     if (newStep >= 1 && newStep <= totalSteps) {
@@ -42,21 +20,14 @@ export const Register: FC = () => {
     }
   };
 
-  const handleNextStep = (stepData: any) => {
-    // Объединили полученные данные с общими данными формы
-    setFormData({ ...formData, ...stepData });
-    handleStepChange(step + 1); // Пошли на следующий шаг
+  const handleNextStep = () => {
+    handleStepChange(step + 1);
   };
 
-  const handlePrevStep = (stepData: any) => {
-    setFormData({ ...formData, ...stepData });
+  const handlePrevStep = () => {
     handleStepChange(step - 1);
   };
 
-  useEffect(() => {
-    saveFormDataToLocalStorage(formData);
-  }, [formData]); // Сохранять в localStorage когда данные изменились
-  console.log('formData:', formData);
   return (
     <div className={styles.registerContainer}>
       <div className={styles.stepIndicator}>

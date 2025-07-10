@@ -68,7 +68,7 @@ app.post(
           city: formData.city,
           skillName: formData.skillName,
           skillId: formData.skillId,
-          skillWants: formData.skillWants,
+          skillWants: [...formData.skillWants],
           avatar: avatar
             ? `${uploadsPath}/${avatar[0].filename}`
             : `${uploadsPath}/unknown.jpg`,
@@ -79,6 +79,7 @@ app.post(
 
         const user: TUser = {
           ...formData,
+          skillWants: [...formData.skillWants],
           favorites: [],
           userCard
         };

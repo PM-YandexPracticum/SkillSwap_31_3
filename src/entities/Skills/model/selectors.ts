@@ -6,7 +6,7 @@ const getSkillsData = (state: RootState) => state.skills;
 
 export const selectAllSkills = createSelector(
   getSkillsData,
-  (state) => state.skills
+  (state) => state.skills || []
 );
 
 export const selectSkillByName = createSelector(

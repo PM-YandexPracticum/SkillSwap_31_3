@@ -18,7 +18,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    formData: {},
     setFormData: (data) => {},
     onNextStep: (data) => {}
   }
@@ -26,10 +25,6 @@ export const Default: Story = {
 
 export const WithFilledFields: Story = {
   args: {
-    formData: {
-      email: 'olol@example.com',
-      password: 'password123'
-    },
     setFormData: (data) => {},
     onNextStep: (data) => {}
   }

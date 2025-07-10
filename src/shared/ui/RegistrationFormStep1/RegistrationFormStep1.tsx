@@ -4,7 +4,7 @@ import styles from './RegistrationFormStep1.module.css';
 import { ToggleVisibility } from '../ToggleVisibility/ToggleVisibility';
 import Google from '../../assets/icons/Google.svg';
 import Apple from '../../assets/icons/Apple.svg';
-import { TRegisterData } from '../types';
+import { TRegisterData } from '@api/types';
 
 interface RegistrationFormStep1Props {
   onNextStep: (data: TRegisterData) => void;
@@ -19,6 +19,7 @@ const RegistrationFormStep1: React.FC<RegistrationFormStep1Props> = ({
 }) => {
   // ------------- Состояния ---------------
   const [passwordVisible, setPasswordVisible] = useState(false);
+
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,16 +37,10 @@ const RegistrationFormStep1: React.FC<RegistrationFormStep1Props> = ({
     },
     [setPasswordVisible]
   );
-  const handleVisibilityClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      handleToggleVisibility(!passwordVisible);
-    },
-    [handleToggleVisibility, passwordVisible]
-  );
 
   // Проверяем, заполнены ли обязательные поля. Я не успею сделать нормальную валидацию
-  const isFormValid = formData.email && formData.password;
+  const isFormValid =
+    formData.email && formData.password && formData.password.length >= 8;
 
   return (
     <form
@@ -103,10 +98,7 @@ const RegistrationFormStep1: React.FC<RegistrationFormStep1Props> = ({
             onChange={handleInputChange}
             className={styles.input}
           />
-          <div
-            className={styles.visibilityButton}
-            onClick={handleVisibilityClick}
-          >
+          <div className={styles.visibilityButton}>
             <ToggleVisibility
               onChange={handleToggleVisibility}
               checked={passwordVisible}

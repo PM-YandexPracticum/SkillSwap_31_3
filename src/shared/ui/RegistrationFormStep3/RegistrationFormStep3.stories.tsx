@@ -23,9 +23,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    formData: {},
-    setFormData: (data) => {},
-    onNextStep: (data) => {},
+    setFormData: () => {},
+    onNextStep: () => {},
     onPrevStep: () => {}
   }
 };
@@ -47,7 +46,7 @@ export const WithFilledFields: Story = {
       skillWants: ['Продажи и переговоры', 'Управление командой']
     },
     setFormData: (data) => {},
-    onNextStep: (data) => {},
+    onNextStep: () => {},
     onPrevStep: () => {}
   }
 };

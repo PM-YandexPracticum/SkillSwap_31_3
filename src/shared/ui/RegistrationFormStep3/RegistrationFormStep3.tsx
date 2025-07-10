@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import styles from './RegistrationFormStep3.module.css';
 import { Button } from '@shared/ui/button/button';
 import { SearchableSelect } from '../SearchableSelect/SearchableSelect';
 import galleryAdd from '../../assets/icons/gallery-add.svg';
-import { TRegisterData } from '../types';
-
+import { TRegisterData } from '@api/types';
+import { userThunk } from '@entities/User';
 // Стор
 import { useDispatch, useSelector } from '@app/store/store';
-import {
-  selectAllSkills,
-  selectSubcategoriesByCategory
-} from '@entities/Skills/model/selectors';
-import { skillsThunk } from '@entities/Skills';
+import { selectAllSkills } from '@entities/Skills/model/selectors';
 
 interface RegistrationFormStep3Props {
-  onNextStep: (data: TRegisterData) => void;
-  onPrevStep: (data: TRegisterData) => void;
+  onNextStep: () => void;
+  onPrevStep: () => void;
   formData: TRegisterData;
   setFormData: (data: TRegisterData) => void;
 }
@@ -27,108 +23,46 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
   setFormData
 }) => {
   const dispatch = useDispatch();
-
-  // Получаем все навыки из стора
   const allSkills = useSelector(selectAllSkills);
-  // console.log('allSkills:', allSkills);
-
-  // Локальные состояния формы
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    formData.skillCanTeachCategory || ''
-  );
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>(
-    formData.skillCanTeachSubCategory || ''
-  );
-  const [description, setDescription] = useState<string>(
-    formData.description || ''
-  );
-  const [skillName, setSkillName] = useState<string>(formData.skillName || '');
-  const [photos, setPhotos] = useState<File[]>(formData.photos || []);
 
   // Получаем подкатегории по выбранной категории
-  const subCategoriesList = useSelector(
-    selectSubcategoriesByCategory(selectedCategory || '')
-  );
+  // const subCategoriesList = useSelector(
+  //   selectSubcategoriesByCategory(selectedCategory || '')
+  // );
 
   // Список топ-уровневых категорий
   const topLevelCategories = allSkills.filter((item) => item.parent_id === '0');
 
+  const subCategoriesList = useMemo(
+    () =>
+      allSkills.filter(
+        (skill) => skill.parent_id === formData.skillCanTeachCategory
+      ),
+    [formData.skillCanTeachCategory]
+  );
+
   // Загрузка навыков при монтировании
-  useEffect(() => {
-    if (allSkills.length === 0) {
-      dispatch(skillsThunk.getSkills());
-    }
-  }, [dispatch]);
 
   // Установка начальных значений после загрузки allSkills
-  useEffect(() => {
-    if (allSkills.length === 0) return;
-
-    let category = '';
-    if (formData.skillCanTeachCategory) {
-      const categoryObj = allSkills.find(
-        (s) => s._id === formData.skillCanTeachCategory && s.parent_id === '0'
-      );
-      category = categoryObj?.name || formData.skillCanTeachCategory;
-    }
-
-    setSelectedCategory(category);
-    setSelectedSubCategory(formData.skillCanTeachSubCategory || '');
-    setDescription(formData.description || '');
-    setSkillName(formData.skillName || '');
-    setPhotos(formData.photos || []);
-  }, [allSkills]);
 
   // Очистка подкатегории при изменении категории или подкатегорий
-  useEffect(() => {
-    if (selectedCategory) {
-      setSelectedSubCategory('');
-    }
-  }, [selectedCategory]);
 
   // Логика отправки формы
   const handleSubmit = () => {
-    const selectedSkill = topLevelCategories.find(
-      (cat) => cat.name === selectedCategory
-    );
-
-    const finalData = {
-      ...formData,
-      skillName,
-      skillCanTeachCategory: selectedCategory,
-      skillCanTeachSubCategory: selectedSubCategory,
-      description,
-      photos,
-      skillId: selectedSkill?._id || '',
-      skillWants: selectedSubCategory ? [selectedSubCategory] : []
-    };
-
-    setFormData(finalData);
-    onNextStep(finalData);
-  };
-
-  const handlePrev = () => {
-    const dataToSave = {
-      skillName,
-      skillCanTeachCategory: selectedCategory,
-      skillCanTeachSubCategory: selectedSubCategory,
-      description,
-      photos,
-      skillId: formData.skillId || '',
-      skillWants: formData.skillWants || []
-    };
-
-    onPrevStep(dataToSave);
+    dispatch(userThunk.register(formData));
   };
 
   const isFormValid = Boolean(
-    skillName && selectedCategory && selectedSubCategory && description
+    formData.skillName &&
+      formData.skillCanTeachCategory &&
+      formData.skillCanTeachSubCategory &&
+      formData.description
   );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
-      setPhotos(filesArray);
+      setFormData({ ...formData, photos: filesArray });
     }
   };
 
@@ -142,9 +76,11 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
         <input
           id='skillName'
           type='text'
-          value={skillName}
+          value={formData.skillName || ''}
           placeholder='Введите название вашего навыка'
-          onChange={(e) => setSkillName(e.target.value)}
+          onChange={(e) => {
+            setFormData({ ...formData, skillName: e.target.value });
+          }}
           className={styles.input}
         />
       </div>
@@ -154,7 +90,16 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
         <label className={styles.label}>Категория навыка</label>
         <SearchableSelect
           values={topLevelCategories.map((cat) => cat.name)}
-          onChange={setSelectedCategory}
+          onChange={(value) => {
+            const skillCanTeachCategoryId = allSkills.find(
+              (skill) => skill.name === value
+            )?._id;
+            skillCanTeachCategoryId &&
+              setFormData({
+                ...formData,
+                skillCanTeachCategory: skillCanTeachCategoryId
+              });
+          }}
           placeholder='Выберите категорию навыка'
         />
       </div>
@@ -163,8 +108,17 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
       <div className={styles.inputContainer}>
         <label className={styles.label}>Подкатегория навыка</label>
         <SearchableSelect
-          values={subCategoriesList}
-          onChange={setSelectedSubCategory}
+          values={subCategoriesList.map((skill) => skill.name)}
+          onChange={(value) => {
+            const skillCanTeachSubCategoryiD = allSkills.find(
+              (skill) => skill.name === value
+            )?._id;
+            skillCanTeachSubCategoryiD &&
+              setFormData({
+                ...formData,
+                skillCanTeachSubCategory: skillCanTeachSubCategoryiD
+              });
+          }}
           placeholder='Выберите подкатегорию навыка'
         />
       </div>
@@ -173,8 +127,10 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
       <div className={styles.inputContainer}>
         <label className={styles.label}>Описание</label>
         <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={formData.description || ''}
+          onChange={(e) => {
+            setFormData({ ...formData, description: e.target.value });
+          }}
           placeholder='Коротко опишите, чему можете научить'
           className={styles.textarea}
         />
@@ -208,7 +164,9 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
           variant='secondary'
           size='large'
           children='Назад'
-          onClick={handlePrev}
+          onClick={() => {
+            onPrevStep();
+          }}
         />
         <Button
           variant='primary'
