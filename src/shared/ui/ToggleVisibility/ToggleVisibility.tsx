@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import styles from './ToggleVisibility.module.css';
 import { iconSizes, TColors, TSize } from '../types';
 
@@ -21,7 +21,9 @@ export const ToggleVisibility = (props: ToggleVisibilityProps) => {
 
   const iconSize = iconSizes[size];
 
-  const handleClick = () => {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     if (onChange) {
       onChange(!checked);
     }

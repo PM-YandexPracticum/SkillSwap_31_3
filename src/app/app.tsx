@@ -33,7 +33,7 @@ const App = () => {
   const background = location.state && location.state.background;
   const userData = useSelector(selectUser);
   const isLoggedIn = false;
-
+  const isRegisterRoute = location.pathname === '/register';
   useEffect(() => {
     dispatch(userCardsThunk.getUserCards());
     dispatch(skillsThunk.getSkills());
@@ -41,20 +41,22 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        data={userData?.userCard}
+        isFormOpen={isRegisterRoute}
+      />
       <div className={styles.main}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/skillCard' element={<Skill />} />
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/login' element={<NotFound404 />} />
-          <Route path='/register' element={<NotFound404 />} />
+          <Route path='/register' element={<Register />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
       </div>
-      <div className={styles.footer}>
-        <Footer />
-      </div>
+      <div className={styles.footer}>{!isRegisterRoute && <Footer />}</div>
     </div>
   );
 };
