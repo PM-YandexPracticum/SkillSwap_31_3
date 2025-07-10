@@ -11,7 +11,7 @@ export type TRegisterData = {
   skillCanTeachCategory: string;
   skillCanTeachSubCategory: string;
   description: string;
-  avatar: string | undefined;
+  avatar: string;
   photos: string[];
 };
 

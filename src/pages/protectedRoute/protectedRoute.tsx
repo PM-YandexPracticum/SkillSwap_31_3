@@ -1,9 +1,9 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import DataLoader from '@shared/ui/DataLoader/DataLoader';
-import { ReactElement } from 'react';
-import { useSelector } from '@app/store/store';
+import { ReactElement, useEffect } from 'react';
+import { useSelector, useDispatch } from '@app/store/store';
 import { selectIsUserAuth, selectUser } from '@entities';
-
+import { selectAuthChecked } from '@entities/User/model/selectors';
 type ProtectedRouteProps = {
   onlyUnAuth?: boolean;
   children: ReactElement;
@@ -13,7 +13,7 @@ export const ProtectedRoute = ({
   onlyUnAuth = false,
   children
 }: ProtectedRouteProps) => {
-  const isAuthChecked = useSelector(selectIsUserAuth);
+  const isAuthChecked = useSelector(selectAuthChecked);
   const user = useSelector(selectUser);
   const location = useLocation();
 
@@ -27,7 +27,9 @@ export const ProtectedRoute = ({
   }
 
   if (!onlyUnAuth && !user) {
-    return <Navigate to='/login' replace state={{ from: location.pathname }} />;
+    return (
+      <Navigate to='/register' replace state={{ from: location.pathname }} />
+    );
   }
 
   return children;
