@@ -51,7 +51,9 @@ const App = () => {
           <Route path='*' element={<NotFound404 />} />
         </Routes>
       </div>
-      <Footer />
+      <div className={styles.footer}>
+        <Footer />
+      </div>
     </div>
   );
 };
