@@ -5,7 +5,7 @@ import cors from 'cors';
 import multer from 'multer';
 
 import { formatAge, countAge } from './utils';
-import { TUser, TRegisterData, TUserCard } from './types';
+import { TUser, TRegisterData, TUserCard, TUserDataUpdate } from './types';
 
 const app = express();
 
@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const staticPath = path.join(__dirname, '../public/db');
-const uploadsPath = 'localhost:3000/uploads';
+const uploadsPath = 'http://localhost:3000/uploads';
 
 app.use(express.static(staticPath));
 app.use(express.json());
@@ -122,6 +122,122 @@ app.post(
         return /Error/.test(String(err))
           ? res.status(401).json({
               error: 'Пользователь c такой почтой уже существует '
+            })
+          : res.status(500).json(error);
+      }
+    });
+  }
+);
+
+app.patch(
+  '/updateUser',
+  upload.fields([{ name: 'avatar', maxCount: 1 }]),
+  (req: Request<{}, {}, TUserDataUpdate>, res: Response) => {
+    const { authorization } = req.headers;
+    const userUpdateData = req.body;
+
+    const { avatar } = req.files as {
+      avatar?: Express.Multer.File[];
+    };
+
+    if (authorization === 'null') {
+      return res.status(403).json(error);
+    }
+
+    fs.readFile(`${staticPath}/users.json`, 'utf-8', (err, fileData) => {
+      if (err) return res.status(500).json(error);
+
+      try {
+        const usersData: { data: TUser[] } = JSON.parse(fileData);
+
+        if (userUpdateData.email && userUpdateData.email !== authorization) {
+          if (
+            usersData.data.filter((user) => user.email === userUpdateData.email)
+              .length > 1
+          ) {
+            throw new Error('');
+          }
+        }
+
+        const userIndex = usersData.data.findIndex(
+          (user) => user.email === authorization
+        );
+
+        if (userIndex === -1) {
+          return res.status(404).json({ error: 'Пользователь не найден' });
+        }
+
+        const currentUser = usersData.data[userIndex];
+
+        const updatedUser = {
+          ...currentUser,
+          email: userUpdateData.email || currentUser.email,
+          name: userUpdateData.name || currentUser.name,
+          password: userUpdateData.password || currentUser.password,
+          age: userUpdateData.age || currentUser.age,
+          city: userUpdateData.city || currentUser.city,
+          description: userUpdateData.description || currentUser.description,
+          avatar: avatar
+            ? `${uploadsPath}/${avatar[0].filename}`
+            : currentUser.avatar,
+          userCard: {
+            ...currentUser.userCard,
+            name: userUpdateData.name || currentUser.userCard?.name,
+            age:
+              formatAge(countAge(userUpdateData.age)) ||
+              currentUser.userCard?.age,
+            description:
+              userUpdateData.description || currentUser.userCard?.description,
+            avatar: avatar
+              ? `${uploadsPath}/${avatar[0].filename}`
+              : currentUser.avatar,
+            gender: userUpdateData.gender || currentUser.userCard?.gender,
+            city: userUpdateData.city || currentUser.userCard?.city
+          }
+        };
+        console.log(userUpdateData.city);
+        usersData.data[userIndex] = updatedUser;
+
+        fs.writeFile(
+          `${staticPath}/users.json`,
+          JSON.stringify(usersData, null, 2),
+          'utf-8',
+          (err) => {
+            if (err) return res.status(500).json(error);
+
+            fs.readFile(
+              `${staticPath}/userCards.json`,
+              'utf-8',
+              (err, fileData) => {
+                if (err) return res.status(500).json(error);
+
+                const userCards: { data: TUserCard[] } = JSON.parse(fileData);
+                const userCardID = userCards.data.findIndex(
+                  (card) => card._id === updatedUser.userCard._id
+                );
+
+                userCards.data[userCardID] = updatedUser.userCard;
+
+                fs.writeFile(
+                  `${staticPath}/userCards.json`,
+                  JSON.stringify(userCards, null, 2),
+                  (err) => {
+                    if (err) return res.status(500).json(error);
+
+                    return res.status(200).json({
+                      success: true,
+                      data: updatedUser
+                    });
+                  }
+                );
+              }
+            );
+          }
+        );
+      } catch (err) {
+        return /Error/.test(String(err))
+          ? res.status(401).json({
+              error: 'Email уже занят'
             })
           : res.status(500).json(error);
       }
@@ -272,7 +388,7 @@ app.get('/exchange-request', (req, res) => {
     res.json({
       success: true
     });
-  }, 2500);
+  }, 1500);
 });
 
 app.get('/logout', (req, res) => {

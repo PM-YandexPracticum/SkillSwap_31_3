@@ -16,13 +16,13 @@ export const SearchableSelect = React.memo(
   ({
     values,
     onChange,
+    defaultValue = '',
     placeholder = 'Не указан',
     selectedColor = 'button-pressed'
   }: ISearchableSelect) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [search, setSearch] = useState('');
-    const [selected, setSelected] = useState('');
-
+    const [search, setSearch] = useState(defaultValue);
+    const [selected, setSelected] = useState(defaultValue);
     const parentElement = useRef<HTMLDivElement>(null);
 
     useClickOutside(parentElement, () => {
@@ -43,7 +43,6 @@ export const SearchableSelect = React.memo(
       setSelected(value);
       setIsOpen(false);
     };
-
     const filtredValues = useFilteredValues(values, search);
 
     return (

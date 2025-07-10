@@ -9,6 +9,7 @@ import {
   Error500,
   Skill
 } from '@pages';
+
 import './styles/index.css';
 import styles from './app.module.css';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
@@ -48,7 +49,7 @@ const App = () => {
       <div className={styles.main}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/skill' element={<Skill />} />
+          <Route path='/skillCard' element={<Skill />} />
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<Register />} />
