@@ -12,27 +12,20 @@ import { selectUserCards } from '../../entities/UserCards/model/selectors';
 import { userCardsThunk } from '../../entities/UserCards/model/thunk';
 
 export const Home: FC = () => {
+  const [likedUsers, setLikedUsers] = useState<string[]>([]);
   const navigate = useNavigate();
   const disp = useDispatch();
   const cards = useSelector(selectUserCards);
   const skils = useSelector(selectUser);
   const userAuto = useSelector(selectIsUserAuth);
 
-  const [likedUsers, setLikedUsers] = useState<string[]>([]);
-
   // Функция переключения лайка
-  const handleLikeToggle = (id: string) => {
-    if (!userAuto) {
-      navigate('/login');
-      return;
-    }
-
-    const isLiked = skils!.favorites.includes(id);
-    if (isLiked) {
-      disp(userThunk.deleteLike(id));
-    } else {
-      disp(userThunk.putLike(id));
-    }
+  const handleLikeToggle = (userId: string) => {
+    setLikedUsers((prev) =>
+      prev.includes(userId)
+        ? prev.filter((id) => id !== userId)
+        : [...prev, userId]
+    );
   };
 
   return (
@@ -47,8 +40,8 @@ export const Home: FC = () => {
             data={card}
             learnSkills={card.skillWants}
             onLikeToggle={() => handleLikeToggle(card._id)}
-            isLiked={skils?.favorites.includes(card._id)}
-            onDetailsClick={() => navigate('/skill')}
+            isLiked={likedUsers.includes(card._id)}
+            onDetailsClick={() => navigate(`/skill/${card._id}`)}
           />
         ))}
       </div>

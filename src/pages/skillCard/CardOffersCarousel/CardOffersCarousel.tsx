@@ -2,6 +2,7 @@ import { FC, useRef, useState, useEffect } from 'react';
 import styles from './CardOffersCarousel.module.css';
 import { SkillCard } from '../../../features/skillcard/skillcard';
 import { TUserCard } from '@api/types';
+import { useNavigate } from 'react-router-dom';
 
 interface CardOffersCarouselProps {
   users: TUserCard[];
@@ -16,6 +17,7 @@ export const CardOffersCarousel: FC<CardOffersCarouselProps> = ({
   learnSkills,
   onLikeToggle
 }) => {
+  const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
@@ -57,7 +59,7 @@ export const CardOffersCarousel: FC<CardOffersCarouselProps> = ({
               learnSkills={learnSkills}
               onLikeToggle={() => onLikeToggle(user._id)}
               isLiked={likedUsers?.includes(user._id)}
-              onDetailsClick={() => console.log('Details clicked')}
+              onDetailsClick={() => navigate(`/skill/${user._id}`)}
             />
           </div>
         ))}

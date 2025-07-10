@@ -26,6 +26,7 @@ export interface TUserCard {
   age: string;
   gender: string;
   description: string;
+  about: string;
   city: string;
   skillName: string;
   skillId: string;

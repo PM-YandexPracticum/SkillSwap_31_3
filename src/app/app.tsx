@@ -44,7 +44,7 @@ const App = () => {
       <div className={styles.main}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/skill' element={<Skill />} />
+          <Route path='/skill/:id' element={<Skill />} />
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<NotFound404 />} />
