@@ -41,9 +41,10 @@ export const UsersPage: FC = () => {
 
         let isSkills = true;
         if (filters.skillIds.length !== 0) {
-          if (filters.mode === 'Хочу научиться') {
-            isSkills = filters.skillIds.includes(user.skillId);
-          }
+          // if (filters.mode === 'Хочу научиться') {
+          //   isSkills = filters.skillIds.includes(user.skillId);
+          // }
+          isSkills = filters.skillIds.includes(user.skillId);
 
           if (filters.mode === 'Могу научить') {
             const skillWants = new Set(user.skillWants);
@@ -56,7 +57,7 @@ export const UsersPage: FC = () => {
     [usersData, filters]
   );
 
-  // console.log(filters);
+  console.log(filters);
   // console.log(filteredUsers);
 
   return (
