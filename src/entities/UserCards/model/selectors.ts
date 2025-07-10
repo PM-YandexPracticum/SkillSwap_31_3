@@ -21,3 +21,8 @@ export const selectUserLoading = createSelector(
   getUserCardsData,
   (state) => state.isLoading
 );
+
+export const selectSuccessModal = createSelector(
+  getUserCardsData,
+  (state) => state.showSuccessModal
+);

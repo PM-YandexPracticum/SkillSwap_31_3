@@ -5,4 +5,5 @@ export type TUserCardsState = {
   exchangeRequest: boolean;
   error: boolean;
   isLoading: boolean;
+  showSuccessModal: boolean;
 };

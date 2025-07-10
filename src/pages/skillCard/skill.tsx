@@ -14,12 +14,14 @@ import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
 import { TSkill, TUserCard } from '@api/types';
 import {
   selectExchangeRequest,
+  selectSuccessModal,
   selectUserCardError,
   selectUserCards,
   selectUserLoading
 } from '@entities/UserCards/model/selectors';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
 import {
+  resetSuccessModal,
   selectIsUserAuth,
   selectUser,
   userCardsThunk,
@@ -27,6 +29,7 @@ import {
 } from '@entities';
 import { useSelector, useDispatch } from '@app/store/store';
 import { Preloader } from '@shared/ui/preloader';
+import { Created } from '../../widgets/modal/variants/Created';
 
 export const Skill: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,8 +42,8 @@ export const Skill: React.FC = () => {
   const allSkills = useSelector(selectAllSkills);
 
   const exchangeRequestStatus = useSelector(selectExchangeRequest);
-  const exchangeError = useSelector(selectUserCardError);
   const exchangeLoading = useSelector(selectUserLoading);
+  const exchangeSuccessModal = useSelector(selectSuccessModal);
 
   const user: TUserCard = cards.find((card) => card._id === id)!;
 
@@ -92,6 +95,12 @@ export const Skill: React.FC = () => {
       {exchangeLoading && (
         <div className={styles.loaderOverlay}>
           <Preloader />
+        </div>
+      )}
+
+      {exchangeSuccessModal && (
+        <div className={styles.loaderOverlay}>
+          <Created onClose={() => disp(resetSuccessModal())} />
         </div>
       )}
       <div className={styles.usreInfoContainer}>
@@ -164,11 +173,7 @@ export const Skill: React.FC = () => {
                 type='button'
                 disabled={exchangeRequestStatus || exchangeLoading}
               >
-                {exchangeLoading
-                  ? 'Загрузка...'
-                  : exchangeRequestStatus
-                    ? 'Отправка...'
-                    : 'Предложить обмен'}
+                {exchangeLoading ? 'Отправка...' : 'Предложить обмен'}
               </Button>
             </div>
             {/* Галерея пользователя */}
