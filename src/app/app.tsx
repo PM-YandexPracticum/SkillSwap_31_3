@@ -1,6 +1,6 @@
 import {
   Home,
-  Profile,
+  ProfilePage,
   Modal,
   Login,
   Register,
@@ -49,13 +49,13 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/skill' element={<Skill />} />
-          <Route path='/profile' element={<NotFound404 />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<Register />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
       </div>
-      {!isRegisterRoute && <Footer />}
+      <div className={styles.footer}>{!isRegisterRoute && <Footer />}</div>
     </div>
   );
 };
