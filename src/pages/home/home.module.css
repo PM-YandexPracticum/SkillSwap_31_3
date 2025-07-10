@@ -1,13 +1,16 @@
 .layout {
   display: grid;
   grid-template-columns: 300px 1fr; /* Сайдбар фиксирован, остальное тянется */
-  height: 100vh;
-  gap: 20px;
+  height: 100%;
+  gap: 24px;
+  padding-left: 36px;
+  padding-right: 36px;
 }
 .sidebar {
-  position: relative;
   height: 100%;
   position: sticky;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 .cardsContainer {
   display: grid;
@@ -15,5 +18,6 @@
   gap: 20px;
   padding: 20px;
   padding-top: 0;
-  overflow: auto;
+  overflow: scroll;
+  scrollbar-width: none;
 }
