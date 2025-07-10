@@ -1,12 +1,14 @@
 import {
   Home,
   SkillCard,
+  ProfilePage,
   Modal,
   Login,
   Register,
   ProtectedRoute,
   NotFound404,
-  Error500
+  Error500,
+  Skill
 } from '@pages';
 
 import { ProfileSettingsForm } from '@features';
@@ -38,6 +40,7 @@ const App = () => {
     dispatch(userCardsThunk.getUserCards());
     dispatch(skillsThunk.getSkills());
   }, []);
+
   return (
     <div className={styles.app}>
       <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
@@ -46,12 +49,15 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/skillCard' element={<SkillCard />} />
           <Route path='/profile' element={<ProfileSettingsForm />} />
+          {/*<Route path='/profile' element={<ProfilePage />} />*/}
           <Route path='/login' element={<NotFound404 />} />
           <Route path='/register' element={<NotFound404 />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
       </div>
-      <Footer />
+      <div className={styles.footer}>
+        <Footer />
+      </div>
     </div>
   );
 };

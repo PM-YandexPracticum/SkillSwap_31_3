@@ -2,42 +2,33 @@ import React from 'react';
 import styles from './CheckboxList.module.css';
 import { CheckboxOption } from './CheckboxOption';
 import type { CheckboxListOptionType } from './CheckboxOption';
-import { Text } from '../../Text/Text';
 import { useState } from 'react';
+import clsx from 'clsx';
 
 type CheckboxListProps = {
   name: string;
   options: CheckboxListOptionType[];
   selected: string[];
   onChange?: (value: string) => void;
-  title?: string;
   isSubcategory?: boolean;
-  boxClass?: string;
+  checkboxClass?: string;
   onClick?: () => void;
 };
 
 export const CheckboxList = (props: CheckboxListProps) => {
-  const { name, options, selected, onChange, title, boxClass, onClick } = props;
-
-  const handleChange = (value: string) => onChange?.(value);
+  const { name, options, selected, onChange, checkboxClass, onClick } = props;
 
   const [selectedOptions, setselectedOptions] = useState<string[]>([]);
 
-  const selectOption = (value: string) => {
+  const handleChange = (value: string) => {
     setselectedOptions((prev) =>
       prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
     );
+    return onChange?.(value);
   };
 
   return (
     <div className={styles.container}>
-      {title && (
-        <>
-          <Text as='h3' color='text'>
-            {title}
-          </Text>
-        </>
-      )}
       <div className={styles.group}>
         {options.map((option) => (
           <CheckboxOption
@@ -45,9 +36,9 @@ export const CheckboxList = (props: CheckboxListProps) => {
             groupName={name}
             value={option.value}
             selected={selectedOptions}
-            onChange={() => selectOption}
+            onChange={() => handleChange(option.value)}
             option={option}
-            boxClass={boxClass}
+            checkboxClass={clsx(styles.checkboxCategory)}
             onClick={onClick}
           />
         ))}

@@ -10,6 +10,7 @@ import styles from './search-bar.module.css';
 import SearchIcon from '../../assets/icons/search.svg';
 import ClearIcon from '../../assets/icons/cross.svg';
 import { TColors } from '../types';
+import { useSearchParams } from 'react-router-dom';
 
 interface SearchBarProps {
   placeholder: string;
@@ -32,6 +33,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [text, setText] = useState(searchText);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     if (inputRef.current) {
@@ -42,17 +44,24 @@ const SearchBar: React.FC<SearchBarProps> = ({
     }
   }, [placeholderColor]);
 
+  useEffect(() => {
+    setSearchParams({ query: text });
+  }, []);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     submit(text);
+    setSearchParams({ query: text });
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
+    setSearchParams({ query: event.target.value });
   };
 
   const handleClear = () => {
     setText('');
+    setSearchParams({ query: '' });
   };
 
   return (

@@ -7,6 +7,7 @@ import { TUserCard } from '@api';
 import { useSelector } from '@app/store/store';
 import { selectSkillById } from '@entities';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
+
 export type TSkillCardProps = {
   data: TUserCard;
   learnSkills: string[];
@@ -22,15 +23,17 @@ export const SkillCard: FC<TSkillCardProps> = ({
   isLiked,
   onDetailsClick
 }) => {
+  // Все навык
   const allSkills = useSelector(selectAllSkills);
+
+  // Получаем навыки, которым хочет научиться
   const learnSkillsData = learnSkills.map((id) =>
     allSkills.find((value) => value._id === id)
   );
-  const parentIdBySkillId = useSelector((state) =>
-    selectSkillById(state, data._id)
-  );
 
-  console.log(parentIdBySkillId);
+  const parentIdBySkillId = useSelector((state) =>
+    selectSkillById(state, data.skillId)
+  );
 
   const visibleSkills = learnSkillsData.slice(0, 2);
   const hiddenSkillsCount = learnSkillsData.length - visibleSkills.length;

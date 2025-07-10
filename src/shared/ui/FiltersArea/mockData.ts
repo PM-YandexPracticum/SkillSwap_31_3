@@ -39,7 +39,7 @@ export const skills: SkillCategory[] = [
       'Немецкий',
       'Китайский',
       'Японский',
-      'Подготовка к экзаменам (IELTS, TOEFL)'
+      'Подготовка к экзаменам (IELTS, TOEFL)'
     ]
   },
   {
