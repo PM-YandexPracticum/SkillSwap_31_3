@@ -8,7 +8,6 @@ import RegistrationFormStep3 from '@shared/ui/RegistrationFormStep3/Registration
 import RegistrationFormStep1 from '@shared/ui/RegistrationFormStep1/RegistrationFormStep1';
 
 import { TRegisterData } from '@api/types';
-
 export const Register: FC = () => {
   const [step, setStep] = useState(1);
   const totalSteps = 3;

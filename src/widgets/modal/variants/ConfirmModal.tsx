@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styles from '../variants/ConfirmModal.module.css';
 import { TRegisterData } from '../../../../server/types';
 import EditIcon from '../../../images/edit.svg';
-
+import { useLocation } from 'react-router-dom';
 type Props = {
   onClose: () => void;
   submit: () => void;
@@ -17,6 +17,9 @@ export const ConfirmModal: FC<Props> = ({ onClose, submit, data }) => {
     description,
     photos = []
   } = data;
+
+  const location = useLocation();
+  const { registerData: TRegisterData } = location.state || {};
 
   return (
     <div className={styles.modalWideWrapper}>
