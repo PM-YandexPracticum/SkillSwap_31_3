@@ -10,11 +10,23 @@ import { useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from '@app/store/store';
 import { selectUserCards } from '../../entities/UserCards/model/selectors';
 import { userCardsThunk } from '../../entities/UserCards/model/thunk';
-
+import { Text } from '@shared/ui';
+import { useNavigate } from 'react-router-dom';
 export const Home: FC = () => {
+  const navigate = useNavigate();
   const disp = useDispatch();
   const cards = useSelector(selectUserCards);
   const skils = useSelector(selectUser);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query')?.toLowerCase() || '';
+
+  const filteredCards = query
+    ? cards.filter(
+        (card) =>
+          card.skillName.toLowerCase().includes(query) ||
+          card.name.toLowerCase().includes(query)
+      )
+    : cards;
 
   const [likedUsers, setLikedUsers] = useState<string[]>([]);
 
@@ -27,31 +39,27 @@ export const Home: FC = () => {
     );
   };
 
-  // //Отсеиваем навыки которым можем научить из общего списка
-  // const getWantToTeachSkills = (user: TUser) =>
-  //   skillsData.data.find((skill: TSkill) => skill._id === user.skillId)!;
-
-  // //Отсеиваем навыки которым хотим научиться из общего списка
-  // const getWantToLearnSkills = (user: TUser) =>
-  //   user.skillWants.map(
-  //     (skillId) =>
-  //       skillsData.data.find((skill: TSkill) => skill._id === skillId)!
-  //   );
-
   return (
     <div className={styles.layout}>
       <div className={styles.sidebar}>
         <FiltersArea />
       </div>
       <div className={styles.cardsContainer}>
-        {cards.map((card: TUserCard, index: number) => (
+        {filteredCards.length === 0 && (
+          <Text color='text' as='h2'>
+            Ничего не найдено
+          </Text>
+        )}
+        {filteredCards.map((card: TUserCard, index: number) => (
           <SkillCard
             key={index}
             data={card}
             learnSkills={card.skillWants}
             onLikeToggle={() => handleLikeToggle(card._id)}
             isLiked={likedUsers.includes(card._id)}
-            onDetailsClick={() => console.log('Details clicked')}
+            onDetailsClick={() => {
+              navigate('/skill');
+            }}
           />
         ))}
       </div>

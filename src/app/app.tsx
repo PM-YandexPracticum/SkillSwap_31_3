@@ -1,26 +1,44 @@
 import {
   Home,
-  Profile,
-  SkillCard,
+  ProfilePage,
   Modal,
   Login,
   Register,
   ProtectedRoute,
   NotFound404,
   Error500,
-  UsersPage
+  UsersPage,
+  Skill
 } from '@pages';
+
+import { ConfirmModal, Created, NeedRegister, Offered } from '@widgets';
 import './styles/index.css';
 import styles from './app.module.css';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Header, Footer } from '@features';
 import { TUser } from '@api';
-import { useDispatch } from './store/store';
 import { userCardsThunk } from '@entities/UserCards';
 import { skillsThunk } from '@entities/Skills';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from './store/store';
 import { selectUser } from '@entities';
+import { setIsAuthChecked } from '@entities/User/store';
+const mockData = {
+  email: 'test@mail.ru',
+  password: '1111',
+  name: 'Василий',
+  city: 'Томск',
+  age: '',
+  description: 'Что-то. О чём-то',
+  gender: 'Мужской',
+  avatar: '',
+  photos: [],
+  skillName: 'SomeSkill',
+  skillCanTeachCategory: '1',
+  skillCanTeachSubCategory: '1',
+  skillWants: ['1'],
+  skillId: '1'
+};
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,56 +49,83 @@ const App = () => {
 
   const location = useLocation();
   const background = location.state && location.state.background;
-
-  //мок логики для header
-  // const [userData, setUserData] = useState<TUser | undefined>(undefined);
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const response = await fetch('/db/users.json');
-  //       if (!response.ok) {
-  //         throw new Error(`Ошибка: ${response.status}`);
-  //       }
-  //       const users = await response.json();
-
-  //       if (users) {
-  //         setUserData(users.data[0] as TUser);
-  //       } else {
-  //         console.warn('users.json пустой или имеет не ту структуру');
-  //         setUserData(undefined);
-  //       }
-  //     } catch (error) {
-  //       console.error('Не смог загрузить users.json:', error);
-  //       setUserData(undefined);
-  //     }
-  //   };
-
-  //   fetchUserData();
-  // }, []);
   const userData = useSelector(selectUser);
   const isLoggedIn = false;
-  //конец логики header
-
+  const isRegisterRoute = location.pathname === '/register';
   useEffect(() => {
     dispatch(userCardsThunk.getUserCards());
     dispatch(skillsThunk.getSkills());
+
+    if (!localStorage.getItem('email')) {
+      dispatch(setIsAuthChecked(true));
+    }
   }, []);
+
   return (
     <div className={styles.app}>
-      <Header isLoggedIn={isLoggedIn} data={userData?.userCard} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        data={userData?.userCard}
+        isFormOpen={isRegisterRoute}
+      />
       <div className={styles.main}>
-        <Routes>
+        <Routes location={background || location}>
           <Route path='/' element={<Home />} />
+
           <Route path='/users' element={<UsersPage />} />
-          <Route path='/skillCard' element={<SkillCard />} />
-          <Route path='/profile' element={<NotFound404 />} />
-          <Route path='/login' element={<NotFound404 />} />
-          <Route path='/register' element={<NotFound404 />} />
+          <Route
+            path='/skill/exchenge'
+            element={<Created onClose={() => navigate(-1)} />}
+          />
+
+          <Route path='/skill' element={<Skill />} />
+          <Route
+            path='/profile'
+            index
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/register/confirm'
+            element={
+              <ProtectedRoute>
+                <ConfirmModal
+                  onClose={() => navigate(-1)}
+                  data={mockData}
+                  submit={() => navigate('/offered')}
+                />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path='/register'
+            element={
+              <ProtectedRoute onlyUnAuth>
+                <Register />
+              </ProtectedRoute>
+            }
+          />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
+
+        {background && (
+          <Routes>
+            <Route
+              path='/offered'
+              element={
+                <ProtectedRoute>
+                  <Offered onClose={() => navigate('/')} />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        )}
       </div>
-      <Footer />
+      <div className={styles.footer}>{!isRegisterRoute && <Footer />}</div>
     </div>
   );
 };

@@ -9,6 +9,7 @@
   flex-direction: column;
   gap: 20px;
   box-sizing: border-box;
+  max-height: 368px;
 }
 
 .cardsHeader {
@@ -30,10 +31,9 @@
 }
 
 .avatar {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .small {

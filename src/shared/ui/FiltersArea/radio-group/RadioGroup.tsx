@@ -3,6 +3,7 @@ import { Text } from '../../Text/Text';
 import type { RadioOptionType } from './RadioOption';
 import styles from './RadioGroup.module.css';
 import React from 'react';
+import clsx from 'clsx';
 
 export type RadioGroupProps = {
   name: string;
@@ -37,6 +38,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
             selected={selected}
             onChange={() => handleChange(option.value)}
             option={option}
+            radioBtnClass={clsx(styles.radioBtnClass)}
           />
         ))}
       </div>

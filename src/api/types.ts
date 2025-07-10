@@ -54,3 +54,22 @@ export type TAuthResponse =
   | { error: string; success: false };
 
 export type TFavoritesResponse = TServerResponse<{ favorites: string[] }>;
+
+export type TNotification = {
+  _id: string;
+  username: string;
+  notificationType: string;
+  date: string;
+};
+
+export type TUserDataUpdate = Pick<
+  TRegisterData,
+  | 'email'
+  | 'age'
+  | 'name'
+  | 'password'
+  | 'avatar'
+  | 'gender'
+  | 'city'
+  | 'description'
+>;
