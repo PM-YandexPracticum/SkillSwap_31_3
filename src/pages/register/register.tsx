@@ -10,7 +10,7 @@ import {
   selectSuccessModal,
   selectUserLoading
 } from '@entities/UserCards/model/selectors';
-import { resetSuccessModal } from '@entities';
+import { resetSuccessModal, userThunk } from '@entities';
 import { useDispatch, useSelector } from '@app/store/store';
 import { Preloader } from '@shared/ui/preloader';
 import { ConfirmModal } from '@widgets';
@@ -76,7 +76,10 @@ export const Register: FC = () => {
             <ConfirmModal
               onClose={() => disp(resetSuccessModal())}
               data={mockData}
-              submit={() => navigate('/offered')}
+              submit={() => {
+                navigate('/offered');
+                disp(userThunk.register(formData));
+              }}
             />
           </div>
         )}
