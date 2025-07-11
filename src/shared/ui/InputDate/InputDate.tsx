@@ -28,7 +28,7 @@ export const InputDateUI = ({
     scrollableYearDropdown
     dateFormatCalendar=' '
     selected={selectedDate}
-    onChange={(date) => onChange(date)}
+    onChange={onChange}
     popperPlacement='bottom-start'
     showPopperArrow={false}
     showIcon

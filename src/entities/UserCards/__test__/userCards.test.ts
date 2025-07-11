@@ -23,7 +23,8 @@ const mockData: TUserCard = {
   skillId: '1',
   skillWants: ['2', '3'],
   avatar: '',
-  photos: []
+  photos: [],
+  about: ''
 };
 
 describe('тест работы userCardsSlice', () => {

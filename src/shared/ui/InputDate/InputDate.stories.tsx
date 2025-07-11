@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { InputDateUI } from './InputDate';
 
-const meta: Meta = {
+const meta: Meta<typeof InputDateUI> = {
   title: 'InputDate',
   component: InputDateUI,
   tags: ['autodocs'],
