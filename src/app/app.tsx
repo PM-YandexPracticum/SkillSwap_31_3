@@ -78,7 +78,7 @@ const App = () => {
             element={<Created onClose={() => navigate(-1)} />}
           />
 
-          <Route path='/skill' element={<Skill />} />
+          <Route path='/skill/:id' element={<Skill />} />
           <Route
             path='/profile'
             index

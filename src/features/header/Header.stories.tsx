@@ -27,7 +27,8 @@ const mockUser: TUserCard = {
   skillId: '15',
   skillWants: ['12', '42', '23', '5'],
   photos: [],
-  description: ''
+  description: '',
+  about: ''
 };
 
 export const LoggedIn: StoryFn<typeof Header> = () => (
