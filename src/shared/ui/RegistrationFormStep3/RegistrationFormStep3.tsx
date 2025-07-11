@@ -9,6 +9,20 @@ import { userThunk } from '@entities/User';
 import { useDispatch, useSelector } from '@app/store/store';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
 import { useNavigate } from 'react-router-dom';
+import {
+  selectExchangeRequest,
+  selectSuccessModal,
+  selectUserCardError,
+  selectUserCards,
+  selectUserLoading
+} from '@entities/UserCards/model/selectors';
+import {
+  resetSuccessModal,
+  selectIsUserAuth,
+  selectUser,
+  userCardsThunk
+} from '@entities';
+
 interface RegistrationFormStep3Props {
   onNextStep: () => void;
   onPrevStep: () => void;
@@ -22,6 +36,8 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
   formData,
   setFormData
 }) => {
+  const exchangeLoading = useSelector(selectUserLoading);
+  const exchangeRequestStatus = useSelector(selectExchangeRequest);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const allSkills = useSelector(selectAllSkills);
@@ -65,6 +81,17 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
       const filesArray = Array.from(e.target.files);
       setFormData({ ...formData, photos: filesArray });
     }
+  };
+
+  const handleExchangeRequest = () => {
+    if (!localStorage.getItem('email')) {
+      navigate('/register');
+      return;
+    }
+
+    if (exchangeRequestStatus) return;
+
+    dispatch(userCardsThunk.exchangeRequest());
   };
 
   return (
@@ -169,19 +196,16 @@ export const RegistrationFormStep3: React.FC<RegistrationFormStep3Props> = ({
             onPrevStep();
           }}
         />
+
         <Button
           variant='primary'
           size='large'
-          children='Продолжить'
-          onClick={() =>
-            navigate('/register/confirm', {
-              state: {
-                formData
-              }
-            })
-          }
-          disabled={!isFormValid}
-        />
+          onClick={handleExchangeRequest}
+          type='button'
+          disabled={exchangeRequestStatus || exchangeLoading || !isFormValid}
+        >
+          {exchangeLoading ? 'Отправка...' : 'Продолжить'}
+        </Button>
       </div>
     </form>
   );

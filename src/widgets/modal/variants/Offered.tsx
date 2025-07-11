@@ -8,14 +8,20 @@ interface Props {
 }
 
 export const Offered: FC<Props> = ({ onClose }) => (
-  <div className={styles.modal}>
-    <img src={doneIcon} alt='иконка успеха' className={styles['modal-icon']} />
-    <h2 className={styles['modal-title']}>Ваше предложение создано</h2>
-    <p className={styles['modal-subtitle']}>
-      Теперь вы можете предложить обмен
-    </p>
-    <button className={styles['modal-button']} onClick={onClose}>
-      Готово
-    </button>
+  <div className={styles.loaderOverlay}>
+    <div className={styles.modal}>
+      <img
+        src={doneIcon}
+        alt='иконка успеха'
+        className={styles['modal-icon']}
+      />
+      <h2 className={styles['modal-title']}>Ваше предложение создано</h2>
+      <p className={styles['modal-subtitle']}>
+        Теперь вы можете предложить обмен
+      </p>
+      <button className={styles['modal-button']} onClick={onClose}>
+        Готово
+      </button>
+    </div>
   </div>
 );
