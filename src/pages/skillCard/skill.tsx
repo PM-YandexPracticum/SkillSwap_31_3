@@ -12,6 +12,7 @@ import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
 import { TSkill, TUserCard } from '@api/types';
+import { useNavigate } from 'react-router-dom';
 import { selectUserCards } from '@entities/UserCards/model/selectors';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
 import { selectIsUserAuth, selectUser, userThunk } from '@entities';
@@ -22,7 +23,6 @@ export const Skill: React.FC = () => {
   const navigate = useNavigate();
   const disp = useDispatch();
   const userAuto = useSelector(selectIsUserAuth);
-
   const skils = useSelector(selectUser);
   const cards = useSelector(selectUserCards);
   const allSkills = useSelector(selectAllSkills);
@@ -128,7 +128,11 @@ export const Skill: React.FC = () => {
               </div>
 
               <Button
-                onClick={() => console.log('Details clicked')}
+                onClick={() => {
+                  navigate('/skill/exchenge', {
+                    state: { backgroundLocation: location.pathname }
+                  });
+                }}
                 type='button'
               >
                 Предложить обмен

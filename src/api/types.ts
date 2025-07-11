@@ -62,3 +62,15 @@ export type TNotification = {
   notificationType: string;
   date: string;
 };
+
+export type TUserDataUpdate = Pick<
+  TRegisterData,
+  | 'email'
+  | 'age'
+  | 'name'
+  | 'password'
+  | 'avatar'
+  | 'gender'
+  | 'city'
+  | 'description'
+>;

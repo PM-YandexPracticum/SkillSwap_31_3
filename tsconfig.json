@@ -29,7 +29,9 @@
       "@entities/*": ["src/entities/*"],
       "@entities": ["src/entities/index.ts"],
       "@api/*": ["src/api/*"],
-      "@api": ["src/api/index.ts"]
+      "@api": ["src/api/index.ts"],
+      "@widhets/*": ["src/widhets/*"],
+      "@widgets": ["src/widgets/index.ts"]
     }
   },
   "include": ["src"]
