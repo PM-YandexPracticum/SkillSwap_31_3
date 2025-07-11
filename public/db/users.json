@@ -35,37 +35,40 @@
       }
     },
     {
-      "email": "Dimon.M@mail.ry",
-      "password": "11111111",
+      "email": "dfadsf",
+      "password": "fdgasfgsdfsf",
       "skillWants": [
-        "38",
-        "40"
+        "8"
       ],
-      "name": "Дмитрий",
+      "name": "fgsdgfaswdfga",
       "gender": "Мужской",
-      "age": "Fri Jul 21 1995 15:42:59 GMT+0400 (Москва, летнее время)",
       "city": "Москва",
-      "skillId": "5",
-      "skillName": "Работать и не выгорать",
-      "skillCanTeachCategory": "5",
-      "skillCanTeachSubCategory": "36",
-      "description": "Научу не быть хлебушком",
-      "favorites": [],
+      "skillId": "1",
+      "skillCanTeachCategory": "1",
+      "skillName": "dffdfwf",
+      "skillCanTeachSubCategory": "8",
+      "description": "adfwDEFde",
+      "favorites": [
+        "2",
+        "6",
+        "7"
+      ],
       "userCard": {
-        "_id": "1752237863761",
-        "name": "Дмитрий",
-        "age": "29 лет",
+        "_id": "1752248730792",
+        "name": "fgsdgfaswdfga",
+        "age": "NaN лет",
         "gender": "Мужской",
-        "description": "Научу не быть хлебушком",
+        "description": "adfwDEFde",
         "city": "Москва",
-        "skillName": "Работать и не выгорать",
-        "skillId": "5",
+        "skillName": "dffdfwf",
+        "skillId": "1",
         "skillWants": [
-          "38",
-          "40"
+          "8"
         ],
         "avatar": "http://localhost:3000/uploads/unknown.jpg",
-        "photos": []
+        "photos": [
+          "http://localhost:3000/uploads/photos-1752248730787.jpg"
+        ]
       }
     }
   ]

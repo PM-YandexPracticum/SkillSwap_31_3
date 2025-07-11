@@ -61,13 +61,13 @@ export const Header: FC<HeaderProps> = ({
     setIsLiked(value);
   };
 
+
   const handleNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
     if (!isNotificationOpen) {
       setHasUnreadNotifications(false);
     }
   };
-
   // Обработчик клика по кнопке "Все навыки"
   const handleAllSkillsClick = () => {
     setIsCatalogueOpen(!isCatalogueOpen);

@@ -17,6 +17,10 @@ export const selectUser = createSelector(getUserData, (state) => state.user);
 export const selectIsUserAuth = createSelector(getUserData, (state) =>
   Boolean(state.user)
 );
+export const selectUserFavorites = createSelector(
+  getUserData,
+  (state) => state.user?.favorites
+);
 
 export const selectUserProfileData = createSelector(getUserData, (state) => ({
   email: state.user?.email,
