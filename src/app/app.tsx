@@ -66,6 +66,9 @@ const App = () => {
         isLoggedIn={isLoggedIn}
         data={userData?.userCard}
         isFormOpen={isRegisterRoute}
+        onCloseForm={() => {
+          navigate('/');
+        }}
       />
       <div className={styles.main}>
         <Routes location={background || location}>
