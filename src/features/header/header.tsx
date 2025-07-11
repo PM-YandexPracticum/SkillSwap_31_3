@@ -5,7 +5,7 @@ import Arrow from '@shared/assets/icons/arrow-down.svg';
 import { Link } from 'react-router-dom';
 import SearchBar from '@shared/ui/SearchBar/search-bar';
 import { Button } from '@shared/ui/button/button';
-import { TUserCard } from '@api';
+import { TSkill, TUserCard } from '@api';
 import { Notification } from '@shared/ui/Notification/Notification';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import MoonIcon from '@shared/ui/MoonIcon/MoonIcon';
@@ -13,6 +13,8 @@ import ClearIcon from '@shared/assets/icons/cross.svg';
 import { selectIsUserAuth, selectUser } from '@entities/User';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { CatalogueNavUI } from '@shared/ui/Catalogue';
+import { selectAllSkills } from '@entities/Skills';
 interface HeaderProps {
   isLoggedIn: boolean;
   data?: TUserCard | null;
@@ -33,6 +35,7 @@ export const Header: FC<HeaderProps> = ({
   const parsedUser: TUserCard | null = localUser ? JSON.parse(localUser) : null;
   const loggedIn = isAuth || !!parsedUser;
   const userData = userDataFromStore || parsedUser;
+  const allSkills = useSelector(selectAllSkills);
 
   // Состояние для уведомлений
   const [hasUnreadNotifications, setHasUnreadNotifications] =
@@ -40,6 +43,7 @@ export const Header: FC<HeaderProps> = ({
 
   // Состояние для лайков
   const [isLiked, setIsLiked] = useState(false);
+  const [isCatalogueOpen, setIsCatalogueOpen] = useState(false);
 
   // Для поиска
   const handleSearchSubmit = (searchText: string) => {};
@@ -53,6 +57,17 @@ export const Header: FC<HeaderProps> = ({
   const onLikeToggle = (value: boolean) => {
     setIsLiked(value);
   };
+
+  // Обработчик клика по кнопке "Все навыки"
+  const handleAllSkillsClick = () => {
+    setIsCatalogueOpen(!isCatalogueOpen);
+  };
+
+  // Закрытие каталога при клике вне его области
+  const handleCloseCatalogue = () => {
+    setIsCatalogueOpen(false);
+  };
+
   if (isFormOpen) {
     return (
       <header className={`${styles.header} ${styles.headerFormOpen}`}>
@@ -85,20 +100,26 @@ export const Header: FC<HeaderProps> = ({
           />
         </Link>
         <button className={styles.aboutProjectButton}>О проекте</button>
-        <button className={styles.allSkillsButton}>
-          Все навыки
-          <span className={styles.dropdownArrow}>
-            <img src={Arrow} alt='Arrow' />
-          </span>
-        </button>
-      </div>
-
-      <div className={styles.centerSection}>
-        <SearchBar
-          placeholder='Искать навык'
-          submit={handleSearchSubmit}
-          size='medium'
-        />
+        <div className={styles.allSkillsContainer}>
+          <button
+            className={styles.allSkillsButton}
+            onClick={handleAllSkillsClick}
+          >
+            Все навыки
+            <span className={styles.dropdownArrow}>
+              <img
+                src={Arrow}
+                alt='Arrow'
+                className={isCatalogueOpen ? styles.arrowUp : styles.arrowDown}
+              />
+            </span>
+          </button>
+          {isCatalogueOpen && (
+            <div className={styles.catalogueDropdown}>
+              <CatalogueNavUI data={allSkills} />
+            </div>
+          )}
+        </div>
       </div>
 
       <div className={styles.rightSection}>
@@ -153,6 +174,12 @@ export const Header: FC<HeaderProps> = ({
           </div>
         )}
       </div>
+      {isCatalogueOpen && (
+        <div
+          className={styles.catalogueOverlay}
+          onClick={handleCloseCatalogue}
+        />
+      )}
     </header>
   );
 };

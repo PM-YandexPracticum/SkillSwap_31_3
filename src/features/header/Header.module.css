@@ -112,5 +112,38 @@
   width: 10.61px;
   height: 10.61px;
   margin-left: 8px;
-  fill: var(--caption); /* Ну почему крестик не видно?! */
+  color: var(--caption); 
+}
+
+/* Стили для выпадающего каталога */
+.allSkillsContainer {
+  position: relative;
+}
+
+.catalogueDropdown {
+  position: absolute;
+  max-width: 1136px;
+  max-height: 1140px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.catalogueOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 99;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}
+
+.arrowDown {
+  transform: rotate(0deg);
 }
