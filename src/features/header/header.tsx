@@ -63,7 +63,6 @@ export const Header: FC<HeaderProps> = ({
 
   const handleNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen);
-    // Если открываем уведомления, помечаем как прочитанные
     if (!isNotificationOpen) {
       setHasUnreadNotifications(false);
     }
