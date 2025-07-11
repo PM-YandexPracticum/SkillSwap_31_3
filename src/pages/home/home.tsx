@@ -31,7 +31,7 @@ export const Home: FC = () => {
   // Функция переключения лайка
   const handleLikeToggle = (id: string) => {
     if (!userAuto) {
-      navigate('/login');
+      navigate('/register');
       return;
     }
 

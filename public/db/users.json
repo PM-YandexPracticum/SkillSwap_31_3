@@ -33,6 +33,43 @@
           "http://localhost:3000/uploads/photos-1752186034410.jpg"
         ]
       }
+    },
+    {
+      "email": "dfadsf",
+      "password": "fdgasfgsdfsf",
+      "skillWants": [
+        "8"
+      ],
+      "name": "fgsdgfaswdfga",
+      "gender": "Мужской",
+      "city": "Москва",
+      "skillId": "1",
+      "skillCanTeachCategory": "1",
+      "skillName": "dffdfwf",
+      "skillCanTeachSubCategory": "8",
+      "description": "adfwDEFde",
+      "favorites": [
+        "2",
+        "6",
+        "7"
+      ],
+      "userCard": {
+        "_id": "1752248730792",
+        "name": "fgsdgfaswdfga",
+        "age": "NaN лет",
+        "gender": "Мужской",
+        "description": "adfwDEFde",
+        "city": "Москва",
+        "skillName": "dffdfwf",
+        "skillId": "1",
+        "skillWants": [
+          "8"
+        ],
+        "avatar": "http://localhost:3000/uploads/unknown.jpg",
+        "photos": [
+          "http://localhost:3000/uploads/photos-1752248730787.jpg"
+        ]
+      }
     }
   ]
 }
