@@ -423,6 +423,22 @@
       ],
       "avatar": "http://localhost:3000/uploads/unknown.jpg",
       "photos": []
+    },
+    {
+      "_id": "1752243554806",
+      "name": "IvanIvanovch",
+      "age": "NaN лет",
+      "gender": "Мужской",
+      "description": "скилскилович скиловский ",
+      "city": "Казань",
+      "skillName": "скилскилович",
+      "skillId": "2",
+      "skillWants": [
+        "1",
+        "5"
+      ],
+      "avatar": "http://localhost:3000/uploads/unknown.jpg",
+      "photos": []
     }
   ]
 }

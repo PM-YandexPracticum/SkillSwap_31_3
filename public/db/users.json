@@ -67,6 +67,39 @@
         "avatar": "http://localhost:3000/uploads/unknown.jpg",
         "photos": []
       }
+    },
+    {
+      "password": "IvanIvanovch",
+      "email": "IvanIvanovch@yandex.ru",
+      "skillWants": [
+        "1",
+        "5"
+      ],
+      "name": "IvanIvanovch",
+      "skillId": "2",
+      "city": "Казань",
+      "gender": "Мужской",
+      "skillName": "скилскилович",
+      "skillCanTeachCategory": "5",
+      "skillCanTeachSubCategory": "37",
+      "description": "скилскилович скиловский ",
+      "favorites": [],
+      "userCard": {
+        "_id": "1752243554806",
+        "name": "IvanIvanovch",
+        "age": "NaN лет",
+        "gender": "Мужской",
+        "description": "скилскилович скиловский ",
+        "city": "Казань",
+        "skillName": "скилскилович",
+        "skillId": "2",
+        "skillWants": [
+          "1",
+          "5"
+        ],
+        "avatar": "http://localhost:3000/uploads/unknown.jpg",
+        "photos": []
+      }
     }
   ]
 }
