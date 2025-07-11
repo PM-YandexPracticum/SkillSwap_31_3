@@ -22,22 +22,6 @@ import { skillsThunk } from '@entities/Skills';
 import { useSelector, useDispatch } from './store/store';
 import { selectUser } from '@entities';
 import { setIsAuthChecked } from '@entities/User/store';
-const mockData = {
-  email: 'test@mail.ru',
-  password: '1111',
-  name: 'Василий',
-  city: 'Томск',
-  age: '',
-  description: 'Что-то. О чём-то',
-  gender: 'Мужской',
-  avatar: '',
-  photos: [],
-  skillName: 'SomeSkill',
-  skillCanTeachCategory: '1',
-  skillCanTeachSubCategory: '1',
-  skillWants: ['1'],
-  skillId: '1'
-};
 
 const App = () => {
   const dispatch = useDispatch();
@@ -91,17 +75,6 @@ const App = () => {
           <Route
             path='/offered'
             element={<Offered onClose={() => navigate('/')} />}
-          />
-
-          <Route
-            path='/register/confirm'
-            element={
-              <ConfirmModal
-                onClose={() => navigate(-1)}
-                data={mockData}
-                submit={() => navigate('/offered')}
-              />
-            }
           />
 
           <Route
