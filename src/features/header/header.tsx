@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CatalogueNavUI } from '@shared/ui/Catalogue';
 import { selectAllSkills } from '@entities/Skills';
+import NotificationItem from '@shared/ui/NotificationItem/notification-item';
 interface HeaderProps {
   isLoggedIn: boolean;
   data?: TUserCard | null;
@@ -41,6 +42,8 @@ export const Header: FC<HeaderProps> = ({
   const [hasUnreadNotifications, setHasUnreadNotifications] =
     useState<boolean>(true);
 
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
   // Состояние для лайков
   const [isLiked, setIsLiked] = useState(false);
   const [isCatalogueOpen, setIsCatalogueOpen] = useState(false);
@@ -58,6 +61,13 @@ export const Header: FC<HeaderProps> = ({
     setIsLiked(value);
   };
 
+
+  const handleNotificationClick = () => {
+    setIsNotificationOpen(!isNotificationOpen);
+    if (!isNotificationOpen) {
+      setHasUnreadNotifications(false);
+    }
+  };
   // Обработчик клика по кнопке "Все навыки"
   const handleAllSkillsClick = () => {
     setIsCatalogueOpen(!isCatalogueOpen);
@@ -136,8 +146,18 @@ export const Header: FC<HeaderProps> = ({
           <>
             <Notification
               checked={hasUnreadNotifications}
-              onChange={handleNotificationToggle}
+              onChange={handleNotificationClick}
             />
+            {isNotificationOpen && (
+              <div className={styles.notificationsDropdown}>
+                <NotificationItem
+                  text='Новое уведомление'
+                  onClose={() => {
+                    setIsNotificationOpen(false);
+                  }}
+                />
+              </div>
+            )}
             <div className={styles.like}>
               <ToggleLike onChange={onLikeToggle} checked={isLiked} />
             </div>
