@@ -5,6 +5,7 @@ import { FiltersPanel } from '@pages/usersPage/filtersPanel';
 import { useSelector } from '@app/store/store';
 import { selectUserCards } from '@entities/UserCards/model/selectors';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
+import SkillTag from '../../shared/ui/SkillTag/skill-tag';
 
 import styles from '@pages/usersPage/usersPage.module.css';
 
@@ -67,7 +68,11 @@ export const UsersPage: FC = () => {
         skillsData={skillsData}
         usersData={usersData}
       />
-      <UsersGrid filteredUsers={filteredUsers} />
+      <div>
+        {/* TODO: добавить список выбранных навыков */}
+        {/*<SkillTag skill={filters.skillIds[0]} onClose={() => {}} />*/}
+        <UsersGrid filteredUsers={filteredUsers} />
+      </div>
     </div>
   );
 };
