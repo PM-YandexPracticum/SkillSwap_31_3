@@ -9,7 +9,7 @@ import { TSkill, TUserCard } from '@api';
 import { Notification } from '@shared/ui/Notification/Notification';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import MoonIcon from '@shared/ui/MoonIcon/MoonIcon';
-import ClearIcon from '../../shared/assets/icons/cross.svg';
+import ClearIcon from '@shared/assets/icons/cross.svg';
 import { selectIsUserAuth, selectUser } from '@entities/User';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
