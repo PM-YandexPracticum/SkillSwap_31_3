@@ -1,19 +1,28 @@
 .layout {
-    width: 1368px;
-    margin: 0 auto;
-    display: flex;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 300px 1fr; /* Сайдбар фиксирован, остальное тянется */
+    height: 100%;
+    gap: 24px;
+    padding-left: 36px;
+    padding-right: 36px;
 }
-
 .sidebar {
-    width: 324px;
-    padding: 20px;
-    background-color: var(--card);
-    border-radius: 20px;
+    height: 100%;
+    position: sticky;
+    overflow: scroll;
+    scrollbar-width: none;
 }
-
 .cardsContainer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
+    padding: 20px;
+    padding-top: 0;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
 }

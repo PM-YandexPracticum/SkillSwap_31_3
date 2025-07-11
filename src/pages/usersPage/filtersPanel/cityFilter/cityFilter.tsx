@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { CheckboxList } from '@shared/ui/FiltersArea/checkbox-lists/CheckboxList';
+import { CheckboxListSubcategory } from '@shared/ui/FiltersArea/checkbox-lists/CheckboxListSubcategory';
 import styles from '@shared/ui/FiltersArea/FiltersArea.module.css';
 import clsx from 'clsx';
 import { Text } from '@shared/ui';
@@ -33,13 +33,16 @@ export const CityFilter: FC<CityFilterProps> = ({ setFilters, usersData }) => {
 
   return (
     <section className={styles.section}>
-      <CheckboxList
-        title={'Город'}
+      <div className={styles.sectionTitle}>
+        <Text as='h3' color='text'>
+          Город
+        </Text>
+      </div>
+      <CheckboxListSubcategory
         name={'checkboxList_cities'}
         options={showAllCities ? cities : cities.slice(0, 5)}
         selected={[]}
         onChange={toggleCity}
-        boxClass={clsx(styles.boxSubcategory)}
       />
       <button
         type='button'

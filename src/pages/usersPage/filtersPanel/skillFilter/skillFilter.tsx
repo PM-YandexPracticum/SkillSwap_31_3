@@ -3,6 +3,7 @@ import styles from '@shared/ui/FiltersArea/FiltersArea.module.css';
 import { Text } from '@shared/ui';
 import clsx from 'clsx';
 import { CheckboxList } from '@shared/ui/FiltersArea/checkbox-lists/CheckboxList';
+import { CheckboxListSubcategory } from '@shared/ui/FiltersArea/checkbox-lists/CheckboxListSubcategory';
 import { getSkills, getSkillsDict } from '@shared/lib/getSkills';
 import { Filters } from '@pages/usersPage/usersPage';
 import { TSkill } from '@api';
@@ -31,13 +32,13 @@ export const SkillFilter: FC<SkillFilterProps> = ({
       [itemCategory]: !prev[itemCategory]
     }));
 
-    // if (!dropdownSkills[itemCategory]) {
-    //   setSelectSkills((prev) =>
-    //     prev.includes(itemCategory) ? prev : [...prev, itemCategory]
-    //   );
-    // } else {
-    //   setSelectSkills((prev) => prev.filter((value) => value !== itemCategory));
-    // }
+    if (!dropdownSkills[itemCategory]) {
+      setSelectSkills((prev) =>
+        prev.includes(itemCategory) ? prev : [...prev, itemCategory]
+      );
+    } else {
+      setSelectSkills((prev) => prev.filter((value) => value !== itemCategory));
+    }
   };
 
   const toggleSkill = (value: string) => {
@@ -80,7 +81,6 @@ export const SkillFilter: FC<SkillFilterProps> = ({
               options={[{ value: item.category }]}
               selected={selectedSkills}
               onChange={() => {}}
-              boxClass={clsx(styles.boxCategory)}
               onClick={() => toggleSkillCategory(item.category)}
               isSubcategory
             />
@@ -94,12 +94,11 @@ export const SkillFilter: FC<SkillFilterProps> = ({
 
           {dropdownSkills[item.category] && item.subcategories && (
             <div className={styles.subcategories}>
-              <CheckboxList
+              <CheckboxListSubcategory
                 name='checkboxList_skills_subcategories'
                 options={item.subcategories.map((value: string) => ({ value }))}
                 selected={selectedSkills}
                 onChange={toggleSkill}
-                boxClass={clsx(styles.boxSubcategory)}
               />
             </div>
           )}

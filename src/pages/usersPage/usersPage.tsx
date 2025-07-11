@@ -57,7 +57,7 @@ export const UsersPage: FC = () => {
     [usersData, filters]
   );
 
-  console.log(filters);
+  // console.log(filters);
   // console.log(filteredUsers);
 
   return (
