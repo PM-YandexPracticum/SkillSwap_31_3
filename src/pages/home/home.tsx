@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from '@app/store/store';
 import { selectUserCards } from '../../entities/UserCards/model/selectors';
 import { userCardsThunk } from '../../entities/UserCards/model/thunk';
 import { Text } from '@shared/ui';
-import { useNavigate } from 'react-router-dom';
 export const Home: FC = () => {
   const navigate = useNavigate();
   const disp = useDispatch();
