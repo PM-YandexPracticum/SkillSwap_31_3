@@ -24,7 +24,8 @@ const config: StorybookConfig = {
           '@pages': path.resolve(__dirname, '../src/pages'),
           '@features': path.resolve(__dirname, '../src/features'),
           '@entities': path.resolve(__dirname, '../src/entities'),
-          '@api': path.resolve(__dirname, '../src/api')
+          '@api': path.resolve(__dirname, '../src/api'),
+          '@widgets': path.resolve(__dirname, './src/widgets')
         })
       : null;
 

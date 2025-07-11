@@ -4,7 +4,8 @@ import {
   TRegisterData,
   TAuthResponse,
   TServerResponse,
-  TUserCardsResponse
+  TUserCardsResponse,
+  TUserDataUpdate
 } from './types';
 
 import { createFormatData } from '@shared/lib';
@@ -56,6 +57,20 @@ export const logoutUserApi = () =>
     .then(checkoutResponse<TServerResponse<{}>>)
     .then((res) => {
       if (res?.success) return res;
+      return Promise.reject(res);
+    });
+
+export const updateUserApi = (data: TUserDataUpdate) =>
+  fetch(`${BASE_URL}/updateUser`, {
+    method: 'PATCH',
+    body: createFormatData(data),
+    headers: {
+      authorization: localStorage.getItem('email')
+    } as HeadersInit
+  })
+    .then(checkoutResponse<TAuthResponse>)
+    .then((res) => {
+      if ('success' in res) return res;
       return Promise.reject(res);
     });
 

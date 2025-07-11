@@ -1,11 +1,18 @@
-import { FC, useState, useEffect, ChangeEvent, useRef } from 'react';
+import {
+  FC,
+  useState,
+  useEffect,
+  ChangeEvent,
+  useRef,
+  useLayoutEffect
+} from 'react';
 import styles from './textBlock.module.css';
 import React from 'react';
 
 type Props = {
   value?: string;
   maxLength?: number;
-  onChange?: (v: string) => void;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   className?: string;
 };
 
@@ -15,13 +22,7 @@ export const TextBlock = ({
   onChange,
   className = ''
 }: Props) => {
-  const [text, setText] = useState(value);
   const [isEdit, setEdit] = useState(false);
-  useEffect(() => setText(value), [value]);
-
-  useEffect(() => {
-    if (isEdit) onChange?.(text);
-  }, [text, isEdit, onChange]);
 
   const taRef = useRef<HTMLTextAreaElement>(null);
 
@@ -29,16 +30,17 @@ export const TextBlock = ({
     const el = taRef.current;
     if (!el) return;
     el.style.height = 'auto';
-    el.style.height = el.scrollHeight + 'px';
+    el.style.height = `${el.scrollHeight}px`;
   };
+
+  useEffect(() => {
+    if (isEdit) {
+      autoGrow();
+    }
+  }, [value, isEdit]);
 
   const startEdit = () => setEdit(true);
   const stopEdit = () => setEdit(false);
-
-  const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const val = e.target.value;
-    if (val.length <= maxLength) setText(val);
-  };
 
   const root = [styles.wrapper, className].join(' ').trim();
 
@@ -48,16 +50,17 @@ export const TextBlock = ({
         <textarea
           ref={taRef}
           className={styles.textarea}
-          value={text}
-          onInput={autoGrow}
-          onChange={handleInput}
+          value={value}
+          onChange={onChange}
           onBlur={stopEdit}
+          onFocus={autoGrow}
+          maxLength={500}
           autoFocus
         />
       ) : (
         <>
           <p className={styles.text}>
-            {text || 'Нажмите, чтобы добавить текст'}
+            {value || 'Нажмите, чтобы добавить текст'}
           </p>
           <button
             type='button'

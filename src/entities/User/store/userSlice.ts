@@ -4,7 +4,7 @@ import { userThunk } from '../model/thunk';
 import { TAuthState } from '../model/types';
 
 const initialState: TAuthState = {
-  isAuthChecked: false,
+  isAuthChecked: true,
   user: null,
   error: null
 };
@@ -33,6 +33,10 @@ const userSlice = createSlice({
     builder.addCase(userThunk.register.rejected, (state, { payload }) => {
       state.isAuthChecked = false;
       state.error = payload as string;
+    });
+
+    builder.addCase(userThunk.updateUser.fulfilled, (state, { payload }) => {
+      state.user = payload;
     });
 
     builder.addCase(userThunk.logout.fulfilled, (state) => {

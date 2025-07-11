@@ -31,12 +31,12 @@ import { useSelector, useDispatch } from '@app/store/store';
 import { Preloader } from '@shared/ui/preloader';
 import { Created } from '../../widgets/modal/variants/Created';
 
+
 export const Skill: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const disp = useDispatch();
   const userAuto = useSelector(selectIsUserAuth);
-
   const skils = useSelector(selectUser);
   const cards = useSelector(selectUserCards);
   const allSkills = useSelector(selectAllSkills);
@@ -49,7 +49,7 @@ export const Skill: React.FC = () => {
 
   const handleExchangeRequest = () => {
     if (!localStorage.getItem('email')) {
-      navigate('/login');
+      navigate('/register');
       return;
     }
 
@@ -58,10 +58,11 @@ export const Skill: React.FC = () => {
     disp(userCardsThunk.exchangeRequest());
   };
 
+
   // Функция переключения лайка
   const handleLikeToggle = (id: string) => {
     if (!userAuto) {
-      navigate('/login');
+      navigate('/register');
       return;
     }
 
