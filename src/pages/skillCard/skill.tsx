@@ -12,10 +12,24 @@ import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
 import { TSkill, TUserCard } from '@api/types';
-import { selectUserCards } from '@entities/UserCards/model/selectors';
+import {
+  selectExchangeRequest,
+  selectSuccessModal,
+  selectUserCardError,
+  selectUserCards,
+  selectUserLoading
+} from '@entities/UserCards/model/selectors';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
-import { selectIsUserAuth, selectUser, userThunk } from '@entities';
+import {
+  resetSuccessModal,
+  selectIsUserAuth,
+  selectUser,
+  userCardsThunk,
+  userThunk
+} from '@entities';
 import { useSelector, useDispatch } from '@app/store/store';
+import { Preloader } from '@shared/ui/preloader';
+import { Created } from '../../widgets/modal/variants/Created';
 
 export const Skill: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,12 +39,28 @@ export const Skill: React.FC = () => {
   const skils = useSelector(selectUser);
   const cards = useSelector(selectUserCards);
   const allSkills = useSelector(selectAllSkills);
+
+  const exchangeRequestStatus = useSelector(selectExchangeRequest);
+  const exchangeLoading = useSelector(selectUserLoading);
+  const exchangeSuccessModal = useSelector(selectSuccessModal);
+
   const user: TUserCard = cards.find((card) => card._id === id)!;
+
+  const handleExchangeRequest = () => {
+    if (!localStorage.getItem('email')) {
+      navigate('/register');
+      return;
+    }
+
+    if (exchangeRequestStatus) return;
+
+    disp(userCardsThunk.exchangeRequest());
+  };
 
   // Функция переключения лайка
   const handleLikeToggle = (id: string) => {
     if (!userAuto) {
-      navigate('/login');
+      navigate('/register');
       return;
     }
 
@@ -61,6 +91,17 @@ export const Skill: React.FC = () => {
 
   return (
     <div className={styles.mainContent}>
+      {exchangeLoading && (
+        <div className={styles.loaderOverlay}>
+          <Preloader />
+        </div>
+      )}
+
+      {exchangeSuccessModal && (
+        <div className={styles.loaderOverlay}>
+          <Created onClose={() => disp(resetSuccessModal())} />
+        </div>
+      )}
       <div className={styles.usreInfoContainer}>
         <div className={styles.cardsContainer}>
           <div className={styles.cardsHeader}>
@@ -127,14 +168,11 @@ export const Skill: React.FC = () => {
               </div>
 
               <Button
-                onClick={() => {
-                  navigate('/skill/exchenge', {
-                    state: { backgroundLocation: location.pathname }
-                  });
-                }}
+                onClick={handleExchangeRequest}
                 type='button'
+                disabled={exchangeRequestStatus || exchangeLoading}
               >
-                Предложить обмен
+                {exchangeLoading ? 'Отправка...' : 'Предложить обмен'}
               </Button>
             </div>
             {/* Галерея пользователя */}
