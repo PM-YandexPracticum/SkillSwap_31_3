@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from '@app/store/store';
 import { selectUserCards } from '../../entities/UserCards/model/selectors';
 import { userCardsThunk } from '../../entities/UserCards/model/thunk';
 import { Text } from '@shared/ui';
-
 export const Home: FC = () => {
   const navigate = useNavigate();
   const disp = useDispatch();
@@ -69,17 +68,3 @@ export const Home: FC = () => {
     </div>
   );
 };
-
-// export interface TUserCard {
-//   _id: string;
-//   name: string;
-//   age: string;
-//   gender: string;
-//   description: string;
-//   city: string;
-//   skillName: string;
-//   skillId: string;
-//   skillWants: string[];
-//   avatar: string;
-//   photos: string[];
-// }

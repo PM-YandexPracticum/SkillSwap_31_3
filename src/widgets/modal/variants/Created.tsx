@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const Created: FC<Props> = ({ onClose }) => (
-  <div className={styles['modal']}>
+  <div className={styles.modal}>
     <img src={doneIcon} alt='иконка успеха' className={styles['modal-icon']} />
     <h2 className={styles['modal-title']}>Ваше предложение создано</h2>
     <p className={styles['modal-subtitle']}>

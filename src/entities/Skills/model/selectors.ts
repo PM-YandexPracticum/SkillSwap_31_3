@@ -6,7 +6,7 @@ const getSkillsData = (state: RootState) => state.skills;
 
 export const selectAllSkills = createSelector(
   getSkillsData,
-  (state) => state.skills
+  (state) => state.skills || []
 );
 
 export const selectSkillByName = createSelector(
@@ -18,3 +18,17 @@ export const selectSkillById = createSelector(
   [getSkillsData, (_, id: string) => id],
   (state, id) => state.skills.find((skill) => skill._id === id)
 );
+
+export const selectSubcategoriesByCategory = (categoryName: string) =>
+  createSelector([selectAllSkills], (skills) => {
+    const parent = skills.find(
+      (skill) => skill.name === categoryName && skill.parent_id === '0'
+    );
+    if (!parent) {
+      return [];
+    }
+    const subCategories = skills
+      .filter((s) => s.parent_id === parent._id)
+      .map((s) => s.name);
+    return subCategories;
+  });

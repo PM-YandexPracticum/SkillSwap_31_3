@@ -10,7 +10,9 @@ import { Notification } from '@shared/ui/Notification/Notification';
 import { ToggleLike } from '@shared/ui/ToggleLike/ToggleLike';
 import MoonIcon from '@shared/ui/MoonIcon/MoonIcon';
 import ClearIcon from '@shared/assets/icons/cross.svg';
-
+import { selectIsUserAuth, selectUser } from '@entities/User';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 interface HeaderProps {
   isLoggedIn: boolean;
   data?: TUserCard | null;
@@ -24,6 +26,14 @@ export const Header: FC<HeaderProps> = ({
   isFormOpen = false,
   onCloseForm = () => {}
 }) => {
+  const navigate = useNavigate();
+  const isAuth = useSelector(selectIsUserAuth);
+  const userDataFromStore = useSelector(selectUser);
+  const localUser = localStorage.getItem('user');
+  const parsedUser: TUserCard | null = localUser ? JSON.parse(localUser) : null;
+  const loggedIn = isAuth || !!parsedUser;
+  const userData = userDataFromStore || parsedUser;
+
   // Состояние для уведомлений
   const [hasUnreadNotifications, setHasUnreadNotifications] =
     useState<boolean>(true);
@@ -93,7 +103,7 @@ export const Header: FC<HeaderProps> = ({
 
       <div className={styles.rightSection}>
         <MoonIcon />
-        {isLoggedIn ? (
+        {loggedIn ? (
           <>
             <Notification
               checked={hasUnreadNotifications}
@@ -103,14 +113,14 @@ export const Header: FC<HeaderProps> = ({
               <ToggleLike onChange={onLikeToggle} checked={isLiked} />
             </div>
             <Link to='/profile' className={styles.userProfile}>
-              {data?.name && (
-                <span className={styles.userName}>{data.name}</span>
+              {userData && (
+                <span className={styles.userName}>{userData?.name}</span>
               )}
-              {data && (
+              {userData && (
                 <div
                   className={styles.userAvatar}
                   style={{
-                    backgroundImage: `url(./images/${data.photos})`
+                    backgroundImage: `url(./images/${userData?.avatar})`
                   }}
                 />
               )}
@@ -119,12 +129,24 @@ export const Header: FC<HeaderProps> = ({
         ) : (
           <div className={styles.buttonContainer}>
             <Link to='/login'>
-              <Button variant='secondary' size='medium' onClick={() => {}}>
+              <Button
+                variant='secondary'
+                size='medium'
+                onClick={() => {
+                  navigate('/register');
+                }}
+              >
                 Войти
               </Button>
             </Link>
             <Link to='/register'>
-              <Button variant='primary' size='medium' onClick={() => {}}>
+              <Button
+                variant='primary'
+                size='medium'
+                onClick={() => {
+                  navigate('/register');
+                }}
+              >
                 Зарегистрироваться
               </Button>
             </Link>

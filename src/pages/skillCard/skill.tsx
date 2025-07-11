@@ -36,7 +36,6 @@ export const Skill: React.FC = () => {
   const navigate = useNavigate();
   const disp = useDispatch();
   const userAuto = useSelector(selectIsUserAuth);
-
   const skils = useSelector(selectUser);
   const cards = useSelector(selectUserCards);
   const allSkills = useSelector(selectAllSkills);
@@ -49,7 +48,7 @@ export const Skill: React.FC = () => {
 
   const handleExchangeRequest = () => {
     if (!localStorage.getItem('email')) {
-      navigate('/login');
+      navigate('/register');
       return;
     }
 
@@ -61,7 +60,7 @@ export const Skill: React.FC = () => {
   // Функция переключения лайка
   const handleLikeToggle = (id: string) => {
     if (!userAuto) {
-      navigate('/login');
+      navigate('/register');
       return;
     }
 
