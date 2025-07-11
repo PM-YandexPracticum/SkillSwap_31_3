@@ -12,7 +12,6 @@ import { Button } from '@shared/ui/button/button';
 import { ImageCarousel } from './ImageCarousel/ImageCarousel';
 import { CardOffersCarousel } from './CardOffersCarousel/CardOffersCarousel';
 import { TSkill, TUserCard } from '@api/types';
-import { useNavigate } from 'react-router-dom';
 import { selectUserCards } from '@entities/UserCards/model/selectors';
 import { selectAllSkills } from '@entities/Skills/model/selectors';
 import { selectIsUserAuth, selectUser, userThunk } from '@entities';
