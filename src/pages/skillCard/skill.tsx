@@ -47,7 +47,7 @@ export const Skill: React.FC = () => {
   const user: TUserCard = cards.find((card) => card._id === id)!;
 
   const handleExchangeRequest = () => {
-    if (!localStorage.getItem('email')) {
+    if (!localStorage.getItem('email') || !userAuto) {
       navigate('/register');
       return;
     }
