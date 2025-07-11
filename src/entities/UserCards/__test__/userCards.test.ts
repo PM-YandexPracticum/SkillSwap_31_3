@@ -80,7 +80,9 @@ describe('тест работы userCardsSlice', () => {
         userCards: {
           cards: [mockData, mockData],
           exchangeRequest: true,
-          error: true
+          error: true,
+          isLoading: false,
+          showSuccessModal: false
         }
       }
     });
