@@ -7,7 +7,8 @@ import {
   ProtectedRoute,
   NotFound404,
   Error500,
-  Skill
+  Skill,
+  UsersPage
 } from '@pages';
 
 import { ConfirmModal, Created, NeedRegister, Offered } from '@widgets';
@@ -73,6 +74,7 @@ const App = () => {
       <div className={styles.main}>
         <Routes location={background || location}>
           <Route path='/' element={<Home />} />
+          <Route path='/users' element={<UsersPage />} />
           <Route
             path='/skill/exchenge'
             element={<Created onClose={() => navigate(-1)} />}
