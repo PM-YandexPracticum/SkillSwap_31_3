@@ -26,6 +26,7 @@ export interface TUserCard {
   age: string;
   gender: string;
   description: string;
+  about: string;
   city: string;
   skillName: string;
   skillId: string;
@@ -61,3 +62,15 @@ export type TNotification = {
   notificationType: string;
   date: string;
 };
+
+export type TUserDataUpdate = Pick<
+  TRegisterData,
+  | 'email'
+  | 'age'
+  | 'name'
+  | 'password'
+  | 'avatar'
+  | 'gender'
+  | 'city'
+  | 'description'
+>;

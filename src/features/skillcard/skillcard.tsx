@@ -44,7 +44,7 @@ export const SkillCard: FC<TSkillCardProps> = ({
         <div className={styles.cardsUserInfo}>
           <img
             className={`${styles.avatar} ${styles.medium}`}
-            src={data.avatar}
+            src={`/${data.avatar}`}
           />
           <div className={styles.cardText}>
             <div className={styles.name}>{data.name}</div>

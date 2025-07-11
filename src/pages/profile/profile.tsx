@@ -6,7 +6,7 @@ import { FavoritesContent } from './FavoritesContent';
 import { SkillsContent } from './SkillsContent';
 import { PersonalContent } from './PersonalContent';
 import styles from './profile.module.css';
-
+import { ProfileSettingsForm } from '@features';
 type Tab = 'requests' | 'trades' | 'favorites' | 'skills' | 'personal';
 
 export const ProfilePage: React.FC = () => {
@@ -27,7 +27,7 @@ export const ProfilePage: React.FC = () => {
       case 'skills':
         return <SkillsContent />;
       case 'personal':
-        return <PersonalContent />;
+        return <ProfileSettingsForm />;
       default:
         return null;
     }

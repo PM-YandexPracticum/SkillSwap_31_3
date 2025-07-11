@@ -30,3 +30,20 @@ export type TColors =
   | 'tag-home'
   | 'tag-health'
   | 'tag-default';
+
+export type TRegisterData = {
+  email?: string;
+  password?: string;
+  name?: string;
+  age?: Date | null;
+  gender?: string;
+  city?: string;
+  skillId?: string;
+  skillWants?: string[];
+  avatar?: File | null;
+  photos?: File[] | null;
+  skillName?: string;
+  skillCanTeachCategory?: string;
+  skillCanTeachSubCategory?: string;
+  description?: string;
+};
